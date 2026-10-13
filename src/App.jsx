@@ -32,6 +32,8 @@ import CareerCreationWizard from './components/Modals/CareerCreationWizard';
 import EditManagerModal from './components/Modals/EditManagerModal';
 import AIAssistantModal from './components/AI/AIAssistantModal';
 import OnboardingModal from './components/Modals/OnboardingModal';
+import LoadingScreen from './components/LoadingScreen';
+import CareerSelectorHub from './components/CareerHub/CareerSelectorHub';
 import { Sparkles } from 'lucide-react';
 
 import EditPostModal from './components/Feed/EditPostModal';
@@ -68,8 +70,13 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('seasons'); // 'presentation' | 'seasons' | 'mycareer' | 'community' | 'settings' | 'database'
   const [activeSubTab, setActiveSubTab] = useState('overview'); // 'overview' | 'matches' | 'calendar' | 'standings' | 'squad' | 'transfers' | 'youth' | 'moments' | 'privacy' | 'stats' | 'rules'
 
+  // Loading Screen & Career Selector Hub states
+  const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  const [isInCareerHub, setIsInCareerHub] = useState(true);
+  const [careerToEdit, setCareerToEdit] = useState(null);
+
   // Onboarding & Creator Profile state
-  const [isOnboardingOpen, setIsOnboardingOpen] = useState(() => !hasSavedCareers());
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [creatorProfile, setCreatorProfile] = useState(() => getUserProfile() || null);
 
   // Modal open states
@@ -133,6 +140,36 @@ export default function App() {
   const handleSelectCareer = (careerId) => {
     setActiveCareerIdState(careerId);
     setActiveCareerId(careerId);
+  };
+
+  // Career Hub interaction handlers
+  const handleSelectCareerFromHub = (careerId) => {
+    setActiveCareerIdState(careerId);
+    setActiveCareerId(careerId);
+    setIsInCareerHub(false);
+  };
+
+  const handleEditCareerFromHub = (career) => {
+    setCareerToEdit(career);
+    setIsEditManagerModalOpen(true);
+  };
+
+  const handleDeleteCareer = (careerIdToDelete) => {
+    const updatedCareers = careers.filter(c => c.id !== careerIdToDelete);
+    if (updatedCareers.length === 0) {
+      const fresh = buildFreshCareer();
+      setCareers([fresh]);
+      setActiveCareerIdState(fresh.id);
+      setActiveCareerId(fresh.id);
+      saveCareers([fresh]);
+    } else {
+      setCareers(updatedCareers);
+      saveCareers(updatedCareers);
+      if (activeCareerId === careerIdToDelete) {
+        setActiveCareerIdState(updatedCareers[0].id);
+        setActiveCareerId(updatedCareers[0].id);
+      }
+    }
   };
 
   // Select another season inside active career
@@ -1058,6 +1095,7 @@ export default function App() {
   const handleSaveNewCareer = (newCareer) => {
     const careerToSave = {
       ...newCareer,
+      updatedAt: new Date().toISOString(),
       posts: newCareer.posts && newCareer.posts.length > 0 
         ? newCareer.posts 
         : [createManagerPost(newCareer.manager)]
@@ -1066,6 +1104,9 @@ export default function App() {
     setCareers(updatedCareers);
     setActiveCareerIdState(newCareer.id);
     setActiveCareerId(newCareer.id);
+    saveCareers(updatedCareers);
+    setIsNewCareerModalOpen(false);
+    setIsInCareerHub(false);
   };
 
   // POST HANDLERS
@@ -1074,6 +1115,7 @@ export default function App() {
       if (c.id === activeCareer.id) {
         return {
           ...c,
+          updatedAt: new Date().toISOString(),
           posts: (c.posts || []).map(p => p.id === updatedPost.id ? updatedPost : p)
         };
       }
@@ -1087,6 +1129,7 @@ export default function App() {
       if (c.id === activeCareer.id) {
         return {
           ...c,
+          updatedAt: new Date().toISOString(),
           posts: (c.posts || []).filter(p => p.id !== postId)
         };
       }
@@ -1100,6 +1143,7 @@ export default function App() {
       if (c.id === activeCareer.id) {
         return {
           ...c,
+          updatedAt: new Date().toISOString(),
           posts: [newPost, ...(c.posts || [])]
         };
       }
@@ -1112,8 +1156,13 @@ export default function App() {
 
   // UPDATE ACTIVE CAREER (e.g. from EditManagerModal)
   const handleUpdateCareer = (updatedCareer) => {
-    const updated = careers.map(c => c.id === updatedCareer.id ? updatedCareer : c);
+    const updatedWithDate = {
+      ...updatedCareer,
+      updatedAt: new Date().toISOString()
+    };
+    const updated = careers.map(c => c.id === updatedWithDate.id ? updatedWithDate : c);
     setCareers(updated);
+    saveCareers(updated);
   };
 
   // QUICK ADD DISPATCHER
@@ -1213,7 +1262,7 @@ export default function App() {
     setActiveCareerIdState(def[0].id);
     setActiveCareerId(def[0].id);
     setCreatorProfile(null);
-    setIsOnboardingOpen(true);
+    setIsInCareerHub(true);
   };
 
   const handleImportData = (importedCareers) => {
@@ -1223,6 +1272,51 @@ export default function App() {
       setActiveCareerId(importedCareers[0].id);
     }
   };
+
+  // 1. EA FC Loading Screen on initial visit / refresh
+  if (isLoadingScreen) {
+    return <LoadingScreen onFinish={() => setIsLoadingScreen(false)} />;
+  }
+
+  // 2. Career Selector Hub Menu ("cuadraditos con hover, nuevo modo carrera, acceder, modificar, eliminar")
+  if (isInCareerHub) {
+    return (
+      <div className="min-h-screen bg-[#070b12] text-white flex flex-col font-sans selection:bg-[#00ff87] selection:text-[#070b12]">
+        <CareerSelectorHub
+          careers={careers}
+          activeCareerId={activeCareerId}
+          onSelectCareer={handleSelectCareerFromHub}
+          onNewCareer={() => setIsNewCareerModalOpen(true)}
+          onEditCareer={handleEditCareerFromHub}
+          onDeleteCareer={handleDeleteCareer}
+          onOpenDatabase={() => {
+            setIsInCareerHub(false);
+            setActiveTab('database');
+          }}
+          creatorProfile={creatorProfile}
+        />
+
+        {/* Modal: New Career Wizard */}
+        <CareerCreationWizard
+          isOpen={isNewCareerModalOpen}
+          onClose={() => setIsNewCareerModalOpen(false)}
+          onSaveCareer={handleSaveNewCareer}
+        />
+
+        {/* Modal: Edit Manager & Career Details */}
+        <EditManagerModal
+          isOpen={isEditManagerModalOpen}
+          onClose={() => {
+            setIsEditManagerModalOpen(false);
+            setCareerToEdit(null);
+          }}
+          career={careerToEdit || activeCareer}
+          activeSeasonId={activeSeason.id}
+          onUpdateCareer={handleUpdateCareer}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#080b10] text-slate-100 flex flex-col font-sans selection:bg-[#00ff87] selection:text-black">
@@ -1238,6 +1332,7 @@ export default function App() {
         onGameVersionToggle={handleGameVersionToggle}
         onImportData={handleImportData}
         onResetData={handleResetData}
+        onOpenCareerHub={() => setIsInCareerHub(true)}
       />
 
       {/* 2. Career Profile Banner (Matches screenshot) */}
@@ -1489,8 +1584,11 @@ export default function App() {
 
       <EditManagerModal
         isOpen={isEditManagerModalOpen}
-        onClose={() => setIsEditManagerModalOpen(false)}
-        career={activeCareer}
+        onClose={() => {
+          setIsEditManagerModalOpen(false);
+          setCareerToEdit(null);
+        }}
+        career={careerToEdit || activeCareer}
         activeSeasonId={activeSeason.id}
         onUpdateCareer={handleUpdateCareer}
       />

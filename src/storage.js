@@ -104,6 +104,7 @@ export function buildFreshCareer({
   return {
     id: `career-${Date.now()}`,
     gameVersion,
+    updatedAt: new Date().toISOString(),
     manager,
     trophies: [],
     seasons: [
@@ -207,7 +208,37 @@ function hydrateCareerPhotos(career) {
       });
     }
   });
+
+  if (!career.updatedAt) {
+    career.updatedAt = new Date().toISOString();
+  }
   return career;
+}
+
+export function formatCareerDate(dateStr) {
+  if (!dateStr) return 'Reciente';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const now = new Date();
+    const diffMs = now.getTime() - d.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    
+    if (diffMins < 2) return 'Justo ahora';
+    if (diffMins < 60) return `Hace ${diffMins} min`;
+    if (diffHours < 24 && now.getDate() === d.getDate()) {
+      return `Hoy a las ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    if (yesterday.getDate() === d.getDate() && yesterday.getMonth() === d.getMonth()) {
+      return `Ayer a las ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
+    return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+  } catch(e) {
+    return 'Reciente';
+  }
 }
 
 export function loadCareers() {

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Plus, 
   Sparkles, 
-  ChevronDown 
+  ChevronDown,
+  LayoutGrid
 } from 'lucide-react';
 
 export default function Header({ 
@@ -10,7 +11,8 @@ export default function Header({
   activeCareer, 
   onSelectCareer, 
   onNewCareer, 
-  onGameVersionToggle 
+  onGameVersionToggle,
+  onOpenCareerHub
 }) {
   const [showCareerMenu, setShowCareerMenu] = useState(false);
 
@@ -22,7 +24,8 @@ export default function Header({
         <div className="flex items-center gap-4">
           <div 
             className="flex items-center gap-2.5 cursor-pointer group" 
-            onClick={() => onSelectCareer(activeCareer.id)}
+            onClick={() => onOpenCareerHub ? onOpenCareerHub() : onSelectCareer(activeCareer.id)}
+            title="Abrir Menú de Modos Carrera"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00ff87] to-[#00b4d8] flex items-center justify-center shadow-lg shadow-[#00ff87]/20 group-hover:scale-105 transition-transform">
               <span className="font-black text-[#080c14] text-base tracking-tighter">FC</span>
@@ -34,6 +37,18 @@ export default function Header({
               </div>
             </div>
           </div>
+
+          {/* Menú de Carreras Hub Button */}
+          {onOpenCareerHub && (
+            <button
+              onClick={onOpenCareerHub}
+              className="hidden md:flex items-center gap-2 bg-[#121926] hover:bg-[#182335] border border-[#222f44] hover:border-[#00ff87]/40 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-300 hover:text-[#00ff87] transition-all shadow-sm"
+              title="Ir al Menú Principal con todos los Modos Carrera"
+            >
+              <LayoutGrid className="w-3.5 h-3.5 text-[#00ff87]" />
+              <span>Mis Carreras</span>
+            </button>
+          )}
 
           {/* Quick Active Career Switcher Pill */}
           {careers.length > 1 && (
@@ -83,6 +98,20 @@ export default function Header({
                         </span>
                       </button>
                     ))}
+                    {onOpenCareerHub && (
+                      <div className="p-1 border-t border-[#1d293d] mt-1">
+                        <button
+                          onClick={() => {
+                            setShowCareerMenu(false);
+                            onOpenCareerHub();
+                          }}
+                          className="w-full py-1.5 px-3 rounded-lg text-center text-[11px] font-black text-[#00ff87] hover:bg-[#00ff87]/10 flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <LayoutGrid className="w-3.5 h-3.5" />
+                          <span>Ver todas en el Menú Principal</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
