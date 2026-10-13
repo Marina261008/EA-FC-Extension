@@ -13,6 +13,7 @@ import {
   ChevronDown,
   CheckCircle2
 } from 'lucide-react';
+import { getLeagueLogo } from '../clubsData';
 
 export default function CareerBanner({
   career,
@@ -259,8 +260,14 @@ export default function CareerBanner({
             <h2 className="text-xl font-black text-white tracking-wide font-display">
               {manager.club}
             </h2>
-            <div className="flex items-center justify-end gap-1.5 text-xs text-slate-400 font-medium">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="flex items-center justify-end gap-1.5 text-xs text-slate-300 font-semibold">
+              <img
+                src={getLeagueLogo(manager.league)}
+                alt=""
+                referrerPolicy="no-referrer"
+                className="w-4 h-4 object-contain"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
               <span>{manager.league}</span>
             </div>
             <p className="text-[11px] text-slate-500 font-medium mt-0.5">

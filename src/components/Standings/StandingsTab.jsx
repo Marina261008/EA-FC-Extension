@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Trophy, RefreshCw, Plus, Edit2, Check, Shield } from 'lucide-react';
-import { getClubLogo } from '../../clubsData';
+import { getClubLogo, getLeagueLogo } from '../../clubsData';
 
 export default function StandingsTab({
   season,
@@ -70,9 +70,18 @@ export default function StandingsTab({
         <div>
           <h2 className="text-lg font-black text-white font-display flex items-center gap-2">
             <span>Clasificación de la Liga</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-[#172235] text-emerald-400 font-semibold border border-emerald-500/20">
-              LALIGA EA SPORTS
-            </span>
+            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#172235] border border-[#23354d]">
+              <img
+                src={getLeagueLogo(season.competition || 'LALIGA EA SPORTS')}
+                alt=""
+                referrerPolicy="no-referrer"
+                className="w-4 h-4 object-contain"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <span className="text-xs text-emerald-400 font-bold">
+                {season.competition || 'LALIGA EA SPORTS'}
+              </span>
+            </div>
           </h2>
           <p className="text-xs text-slate-400">Tabla de posiciones oficial de tu modo carrera</p>
         </div>

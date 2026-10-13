@@ -17,6 +17,7 @@ import {
   Search
 } from 'lucide-react';
 import { formatCareerDate } from '../../storage';
+import { getLeagueLogo } from '../../clubsData';
 
 export default function CareerSelectorHub({
   careers = [],
@@ -273,9 +274,18 @@ export default function CareerSelectorHub({
                   <h2 className="text-xl font-black text-white group-hover:text-[#00ff87] uppercase tracking-wide font-display transition-colors line-clamp-1">
                     {clubName}
                   </h2>
-                  <p className="text-[11px] font-medium text-slate-400 line-clamp-1 mt-0.5">
-                    {league}
-                  </p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <img
+                      src={getLeagueLogo(league)}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className="w-3.5 h-3.5 object-contain"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    />
+                    <p className="text-[11px] font-semibold text-slate-400 line-clamp-1">
+                      {league}
+                    </p>
+                  </div>
 
                   {/* Manager info */}
                   <div className="mt-3 flex items-center gap-2 bg-[#121a28] px-3 py-1.5 rounded-xl border border-[#1f2d44]">
