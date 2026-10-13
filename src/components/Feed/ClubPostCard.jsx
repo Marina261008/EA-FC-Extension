@@ -331,11 +331,13 @@ export default function ClubPostCard({
                 <div className="relative shrink-0">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-[#00ff87] bg-[#141d2c] shadow-2xl">
                     <img 
-                      src={graphic.image || "https://images.fotmob.com/image_resources/playerimages/701154.png"}
+                      src={graphic.image || "./default_player.svg"}
                       alt={graphic.player}
+                      referrerPolicy="no-referrer"
                       className="w-full h-full object-cover object-top"
                       onError={(e) => {
-                        e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png";
+                        e.target.onerror = null;
+                        e.target.src = "./default_player.svg";
                       }}
                     />
                   </div>

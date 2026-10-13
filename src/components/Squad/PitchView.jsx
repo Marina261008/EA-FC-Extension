@@ -65,7 +65,7 @@ export default function PitchView({ squad = [] }) {
               className="w-full h-full object-cover object-top" 
               onError={(e) => { 
                 e.target.onerror = null;
-                e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png"; 
+                e.target.src = "./default_player.svg"; 
               }}
             />
           ) : (
@@ -179,13 +179,13 @@ export default function PitchView({ squad = [] }) {
             >
               <div className="relative mb-2">
                 <img 
-                  src={sub.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png"}
+                  src={sub.photo || "./default_player.svg"}
                   alt={sub.name}
                   referrerPolicy="no-referrer"
                   className="w-11 h-11 rounded-full object-cover object-top border-2 border-[#2b3c58] group-hover:border-sky-400 bg-[#090d14] transition-colors"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png";
+                    e.target.src = "./default_player.svg";
                   }}
                 />
                 <span className="absolute -bottom-1 -right-1 bg-sky-400 text-[#090d14] font-black text-[9px] px-1 rounded-full leading-none shadow">
@@ -232,13 +232,13 @@ export default function PitchView({ squad = [] }) {
                 title={`${res.name} (${res.position}) - OVR ${res.rating}`}
               >
                 <img 
-                  src={res.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png"}
+                  src={res.photo || "./default_player.svg"}
                   alt={res.name}
                   referrerPolicy="no-referrer"
                   className="w-5 h-5 rounded-full object-cover object-top border border-[#283850]"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png";
+                    e.target.src = "./default_player.svg";
                   }}
                 />
                 <span className="font-bold text-slate-400 text-[10px]">{res.position}</span>

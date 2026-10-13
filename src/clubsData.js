@@ -110,7 +110,24 @@ export function getCountryFlag(nat) {
     'Grecia': '🇬🇷',
     'Eslovaquia': '🇸🇰',
     'Eslovenia': '🇸🇮',
-    'Perú': '🇵🇪'
+    'Perú': '🇵🇪',
+    'Gales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
+    'Irlanda': '🇮🇪',
+    'Irlanda del Norte': '🇬🇧',
+    'Bosnia': '🇧🇦',
+    'República Checa': '🇨🇿',
+    'Montenegro': '🇲🇪',
+    'RD del Congo': '🇨🇩',
+    'Malí': '🇲🇱',
+    'Sudáfrica': '🇿🇦',
+    'Túnez': '🇹🇳',
+    'Australia': '🇦🇺',
+    'Israel': '🇮🇱',
+    'Kosovo': '🇽🇰',
+    'Albania': '🇦🇱',
+    'Surinam': '🇸🇷',
+    'Luxemburgo': '🇱🇺',
+    'República Dominicana': '🇩🇴'
   };
   return flags[nat] || '🏳️';
 }
@@ -135,7 +152,7 @@ export function convertRosterPlayerToSquad(player) {
     flag: getCountryFlag(player.nat || "España"),
     rating,
     potential,
-    photo: player.imageUrl || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
+    photo: player.imageUrl || "./default_player.svg",
     value: `${valMil} M €`,
     wage: `${wageNum.toLocaleString('es-ES')} €/sem`,
     contract: "2029",
@@ -220,6 +237,11 @@ function formatClub(c, leagueName) {
   else if (c.leagueId === 'seriea') leagueDisplayName = 'Serie A';
   else if (c.leagueId === 'bundesliga') leagueDisplayName = 'Bundesliga';
   else if (c.leagueId === 'ligue1') leagueDisplayName = 'Ligue 1';
+  else if (c.leagueId === 'portugal') leagueDisplayName = 'Liga Portugal Betclic';
+  else if (c.leagueId === 'eredivisie') leagueDisplayName = 'Eredivisie';
+  else if (c.leagueId === 'championship') leagueDisplayName = 'EFL Championship';
+  else if (c.leagueId === 'superlig') leagueDisplayName = 'Trendyol Süper Lig';
+  else if (c.leagueId === 'argentina') leagueDisplayName = 'Liga Profesional Argentina';
   else if (c.leagueId === 'mls') leagueDisplayName = 'MLS (EEUU)';
   else if (c.leagueId === 'saudi') leagueDisplayName = 'Saudi Pro League';
   else if (c.leagueId === 'promesas') leagueDisplayName = 'Liga Promesas & Ascenso';
@@ -234,10 +256,14 @@ function formatClub(c, leagueName) {
     logo: c.badge || c.badgeUrl || "https://crests.football-data.org/95.svg",
     badge: c.badge || c.badgeUrl,
     badgeUrl: c.badgeUrl || c.badge,
-    country: c.leagueId === 'premier' ? 'Inglaterra' :
+    country: c.leagueId === 'premier' || c.leagueId === 'championship' ? 'Inglaterra' :
              c.leagueId === 'seriea' ? 'Italia' :
              c.leagueId === 'bundesliga' ? 'Alemania' :
              c.leagueId === 'ligue1' ? 'Francia' :
+             c.leagueId === 'portugal' ? 'Portugal' :
+             c.leagueId === 'eredivisie' ? 'Países Bajos' :
+             c.leagueId === 'superlig' ? 'Turquía' :
+             c.leagueId === 'argentina' ? 'Argentina' :
              c.leagueId === 'mls' ? 'Estados Unidos' :
              c.leagueId === 'saudi' ? 'Arabia Saudí' :
              c.leagueId === 'segunda' || c.leagueId === 'laliga' ? 'España' : (c.country || 'Internacional'),
@@ -285,8 +311,28 @@ export const LIGUE1_CLUBS = currentDb.clubs
   .filter(c => c.leagueId === 'ligue1')
   .map(c => formatClub(c, 'Ligue 1'));
 
+export const PORTUGAL_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'portugal')
+  .map(c => formatClub(c, 'Liga Portugal Betclic'));
+
+export const EREDIVISIE_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'eredivisie')
+  .map(c => formatClub(c, 'Eredivisie'));
+
+export const CHAMPIONSHIP_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'championship')
+  .map(c => formatClub(c, 'EFL Championship'));
+
+export const SUPERLIG_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'superlig')
+  .map(c => formatClub(c, 'Trendyol Süper Lig'));
+
+export const ARGENTINA_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'argentina')
+  .map(c => formatClub(c, 'Liga Profesional Argentina'));
+
 export const EUROPEAN_GIANTS = currentDb.clubs
-  .filter(c => ['bundesliga', 'ligue1', 'other'].includes(c.leagueId))
+  .filter(c => ['bundesliga', 'ligue1', 'portugal', 'eredivisie', 'other'].includes(c.leagueId))
   .map(c => formatClub(c));
 
 export const PROMESAS_CLUBS = currentDb.clubs
@@ -316,6 +362,11 @@ export const DATABASE_LEAGUES = currentDb.leagues || [
   { id: 'seriea', name: 'Serie A Enilive 26/27', shortName: 'Serie A', icon: '🇮🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/55.png', localLogo: './leagues/seriea.png', color: '#024494' },
   { id: 'bundesliga', name: 'Bundesliga 26/27', shortName: 'Bundesliga', icon: '🇩🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/54.png', localLogo: './leagues/bundesliga.png', color: '#d20515' },
   { id: 'ligue1', name: "Ligue 1 McDonald's 26/27", shortName: 'Ligue 1', icon: '🇫🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/53.png', localLogo: './leagues/ligue1.png', color: '#091c3e' },
+  { id: 'portugal', name: 'Liga Portugal Betclic 26/27', shortName: 'Liga Portugal', icon: '🇵🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/61.png', localLogo: './leagues/portugal.png', color: '#006633' },
+  { id: 'eredivisie', name: 'Eredivisie 26/27', shortName: 'Eredivisie', icon: '🇳🇱', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/57.png', localLogo: './leagues/eredivisie.png', color: '#002f6c' },
+  { id: 'championship', name: 'EFL Championship 26/27', shortName: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/48.png', localLogo: './leagues/championship.png', color: '#132257' },
+  { id: 'superlig', name: 'Trendyol Süper Lig 26/27', shortName: 'Süper Lig', icon: '🇹🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/71.png', localLogo: './leagues/superlig.png', color: '#e30a17' },
+  { id: 'argentina', name: 'Liga Profesional Argentina 26/27', shortName: 'Liga Profesional', icon: '🇦🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/112.png', localLogo: './leagues/argentina.png', color: '#74acdf' },
   { id: 'segunda', name: 'LaLiga Hypermotion 26/27', shortName: 'Hypermotion', icon: '🥈', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/140.png', localLogo: './leagues/segunda.png', color: '#e20613' },
   { id: 'mls', name: 'MLS (EEUU) 26/27', shortName: 'MLS', icon: '🇺🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/130.png', localLogo: './leagues/mls.png', color: '#1c355e' },
   { id: 'saudi', name: 'Saudi Pro League 26/27', shortName: 'Saudi Pro', icon: '🇸🇦', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png', localLogo: './leagues/saudi.png', color: '#006847' },
@@ -360,11 +411,40 @@ const CLUB_ALIASES = {
   'hull city': 'hul',
   'ipswich': 'ips',
   'ipswich town': 'ips',
-  'leeds united': 'lee',
+  'leeds united': 'leeds',
   'forest': 'nfo',
   'nottingham': 'nfo',
   'nottingham forest': 'nfo',
-  'sunderland afc': 'sun'
+  'sunderland afc': 'sunderland',
+  'benfica': 'benfica',
+  'sl benfica': 'benfica',
+  'sporting': 'sporting_cp',
+  'sporting cp': 'sporting_cp',
+  'porto': 'fc_porto',
+  'fc porto': 'fc_porto',
+  'braga': 'sc_braga',
+  'sc braga': 'sc_braga',
+  'ajax': 'ajax',
+  'afc ajax': 'ajax',
+  'psv': 'psv',
+  'psv eindhoven': 'psv',
+  'feyenoord': 'feyenoord',
+  'az': 'az_alkmaar',
+  'az alkmaar': 'az_alkmaar',
+  'burnley': 'burnley',
+  'burnley fc': 'burnley',
+  'sheffield united': 'sheffield_utd',
+  'sunderland': 'sunderland',
+  'galatasaray': 'galatasaray',
+  'fenerbahce': 'fenerbahce',
+  'fenerbahçe': 'fenerbahce',
+  'besiktas': 'besiktas',
+  'beşiktaş': 'besiktas',
+  'trabzonspor': 'trabzonspor',
+  'boca juniors': 'boca_juniors',
+  'boca': 'boca_juniors',
+  'river plate': 'river_plate',
+  'river': 'river_plate'
 };
 
 export function getClubLogo(clubName) {
@@ -485,16 +565,28 @@ export function searchDatabasePlayers(query = '', options = {}) {
 import playerPhotoMap from './data/playerPhotoMap.json';
 
 export function getRealPlayerPhoto(name, fallback = null) {
-  if (!name) return fallback || PLAYER_FACE_PRESETS[0];
+  if (!name) return fallback || "./default_player.svg";
   const clean = name.trim();
   if (playerPhotoMap[clean]) return playerPhotoMap[clean];
+
   const lower = clean.toLowerCase();
   for (const [k, v] of Object.entries(playerPhotoMap)) {
     if (k.toLowerCase() === lower || k.toLowerCase().includes(lower) || lower.includes(k.toLowerCase())) {
       return v;
     }
   }
-  return fallback || PLAYER_FACE_PRESETS[0];
+
+  // Look up in DATABASE_PLAYERS
+  if (Array.isArray(DATABASE_PLAYERS)) {
+    const found = DATABASE_PLAYERS.find(p => 
+      p.name && (p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower) || lower.includes(p.name.toLowerCase()))
+    );
+    if (found?.imageUrl && !found.imageUrl.includes('default_player')) {
+      return found.imageUrl;
+    }
+  }
+
+  return fallback || "./default_player.svg";
 }
 
 // Manager Presets for Career Creation with Real Photos

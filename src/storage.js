@@ -188,22 +188,25 @@ function hydrateCareerPhotos(career) {
   career.seasons.forEach(season => {
     if (season.squad) {
       season.squad.forEach(p => {
-        if (!p.photo || p.photo.includes('unsplash.com') || p.photo.includes('pulse.ea.com')) {
-          p.photo = getRealPlayerPhoto(p.name, p.photo);
+        const isCorruptMbappe = p.photo && p.photo.includes('701154') && !p.name.toLowerCase().includes('mbapp');
+        if (!p.photo || p.photo.includes('unsplash.com') || p.photo.includes('pulse.ea.com') || isCorruptMbappe) {
+          p.photo = getRealPlayerPhoto(p.name, './default_player.svg');
         }
       });
     }
     if (season.transfersIn) {
       season.transfersIn.forEach(t => {
-        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com')) {
-          t.photo = getRealPlayerPhoto(t.name, t.photo);
+        const isCorruptMbappe = t.photo && t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp');
+        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com') || isCorruptMbappe) {
+          t.photo = getRealPlayerPhoto(t.name, './default_player.svg');
         }
       });
     }
     if (season.transfersOut) {
       season.transfersOut.forEach(t => {
-        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com')) {
-          t.photo = getRealPlayerPhoto(t.name, t.photo);
+        const isCorruptMbappe = t.photo && t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp');
+        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com') || isCorruptMbappe) {
+          t.photo = getRealPlayerPhoto(t.name, './default_player.svg');
         }
       });
     }

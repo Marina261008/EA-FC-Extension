@@ -110,7 +110,7 @@ export default function PlayerModal({ isOpen, onClose, onSavePlayer, playerToEdi
                   src={photo} 
                   alt="Player preview" 
                   className="w-16 h-16 rounded-full object-cover border-2 border-[#00ff87] shadow-md bg-[#090d14]"
-                  onError={(e) => { e.target.src = PLAYER_FACE_PRESETS[0]; }}
+                  onError={(e) => { e.target.src = "./default_player.svg"; }}
                 />
                 <label className="absolute bottom-0 right-0 bg-[#00ff87] text-[#090d14] p-1 rounded-full cursor-pointer hover:scale-110 transition-transform shadow">
                   <Camera className="w-3.5 h-3.5" />

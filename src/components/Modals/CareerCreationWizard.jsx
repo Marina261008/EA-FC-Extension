@@ -21,6 +21,11 @@ import {
   SERIE_A_CLUBS,
   BUNDESLIGA_CLUBS,
   LIGUE1_CLUBS,
+  PORTUGAL_CLUBS,
+  EREDIVISIE_CLUBS,
+  CHAMPIONSHIP_CLUBS,
+  SUPERLIG_CLUBS,
+  ARGENTINA_CLUBS,
   MLS_CLUBS,
   SAUDI_CLUBS,
   EUROPEAN_GIANTS, 
@@ -112,6 +117,16 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
       leagueClubs = BUNDESLIGA_CLUBS;
     } else if (activeLeagueTab === 'ligue1' || league.toLowerCase().includes('ligue')) {
       leagueClubs = LIGUE1_CLUBS;
+    } else if (activeLeagueTab === 'portugal' || league.toLowerCase().includes('portugal')) {
+      leagueClubs = PORTUGAL_CLUBS;
+    } else if (activeLeagueTab === 'eredivisie' || league.toLowerCase().includes('eredivisie')) {
+      leagueClubs = EREDIVISIE_CLUBS;
+    } else if (activeLeagueTab === 'championship' || league.toLowerCase().includes('championship')) {
+      leagueClubs = CHAMPIONSHIP_CLUBS;
+    } else if (activeLeagueTab === 'superlig' || league.toLowerCase().includes('super lig') || league.toLowerCase().includes('süper lig')) {
+      leagueClubs = SUPERLIG_CLUBS;
+    } else if (activeLeagueTab === 'argentina' || league.toLowerCase().includes('argentina')) {
+      leagueClubs = ARGENTINA_CLUBS;
     } else if (activeLeagueTab === 'mls' || league.toLowerCase().includes('mls')) {
       leagueClubs = MLS_CLUBS;
     } else if (activeLeagueTab === 'saudi' || league.toLowerCase().includes('saudi')) {
@@ -552,6 +567,11 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
                   { id: 'seriea', label: 'Serie A', icon: '🇮🇹', clubs: SERIE_A_CLUBS, leagueKey: 'seriea' },
                   { id: 'bundesliga', label: 'Bundesliga', icon: '🇩🇪', clubs: BUNDESLIGA_CLUBS, leagueKey: 'bundesliga' },
                   { id: 'ligue1', label: 'Ligue 1', icon: '🇫🇷', clubs: LIGUE1_CLUBS, leagueKey: 'ligue1' },
+                  { id: 'portugal', label: 'Liga Portugal', icon: '🇵🇹', clubs: PORTUGAL_CLUBS, leagueKey: 'portugal' },
+                  { id: 'eredivisie', label: 'Eredivisie', icon: '🇳🇱', clubs: EREDIVISIE_CLUBS, leagueKey: 'eredivisie' },
+                  { id: 'championship', label: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: CHAMPIONSHIP_CLUBS, leagueKey: 'championship' },
+                  { id: 'superlig', label: 'Süper Lig', icon: '🇹🇷', clubs: SUPERLIG_CLUBS, leagueKey: 'superlig' },
+                  { id: 'argentina', label: 'Liga Argentina', icon: '🇦🇷', clubs: ARGENTINA_CLUBS, leagueKey: 'argentina' },
                   { id: 'mls', label: 'MLS', icon: '🇺🇸', clubs: MLS_CLUBS, leagueKey: 'mls' },
                   { id: 'saudi', label: 'Saudi Pro', icon: '🇸🇦', clubs: SAUDI_CLUBS, leagueKey: 'saudi' },
                   { id: 'europe', label: 'Resto de Europa', icon: '🌍', clubs: EUROPEAN_GIANTS, leagueKey: 'other' },

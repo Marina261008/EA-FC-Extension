@@ -204,13 +204,13 @@ export default function SquadTab({
                     <td className="py-2.5 pr-2">
                       <div className="flex items-center gap-2.5">
                         <img 
-                          src={player.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png"} 
+                          src={player.photo || "./default_player.svg"} 
                           alt={player.name} 
                           referrerPolicy="no-referrer"
                           className="w-8 h-8 rounded-full object-cover object-top border border-[#273752] shrink-0 shadow bg-[#151f30]" 
                           onError={(e) => { 
                             e.target.onerror = null;
-                            e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png"; 
+                            e.target.src = "./default_player.svg"; 
                           }}
                         />
                         <div>

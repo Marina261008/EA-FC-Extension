@@ -559,13 +559,13 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
                   <div className="flex items-center gap-3 my-2">
                     <div className="w-14 h-14 rounded-full bg-[#172235] border border-[#273954] overflow-hidden flex items-center justify-center shrink-0 shadow-inner">
                       <img
-                        src={player.imageUrl || "https://images.fotmob.com/image_resources/playerimages/701154.png"}
+                        src={player.imageUrl || "./default_player.svg"}
                         alt={player.name}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover object-top filter contrast-105"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png";
+                          e.target.src = "./default_player.svg";
                         }}
                       />
                     </div>
@@ -804,12 +804,13 @@ function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
           <div className="flex items-center gap-3.5">
             <div className="w-14 h-14 rounded-full bg-[#1b283d] border-2 border-[#00ff87] overflow-hidden flex items-center justify-center shrink-0 shadow">
               <img
-                src={player.imageUrl || "https://images.fotmob.com/image_resources/playerimages/701154.png"}
+                src={player.imageUrl || "./default_player.svg"}
                 alt={player.name}
+                referrerPolicy="no-referrer"
                 className="w-full h-full object-cover object-top"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://images.fotmob.com/image_resources/playerimages/701154.png";
+                  e.target.src = "./default_player.svg";
                 }}
               />
             </div>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1e2d42" />
+      <stop offset="60%" stop-color="#101724" />
+      <stop offset="100%" stop-color="#080c13" />
+    </radialGradient>
+    <linearGradient id="neonRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff87" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#00b4d8" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Background circle with dark gradient -->
+  <circle cx="128" cy="128" r="120" fill="url(#bgGlow)" stroke="#22334b" stroke-width="3" />
+  <!-- Subtle neon rim ring -->
+  <circle cx="128" cy="128" r="116" fill="none" stroke="url(#neonRim)" stroke-width="1.5" stroke-opacity="0.4" />
+
+  <!-- Player Head & Hair Silhouette -->
+  <g filter="url(#softShadow)">
+    <!-- Head -->
+    <ellipse cx="128" cy="92" rx="38" ry="46" fill="url(#bodyGrad)" />
+    <!-- Hair style accent / shadow -->
+    <path d="M 94 82 C 94 54 110 46 128 46 C 146 46 162 54 162 82 C 154 70 142 66 128 66 C 114 66 102 70 94 82 Z" fill="#64748b" opacity="0.6" />
+    <!-- Neck -->
+    <path d="M 112 128 L 112 152 L 144 152 L 144 128 Z" fill="url(#bodyGrad)" />
+    
+    <!-- Torso / Shoulders & Athletic Jersey -->
+    <path d="M 52 236 C 54 186 86 156 112 150 L 128 168 L 144 150 C 170 156 202 186 204 236 C 180 246 152 248 128 248 C 104 248 76 246 52 236 Z" fill="url(#bodyGrad)" />
+    <!-- Jersey V-Neck / Collar Detail -->
+    <path d="M 112 152 L 128 174 L 144 152 L 136 150 L 128 162 L 120 150 Z" fill="#00ff87" opacity="0.8" />
+  </g>
+</svg>

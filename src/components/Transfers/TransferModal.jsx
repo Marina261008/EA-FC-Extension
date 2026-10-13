@@ -230,7 +230,7 @@ export default function TransferModal({
                   src={photo} 
                   alt="Player preview" 
                   className="w-14 h-14 rounded-full object-cover border-2 border-[#00ff87] shadow-md bg-[#090d14]"
-                  onError={(e) => { e.target.src = PLAYER_FACE_PRESETS[0]; }}
+                  onError={(e) => { e.target.src = "./default_player.svg"; }}
                 />
                 <label className="absolute bottom-0 right-0 bg-[#00ff87] text-[#090d14] p-1 rounded-full cursor-pointer hover:scale-110 transition-transform shadow">
                   <Camera className="w-3.5 h-3.5" />
@@ -319,7 +319,7 @@ export default function TransferModal({
                           src={p.imageUrl} 
                           alt="" 
                           className="w-7 h-7 rounded-full object-cover bg-[#090d14] border border-[#273850]" 
-                          onError={(e) => { e.target.src = PLAYER_FACE_PRESETS[0]; }}
+                          onError={(e) => { e.target.src = "./default_player.svg"; }}
                         />
                         <div>
                           <p className="font-bold text-white text-xs">{p.name}</p>

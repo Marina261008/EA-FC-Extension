@@ -56,7 +56,7 @@ export function createSigningPost(transfer, club, clubLogoParam, date = '1 jul 2
       tag: 'Nuevo fichaje',
       title: `¡Bienvenido, ${transfer.name}!`,
       subtitle: `${transfer.position} · Media: ${transfer.rating} OVR · Procedente del ${originClub}`,
-      image: transfer.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png",
+      image: transfer.photo || "./default_player.svg",
       clubLogo: userClubLogo,
       rating: transfer.rating,
       position: transfer.position,
@@ -96,7 +96,7 @@ export function createOriginFarewellPost(transfer, club, date = '1 jul 2025') {
       tag: 'Despedida oficial',
       title: `¡Gracias, ${transfer.name}!`,
       subtitle: `Traspaso acordado con el ${userClubName} (${transfer.cost})`,
-      image: transfer.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png",
+      image: transfer.photo || "./default_player.svg",
       clubLogo: originLogo,
       cost: transfer.cost,
       theme: 'amber'
@@ -131,7 +131,7 @@ export function createSalePost(transfer, club, clubLogoParam, date = '4 jul 2025
       tag: 'Salida oficial',
       title: `¡Gracias, ${transfer.name}!`,
       subtitle: `Traspasado al ${destClub} (${transfer.cost})`,
-      image: transfer.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png",
+      image: transfer.photo || "./default_player.svg",
       clubLogo: userClubLogo,
       cost: transfer.cost,
       theme: 'amber'
@@ -220,7 +220,7 @@ export function createGoalPost(scorerEvent, match, squad = [], club, clubLogoPar
   
   // Find player data in squad
   const playerInSquad = squad.find(p => p.name.toLowerCase() === (scorerEvent.player || '').toLowerCase());
-  const playerPhoto = playerInSquad?.photo || "https://images.fotmob.com/image_resources/playerimages/701154.png";
+  const playerPhoto = playerInSquad?.photo || "./default_player.svg";
   const playerNumber = playerInSquad?.number || 9;
   const playerRating = playerInSquad?.rating || 82;
 
