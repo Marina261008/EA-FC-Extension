@@ -27,7 +27,8 @@ import {
   PROMESAS_CLUBS,
   MANAGER_PRESETS, 
   getClubLogo,
-  getClubRoster
+  getClubRoster,
+  getLeagueLogo
 } from '../../clubsData';
 import { NATIONALITY_OPTIONS } from '../../data/dropdownPresets';
 import { createManagerPost } from '../../postGenerator';
@@ -542,98 +543,65 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
           {/* STEP 3: CLUB SELECTION & CREST */}
           {step === 3 && (
             <div className="space-y-4">
-              {/* League Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-[#1f2b40]">
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('laliga')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'laliga' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇪🇸 LALIGA ({LALIGA_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('segunda')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'segunda' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🥈 HYPERMOTION ({SEGUNDA_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('premier')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'premier' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League ({PREMIER_LEAGUE_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('seriea')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'seriea' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇮🇹 Serie A ({SERIE_A_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('bundesliga')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'bundesliga' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇩🇪 Bundesliga ({BUNDESLIGA_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('ligue1')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'ligue1' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇫🇷 Ligue 1 ({LIGUE1_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('mls')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'mls' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇺🇸 MLS ({MLS_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('saudi')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'saudi' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🇸🇦 Saudi ({SAUDI_CLUBS.length})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('promesas')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'promesas' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🌟 Promesas & Filiales</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveLeagueTab('custom')}
-                  className={`px-3 py-1.5 rounded-xl font-bold transition-all text-xs flex items-center gap-1.5 shrink-0 ${
-                    activeLeagueTab === 'custom' ? 'bg-[#00ff87] text-[#090d14]' : 'bg-[#151f30] text-slate-300'
-                  }`}
-                >
-                  <span>🛠️ Crear Mi Club</span>
-                </button>
+              {/* League Tabs - Larger & Visual Buttons with Official Logos */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#1f2b40] scrollbar-thin scrollbar-thumb-[#24354e]">
+                {[
+                  { id: 'laliga', label: 'LALIGA', icon: '🇪🇸', clubs: LALIGA_CLUBS, leagueKey: 'laliga' },
+                  { id: 'segunda', label: 'HYPERMOTION', icon: '🥈', clubs: SEGUNDA_CLUBS, leagueKey: 'segunda' },
+                  { id: 'premier', label: 'Premier League', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: PREMIER_LEAGUE_CLUBS, leagueKey: 'premier' },
+                  { id: 'seriea', label: 'Serie A', icon: '🇮🇹', clubs: SERIE_A_CLUBS, leagueKey: 'seriea' },
+                  { id: 'bundesliga', label: 'Bundesliga', icon: '🇩🇪', clubs: BUNDESLIGA_CLUBS, leagueKey: 'bundesliga' },
+                  { id: 'ligue1', label: 'Ligue 1', icon: '🇫🇷', clubs: LIGUE1_CLUBS, leagueKey: 'ligue1' },
+                  { id: 'mls', label: 'MLS', icon: '🇺🇸', clubs: MLS_CLUBS, leagueKey: 'mls' },
+                  { id: 'saudi', label: 'Saudi Pro', icon: '🇸🇦', clubs: SAUDI_CLUBS, leagueKey: 'saudi' },
+                  { id: 'europe', label: 'Resto de Europa', icon: '🌍', clubs: EUROPEAN_GIANTS, leagueKey: 'other' },
+                  { id: 'promesas', label: 'Promesas', icon: '🌟', clubs: PROMESAS_CLUBS, leagueKey: 'promesas' },
+                  { id: 'custom', label: 'Crear Mi Club', icon: '🛠️', isCustom: true }
+                ].map((item) => {
+                  const isSelected = activeLeagueTab === item.id;
+                  const logo = item.isCustom ? null : getLeagueLogo(item.leagueKey);
+
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveLeagueTab(item.id)}
+                      className={`group flex items-center gap-2 px-3.5 py-2 rounded-2xl font-bold transition-all text-xs shrink-0 border select-none ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-[#00ff87]/20 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]/50 scale-[1.02]'
+                          : 'bg-[#141e2e] border-[#22334b] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+                      }`}
+                    >
+                      {logo ? (
+                        <div className={`w-6 h-6 rounded-lg p-0.5 flex items-center justify-center shrink-0 border transition-all ${
+                          isSelected ? 'bg-[#0a1019] border-[#00ff87]/50 shadow' : 'bg-[#0e1624] border-[#24354c]'
+                        }`}>
+                          <img
+                            src={logo}
+                            alt=""
+                            referrerPolicy="no-referrer"
+                            className="max-w-full max-h-full object-contain filter drop-shadow"
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          />
+                        </div>
+                      ) : (
+                        <span className="text-sm">{item.icon}</span>
+                      )}
+
+                      <span className="whitespace-nowrap font-black">
+                        {item.icon} {item.label}
+                      </span>
+
+                      {item.clubs && (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ml-0.5 ${
+                          isSelected ? 'bg-[#00ff87] text-[#080d14]' : 'bg-[#1e2a3c] text-slate-400'
+                        }`}>
+                          {item.clubs.length}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
 
               {activeLeagueTab === 'custom' ? (

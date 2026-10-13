@@ -311,14 +311,34 @@ export const DATABASE_PLAYERS = ALL_PRESET_CLUBS.flatMap(club =>
 );
 
 export const DATABASE_LEAGUES = currentDb.leagues || [
-  { id: 'laliga', name: 'La Liga EA Sports 26/27', icon: '🇪🇸' },
-  { id: 'segunda', name: 'LaLiga Hypermotion 26/27', icon: '🇪🇸' },
-  { id: 'premier', name: 'Premier League 26/27', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-  { id: 'bundesliga', name: 'Bundesliga 26/27', icon: '🇩🇪' },
-  { id: 'seriea', name: 'Serie A 26/27', icon: '🇮🇹' },
-  { id: 'ligue1', name: "Ligue 1 26/27", icon: '🇫🇷' },
-  { id: 'promesas', name: 'Liga Promesas & Ascenso', icon: '🌟' }
+  { id: 'laliga', name: 'La Liga EA Sports 26/27', shortName: 'LALIGA', icon: '🇪🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/87.png', localLogo: './leagues/laliga.png', color: '#ff4b44' },
+  { id: 'premier', name: 'Premier League 26/27', shortName: 'Premier League', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/47.png', localLogo: './leagues/premier.png', color: '#38003c' },
+  { id: 'seriea', name: 'Serie A Enilive 26/27', shortName: 'Serie A', icon: '🇮🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/55.png', localLogo: './leagues/seriea.png', color: '#024494' },
+  { id: 'bundesliga', name: 'Bundesliga 26/27', shortName: 'Bundesliga', icon: '🇩🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/54.png', localLogo: './leagues/bundesliga.png', color: '#d20515' },
+  { id: 'ligue1', name: "Ligue 1 McDonald's 26/27", shortName: 'Ligue 1', icon: '🇫🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/53.png', localLogo: './leagues/ligue1.png', color: '#091c3e' },
+  { id: 'segunda', name: 'LaLiga Hypermotion 26/27', shortName: 'Hypermotion', icon: '🥈', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/140.png', localLogo: './leagues/segunda.png', color: '#e20613' },
+  { id: 'mls', name: 'MLS (EEUU) 26/27', shortName: 'MLS', icon: '🇺🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/130.png', localLogo: './leagues/mls.png', color: '#1c355e' },
+  { id: 'saudi', name: 'Saudi Pro League 26/27', shortName: 'Saudi Pro', icon: '🇸🇦', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png', localLogo: './leagues/saudi.png', color: '#006847' },
+  { id: 'other', name: 'Resto del Mundo & Europa 26/27', shortName: 'Champions', icon: '🌍', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/42.png', localLogo: './leagues/champions.png', color: '#001489' },
+  { id: 'promesas', name: 'Liga Promesas & Ascenso 26/27', shortName: 'Promesas', icon: '🌟', logo: './leagues/promesas.svg', localLogo: './leagues/promesas.svg', color: '#e5a600' }
 ];
+
+export function getLeagueInfo(leagueIdOrName) {
+  if (!leagueIdOrName) return null;
+  const str = String(leagueIdOrName).trim().toLowerCase();
+  return DATABASE_LEAGUES.find(l => 
+    l.id.toLowerCase() === str || 
+    l.name.toLowerCase() === str ||
+    (l.shortName && l.shortName.toLowerCase() === str) ||
+    str.includes(l.id.toLowerCase()) ||
+    l.name.toLowerCase().includes(str)
+  ) || null;
+}
+
+export function getLeagueLogo(leagueIdOrName) {
+  const info = getLeagueInfo(leagueIdOrName);
+  return info?.logo || info?.localLogo || './leagues/laliga.png';
+}
 
 const CLUB_ALIASES = {
   'm. city': 'mci',

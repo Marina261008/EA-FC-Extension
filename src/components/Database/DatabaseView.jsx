@@ -18,7 +18,10 @@ import {
   FileCode,
   Users,
   X,
-  Edit3
+  Edit3,
+  Trophy,
+  Globe,
+  Award
 } from 'lucide-react';
 import { 
   DATABASE_PLAYERS, 
@@ -32,6 +35,9 @@ import {
   MLS_CLUBS,
   SAUDI_CLUBS,
   EUROPEAN_GIANTS,
+  DATABASE_LEAGUES,
+  getLeagueLogo,
+  getLeagueInfo,
   getClubLogo,
   getActiveDatabase, 
   saveCustomDatabase, 
@@ -326,40 +332,134 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
         </div>
       </div>
 
-      {/* Filters Bar (Only for Players tab) */}
-      {activeTab === 'players' && (
-        <div className="bg-[#111826] border border-[#1e2a3e] p-3.5 rounded-2xl space-y-3">
-          
-          {/* League Filter Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
-            {[
-              { id: 'ALL', label: 'Todas las Ligas' },
-              { id: 'laliga', label: '🇪🇸 LALIGA EA SPORTS' },
-              { id: 'premier', label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League' },
-              { id: 'seriea', label: '🇮🇹 Serie A' },
-              { id: 'bundesliga', label: '🇩🇪 Bundesliga' },
-              { id: 'ligue1', label: '🇫🇷 Ligue 1' },
-              { id: 'mls', label: '🇺🇸 MLS (EEUU)' },
-              { id: 'saudi', label: '🇸🇦 Saudi Pro League' },
-              { id: 'other', label: '🌍 Resto de Europa' },
-              { id: 'segunda', label: '🥈 LALIGA HYPERMOTION' },
-              { id: 'promesas', label: '🌟 Promesas & Filiales' }
-            ].map(l => (
-              <button
-                key={l.id}
-                onClick={() => { setSelectedLeague(l.id); setSelectedClub('ALL'); }}
-                className={`px-3 py-1.5 rounded-xl font-bold whitespace-nowrap transition-all text-[11px] ${
-                  selectedLeague === l.id
-                    ? 'bg-[#00ff87] text-[#080d14] shadow'
-                    : 'bg-[#172233] text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                {l.label}
-              </button>
-            ))}
+      {/* Visual League Filter Bar with Official Logos */}
+      <div className="bg-gradient-to-r from-[#111726] via-[#0d131f] to-[#111726] border border-[#1f2d42] p-4 rounded-3xl shadow-xl space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-[#00ff87]" />
+            <h3 className="text-xs font-black tracking-wider uppercase text-slate-200">
+              Ligas y Competiciones Oficiales
+            </h3>
+            <span className="text-[10px] text-slate-400 font-semibold bg-[#162235] px-2 py-0.5 rounded-full border border-[#25364d]">
+              {DATABASE_LEAGUES.length} Ligas
+            </span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-1 border-t border-[#1b2638]">
+          {selectedLeague !== 'ALL' && (
+            <button
+              onClick={() => { setSelectedLeague('ALL'); setSelectedClub('ALL'); }}
+              className="text-xs text-[#00ff87] hover:underline font-bold flex items-center gap-1 transition-all"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>Mostrar todas ({ALL_PRESET_CLUBS.length} clubes)</span>
+            </button>
+          )}
+        </div>
+
+        {/* Large, Visual League Cards with Official Logos */}
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 pt-1 scrollbar-thin scrollbar-thumb-[#23354f]">
+          {/* Todas las Ligas */}
+          <button
+            onClick={() => { setSelectedLeague('ALL'); setSelectedClub('ALL'); }}
+            className={`group flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all duration-200 shrink-0 select-none ${
+              selectedLeague === 'ALL'
+                ? 'bg-gradient-to-r from-[#00ff87]/25 via-[#00ff87]/10 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/20 ring-1 ring-[#00ff87]/60 scale-[1.02]'
+                : 'bg-[#141d2d]/90 border-[#223249] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+            }`}
+          >
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all shrink-0 ${
+              selectedLeague === 'ALL'
+                ? 'bg-[#00ff87] text-[#080d14] border-[#00ff87] shadow-md shadow-[#00ff87]/30'
+                : 'bg-[#182335] border-[#283b54] text-slate-300 group-hover:scale-105'
+            }`}>
+              <Globe className="w-5 h-5" />
+            </div>
+            <div className="text-left">
+              <span className={`text-xs font-black block leading-tight ${
+                selectedLeague === 'ALL' ? 'text-[#00ff87]' : 'text-white'
+              }`}>
+                Todas las Ligas
+              </span>
+              <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">
+                {ALL_PRESET_CLUBS.length} Clubes
+              </span>
+            </div>
+            {selectedLeague === 'ALL' && (
+              <span className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse ml-1 shrink-0" />
+            )}
+          </button>
+
+          {/* Each Official League */}
+          {DATABASE_LEAGUES.map((league) => {
+            const isSelected = selectedLeague === league.id;
+            const clubCount = ALL_PRESET_CLUBS.filter(c => c.leagueId === league.id).length;
+            const logoSrc = league.logo || league.localLogo || getLeagueLogo(league.id);
+
+            return (
+              <button
+                key={league.id}
+                onClick={() => { setSelectedLeague(league.id); setSelectedClub('ALL'); }}
+                className={`group flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all duration-200 shrink-0 select-none ${
+                  isSelected
+                    ? 'bg-gradient-to-r from-[#00ff87]/25 via-[#00ff87]/10 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/20 ring-1 ring-[#00ff87]/60 scale-[1.02]'
+                    : 'bg-[#141d2d]/90 border-[#223249] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+                }`}
+              >
+                {/* Visual Official Logo in dedicated frame */}
+                <div className={`w-11 h-11 rounded-xl p-1.5 flex items-center justify-center shrink-0 border transition-all ${
+                  isSelected
+                    ? 'bg-[#0b121e] border-[#00ff87] shadow-md shadow-[#00ff87]/30 ring-1 ring-[#00ff87]/40'
+                    : 'bg-[#0f1724] border-[#22344c] group-hover:border-slate-400 group-hover:scale-105'
+                }`}>
+                  <img
+                    src={logoSrc}
+                    alt={league.name}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      if (league.localLogo && e.currentTarget.src !== league.localLogo) {
+                        e.currentTarget.src = league.localLogo;
+                      } else {
+                        e.currentTarget.src = './leagues/laliga.png';
+                      }
+                    }}
+                    className="max-w-full max-h-full object-contain filter drop-shadow"
+                  />
+                </div>
+
+                {/* League Name & Subtext */}
+                <div className="text-left">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs">{league.icon || '🏆'}</span>
+                    <span className={`text-xs font-black tracking-tight leading-tight whitespace-nowrap ${
+                      isSelected ? 'text-[#00ff87]' : 'text-slate-100 group-hover:text-white'
+                    }`}>
+                      {league.shortName || league.name.replace(/ 26\/27/g, '')}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="text-[10px] text-slate-400 font-semibold">
+                      {league.country}
+                    </span>
+                    <span className="text-[9px] text-slate-600">•</span>
+                    <span className={`text-[10px] font-bold ${isSelected ? 'text-[#00ff87]' : 'text-sky-400'}`}>
+                      {clubCount} {clubCount === 1 ? 'club' : 'clubes'}
+                    </span>
+                  </div>
+                </div>
+
+                {isSelected && (
+                  <span className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse ml-1 shrink-0" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Secondary Filters Bar (Only for Players tab) */}
+      {activeTab === 'players' && (
+        <div className="bg-[#111826] border border-[#1e2a3e] p-3.5 rounded-2xl space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             
             {/* Position Category filter */}
             <div className="flex items-center gap-1">
@@ -473,9 +573,18 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
                       <h3 className="font-extrabold text-white text-xs truncate group-hover:text-[#00ff87] transition-colors">
                         {player.name}
                       </h3>
-                      <p className="text-[10px] text-slate-400 truncate font-medium">
-                        {player.teamName}
-                      </p>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <img
+                          src={getLeagueLogo(player.leagueId || player.league)}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="w-3.5 h-3.5 object-contain shrink-0"
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                        <p className="text-[10px] text-slate-400 truncate font-medium">
+                          {player.teamName}
+                        </p>
+                      </div>
                       <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-1">
                         <span>{player.age} años</span>
                         <span>•</span>
@@ -548,38 +657,72 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
 
       {/* CLUBS GRID VIEW */}
       {activeTab === 'clubs' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredClubs.map((club) => (
-            <div
-              key={club.id}
-              className="bg-[#111724] border border-[#1e2a3e] hover:border-[#00ff87]/40 rounded-2xl p-4 transition-all space-y-3"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 flex items-center justify-center bg-[#172235] p-2 rounded-xl border border-[#273850] shrink-0">
-                  <img src={club.badge || club.logo} alt={club.name} className="max-w-full max-h-full object-contain" />
-                </div>
-                <div className="truncate">
-                  <h3 className="font-extrabold text-white text-sm truncate">{club.name}</h3>
-                  <span className="text-[10px] text-slate-400 font-semibold">{club.league}</span>
-                </div>
-              </div>
-
-              <div className="bg-[#0c111a] p-2.5 rounded-xl border border-[#1b2537] space-y-1 text-xs">
-                <div className="flex justify-between text-slate-400">
-                  <span>Estadio:</span>
-                  <span className="text-white font-medium truncate max-w-[150px]">{club.stadium || "Estadio Oficial"}</span>
-                </div>
-                <div className="flex justify-between text-slate-400">
-                  <span>Presupuesto:</span>
-                  <span className="text-[#00ff87] font-bold">{((club.budget || 30000000) / 1000000).toFixed(0)} M €</span>
-                </div>
-                <div className="flex justify-between text-slate-400">
-                  <span>Plantilla:</span>
-                  <span className="text-sky-400 font-bold">{club.roster ? club.roster.length : 22} jugadores</span>
-                </div>
-              </div>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between bg-[#111826] border border-[#1e2a3e] px-4 py-3 rounded-2xl">
+            <div className="flex items-center gap-2.5">
+              <Shield className="w-4 h-4 text-[#00ff87]" />
+              <span className="text-xs font-bold text-white">
+                {selectedLeague === 'ALL'
+                  ? `Mostrando todos los clubes oficiales (${filteredClubs.length})`
+                  : `Competición: ${getLeagueInfo(selectedLeague)?.name || selectedLeague} (${filteredClubs.length} clubes)`
+                }
+              </span>
             </div>
-          ))}
+            {selectedLeague !== 'ALL' && (
+              <button
+                onClick={() => { setSelectedLeague('ALL'); setSelectedClub('ALL'); }}
+                className="text-xs text-[#00ff87] hover:underline font-bold flex items-center gap-1"
+              >
+                <span>Ver todas las ligas</span>
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredClubs.map((club) => {
+              const leagueLogo = getLeagueLogo(club.leagueId || club.league);
+              return (
+                <div
+                  key={club.id}
+                  className="bg-[#111724] border border-[#1e2a3e] hover:border-[#00ff87]/50 rounded-2xl p-4 transition-all space-y-3 group hover:shadow-xl hover:shadow-[#00ff87]/5"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 flex items-center justify-center bg-[#172235] p-2 rounded-xl border border-[#273850] shrink-0 group-hover:scale-105 transition-transform">
+                      <img src={club.badge || club.logo} alt={club.name} className="max-w-full max-h-full object-contain filter drop-shadow" />
+                    </div>
+                    <div className="truncate">
+                      <h3 className="font-extrabold text-white text-sm truncate group-hover:text-[#00ff87] transition-colors">{club.name}</h3>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <img
+                          src={leagueLogo}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="w-3.5 h-3.5 object-contain"
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                        <span className="text-[10px] text-slate-400 font-semibold truncate">{club.league}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#0c111a] p-2.5 rounded-xl border border-[#1b2537] space-y-1 text-xs">
+                    <div className="flex justify-between text-slate-400">
+                      <span>Estadio:</span>
+                      <span className="text-white font-medium truncate max-w-[150px]">{club.stadium || "Estadio Oficial"}</span>
+                    </div>
+                    <div className="flex justify-between text-slate-400">
+                      <span>Presupuesto:</span>
+                      <span className="text-[#00ff87] font-bold">{((club.budget || 30000000) / 1000000).toFixed(0)} M €</span>
+                    </div>
+                    <div className="flex justify-between text-slate-400">
+                      <span>Plantilla:</span>
+                      <span className="text-sky-400 font-bold">{club.roster ? club.roster.length : 22} jugadores</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 
