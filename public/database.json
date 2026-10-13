@@ -11609,8 +11609,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9985.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9985.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/243.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/243.png?width=160&height=160",
       "roster": [
         {
           "id": "atb_gomis",
@@ -32969,7 +32969,7 @@
       "id": "inter_miami",
       "name": "Inter Miami CF",
       "shortName": "MIA",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1018598.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6837.png?width=160&height=160",
       "leagueId": "mls",
       "city": "Fort Lauderdale, Florida",
       "stadium": "Chase Stadium",
@@ -33261,13 +33261,14 @@
           "age": 24,
           "nat": "Argentina"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6837.png?width=160&height=160"
     },
     {
       "id": "lafc",
       "name": "Los Angeles FC (LAFC)",
       "shortName": "LAFC",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/850022.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6550.png?width=160&height=160",
       "leagueId": "mls",
       "city": "Los Angeles, California",
       "stadium": "BMO Stadium",
@@ -33515,13 +33516,14 @@
           "age": 33,
           "nat": "España"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6550.png?width=160&height=160"
     },
     {
       "id": "la_galaxy",
       "name": "LA Galaxy",
       "shortName": "LAG",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9726.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/2372.png?width=160&height=160",
       "leagueId": "mls",
       "city": "Carson, California",
       "stadium": "Dignity Health Sports Park",
@@ -33747,13 +33749,14 @@
           "age": 32,
           "nat": "Estados Unidos"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/2372.png?width=160&height=160"
     },
     {
       "id": "columbus_crew",
       "name": "Columbus Crew",
       "shortName": "CLB",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9723.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/2368.png?width=160&height=160",
       "leagueId": "mls",
       "city": "Columbus, Ohio",
       "stadium": "Lower.com Field",
@@ -33869,13 +33872,14 @@
           "age": 23,
           "nat": "Estados Unidos"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/2368.png?width=160&height=160"
     },
     {
       "id": "fc_cincinnati",
       "name": "FC Cincinnati",
       "shortName": "CIN",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/810695.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6632.png?width=160&height=160",
       "leagueId": "mls",
       "city": "Cincinnati, Ohio",
       "stadium": "TQL Stadium",
@@ -34013,13 +34017,14 @@
           "age": 32,
           "nat": "Suecia"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/6632.png?width=160&height=160"
     },
     {
       "id": "al_nassr",
       "name": "Al-Nassr FC",
       "shortName": "NAS",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/7889.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5713.png?width=160&height=160",
       "leagueId": "saudi",
       "city": "Riyadh",
       "stadium": "Al-Awwal Park",
@@ -34223,13 +34228,14 @@
           "age": 30,
           "nat": "Arabia Saudí"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5713.png?width=160&height=160"
     },
     {
       "id": "al_hilal",
       "name": "Al-Hilal FC",
       "shortName": "HIL",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/7888.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5712.png?width=160&height=160",
       "leagueId": "saudi",
       "city": "Riyadh",
       "stadium": "Kingdom Arena",
@@ -34455,13 +34461,14 @@
           "age": 21,
           "nat": "Brasil"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5712.png?width=160&height=160"
     },
     {
       "id": "al_ittihad",
       "name": "Al-Ittihad Club",
       "shortName": "ITT",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/7887.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5710.png?width=160&height=160",
       "leagueId": "saudi",
       "city": "Jeddah",
       "stadium": "King Abdullah Sports City",
@@ -34643,13 +34650,14 @@
           "age": 33,
           "nat": "Portugal"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5710.png?width=160&height=160"
     },
     {
       "id": "al_ahli",
       "name": "Al-Ahli Saudi FC",
       "shortName": "AHL",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/7886.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5711.png?width=160&height=160",
       "leagueId": "saudi",
       "city": "Jeddah",
       "stadium": "King Abdullah Sports City",
@@ -34831,13 +34839,14 @@
           "age": 26,
           "nat": "Turquía"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5711.png?width=160&height=160"
     },
     {
       "id": "bayer_leverkusen",
       "name": "Bayer 04 Leverkusen",
       "shortName": "B04",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8178.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/46.png?width=160&height=160",
       "leagueId": "bundesliga",
       "city": "Leverkusen",
       "stadium": "BayArena",
@@ -35217,13 +35226,14 @@
           "age": 29,
           "nat": "República Checa"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/46.png?width=160&height=160"
     },
     {
       "id": "galatasaray",
       "name": "Galatasaray SK",
       "shortName": "GAL",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8637.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/86.png?width=160&height=160",
       "leagueId": "other",
       "city": "Estambul",
       "stadium": "Rams Park",
@@ -35405,13 +35415,14 @@
           "age": 38,
           "nat": "Uruguay"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/86.png?width=160&height=160"
     },
     {
       "id": "sporting_cp",
       "name": "Sporting CP",
       "shortName": "SCP",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9768.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/89.png?width=160&height=160",
       "leagueId": "other",
       "city": "Lisboa",
       "stadium": "Estádio José Alvalade",
@@ -35527,13 +35538,14 @@
           "age": 24,
           "nat": "Portugal"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/89.png?width=160&height=160"
     },
     {
       "id": "benfica",
       "name": "SL Benfica",
       "shortName": "SLB",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9773.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/88.png?width=160&height=160",
       "leagueId": "other",
       "city": "Lisboa",
       "stadium": "Estádio da Luz",
@@ -35649,7 +35661,8 @@
           "age": 23,
           "nat": "Ucrania"
         }
-      ]
+      ],
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/88.png?width=160&height=160"
     },
     {
       "id": "rbl",
@@ -35667,8 +35680,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": true,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/178475.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/178475.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5698.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5698.png?width=160&height=160",
       "roster": [
         {
           "id": "rbl_gulacsi",
@@ -36084,8 +36097,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": true,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10269.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10269.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/71.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/71.png?width=160&height=160",
       "roster": [
         {
           "id": "vfb_nubel",
@@ -36435,8 +36448,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9810.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9810.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/72.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/72.png?width=160&height=160",
       "roster": [
         {
           "id": "sge_trapp",
@@ -36786,8 +36799,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8358.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8358.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/76.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/76.png?width=160&height=160",
       "roster": [
         {
           "id": "scf_atubolu",
@@ -37049,8 +37062,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8226.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8226.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/4627.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/4627.png?width=160&height=160",
       "roster": [
         {
           "id": "tsg_baumann",
@@ -37312,8 +37325,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8149.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8149.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/374.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/374.png?width=160&height=160",
       "roster": [
         {
           "id": "fcu_ronnow",
@@ -37575,8 +37588,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8697.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8697.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/49.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/49.png?width=160&height=160",
       "roster": [
         {
           "id": "svw_zetterer",
@@ -37838,8 +37851,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9788.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9788.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/50.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/50.png?width=160&height=160",
       "roster": [
         {
           "id": "bmg_omlin",
@@ -38123,8 +38136,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8721.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8721.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/51.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/51.png?width=160&height=160",
       "roster": [
         {
           "id": "wob_grabara",
@@ -38386,8 +38399,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8406.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8406.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/4683.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/4683.png?width=160&height=160",
       "roster": [
         {
           "id": "fca_labrovic",
@@ -38649,8 +38662,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9905.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9905.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/375.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/375.png?width=160&height=160",
       "roster": [
         {
           "id": "m05_zentner",
@@ -39175,8 +39188,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8152.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8152.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/54.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/54.png?width=160&height=160",
       "roster": [
         {
           "id": "stp_vasilj",
@@ -39438,8 +39451,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8296.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8296.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5699.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5699.png?width=160&height=160",
       "roster": [
         {
           "id": "ksv_weiner",
@@ -39701,8 +39714,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9911.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9911.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/52.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/52.png?width=160&height=160",
       "roster": [
         {
           "id": "boc_drewes",
@@ -39964,8 +39977,8 @@
       "textColor": "#ffffff",
       "kitPattern": "diagonal",
       "championsQualified": true,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9829.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9829.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/56.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/56.png?width=160&height=160",
       "roster": [
         {
           "id": "mon_kohn",
@@ -40359,8 +40372,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8592.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8592.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/57.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/57.png?width=160&height=160",
       "roster": [
         {
           "id": "om_rulli",
@@ -40754,8 +40767,8 @@
       "textColor": "#001e4a",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9748.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9748.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/58.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/58.png?width=160&height=160",
       "roster": [
         {
           "id": "ol_perri",
@@ -41149,8 +41162,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": true,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8639.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8639.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/59.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/59.png?width=160&height=160",
       "roster": [
         {
           "id": "lil_chevalier",
@@ -41544,8 +41557,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9831.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9831.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/60.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/60.png?width=160&height=160",
       "roster": [
         {
           "id": "nic_bulka",
@@ -41961,8 +41974,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8586.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8586.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/61.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/61.png?width=160&height=160",
       "roster": [
         {
           "id": "len_samba",
@@ -42356,8 +42369,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9851.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9851.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/62.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/62.png?width=160&height=160",
       "roster": [
         {
           "id": "ren_mandanda",
@@ -42751,8 +42764,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": true,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8521.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8521.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/63.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/63.png?width=160&height=160",
       "roster": [
         {
           "id": "bre_bizot",
@@ -43146,8 +43159,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9847.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9847.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/64.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/64.png?width=160&height=160",
       "roster": [
         {
           "id": "str_petrovic",
@@ -43475,8 +43488,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9941.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9941.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/67.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/67.png?width=160&height=160",
       "roster": [
         {
           "id": "tou_restes",
@@ -43826,8 +43839,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10249.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10249.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/68.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/68.png?width=160&height=160",
       "roster": [
         {
           "id": "monp_lecomte",
@@ -44155,8 +44168,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9837.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9837.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5410.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5410.png?width=160&height=160",
       "roster": [
         {
           "id": "rei_diouf",
@@ -44484,8 +44497,8 @@
       "textColor": "#008751",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9830.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9830.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/69.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/69.png?width=160&height=160",
       "roster": [
         {
           "id": "nan_lafont",
@@ -44835,8 +44848,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8588.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8588.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/65.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/65.png?width=160&height=160",
       "roster": [
         {
           "id": "aux_leon",
@@ -45142,8 +45155,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8522.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8522.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/66.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/66.png?width=160&height=160",
       "roster": [
         {
           "id": "ang_fofana",
@@ -45427,8 +45440,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9853.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9853.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/70.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/70.png?width=160&height=160",
       "roster": [
         {
           "id": "ass_larsonneur",
@@ -45712,8 +45725,8 @@
       "textColor": "#ffffff",
       "kitPattern": "split",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9746.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9746.png",
+      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/377.png?width=160&height=160",
+      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/377.png?width=160&height=160",
       "roster": [
         {
           "id": "leh_desmas",

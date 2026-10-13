@@ -72,6 +72,7 @@ export default function App() {
 
   // Loading Screen & Career Selector Hub states
   const [isLoadingScreen, setIsLoadingScreen] = useState(true);
+  const [loadingCareer, setLoadingCareer] = useState(null);
   const [isInCareerHub, setIsInCareerHub] = useState(true);
   const [careerToEdit, setCareerToEdit] = useState(null);
 
@@ -136,17 +137,30 @@ export default function App() {
     saveUserProfile(updated);
   };
 
+  const handleLoadingFinish = () => {
+    setIsLoadingScreen(false);
+    if (loadingCareer) {
+      setIsInCareerHub(false);
+      setLoadingCareer(null);
+    }
+  };
+
   // Select another career
   const handleSelectCareer = (careerId) => {
+    const target = careers.find(c => c.id === careerId) || activeCareer;
     setActiveCareerIdState(careerId);
     setActiveCareerId(careerId);
+    setLoadingCareer(target);
+    setIsLoadingScreen(true);
   };
 
   // Career Hub interaction handlers
   const handleSelectCareerFromHub = (careerId) => {
+    const target = careers.find(c => c.id === careerId) || activeCareer;
     setActiveCareerIdState(careerId);
     setActiveCareerId(careerId);
-    setIsInCareerHub(false);
+    setLoadingCareer(target);
+    setIsLoadingScreen(true);
   };
 
   const handleEditCareerFromHub = (career) => {
@@ -1106,7 +1120,8 @@ export default function App() {
     setActiveCareerId(newCareer.id);
     saveCareers(updatedCareers);
     setIsNewCareerModalOpen(false);
-    setIsInCareerHub(false);
+    setLoadingCareer(careerToSave);
+    setIsLoadingScreen(true);
   };
 
   // POST HANDLERS
@@ -1273,9 +1288,15 @@ export default function App() {
     }
   };
 
-  // 1. EA FC Loading Screen on initial visit / refresh
+  // 1. EA FC Loading Screen on initial visit / refresh or when entering a career
   if (isLoadingScreen) {
-    return <LoadingScreen onFinish={() => setIsLoadingScreen(false)} />;
+    return (
+      <LoadingScreen
+        career={loadingCareer}
+        onFinish={handleLoadingFinish}
+        duration={loadingCareer ? 4400 : 4800}
+      />
+    );
   }
 
   // 2. Career Selector Hub Menu ("cuadraditos con hover, nuevo modo carrera, acceder, modificar, eliminar")

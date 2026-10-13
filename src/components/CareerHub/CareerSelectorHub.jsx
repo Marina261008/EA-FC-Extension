@@ -193,6 +193,7 @@ export default function CareerSelectorHub({
                     <img 
                       src={clubLogo} 
                       alt="" 
+                      referrerPolicy="no-referrer"
                       className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                     />
                   </div>
@@ -255,6 +256,7 @@ export default function CareerSelectorHub({
                         <img 
                           src={clubLogo} 
                           alt={clubName} 
+                          referrerPolicy="no-referrer"
                           className="w-full h-full object-contain filter drop-shadow-md"
                           onError={(e) => {
                             e.target.onerror = null;
