@@ -8,7 +8,10 @@
       "icon": "🇪🇸",
       "championsSpots": 4,
       "europaSpots": 2,
-      "relegationSpots": 3
+      "relegationSpots": 3,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/87.png",
+      "localLogo": "./leagues/laliga.png",
+      "color": "#ff4b44"
     },
     {
       "id": "premier",
@@ -17,7 +20,10 @@
       "icon": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "championsSpots": 4,
       "europaSpots": 2,
-      "relegationSpots": 3
+      "relegationSpots": 3,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/47.png",
+      "localLogo": "./leagues/premier.png",
+      "color": "#38003c"
     },
     {
       "id": "seriea",
@@ -26,7 +32,10 @@
       "icon": "🇮🇹",
       "championsSpots": 4,
       "europaSpots": 2,
-      "relegationSpots": 3
+      "relegationSpots": 3,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/55.png",
+      "localLogo": "./leagues/seriea.png",
+      "color": "#024494"
     },
     {
       "id": "bundesliga",
@@ -35,7 +44,10 @@
       "icon": "🇩🇪",
       "championsSpots": 4,
       "europaSpots": 2,
-      "relegationSpots": 2
+      "relegationSpots": 2,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/54.png",
+      "localLogo": "./leagues/bundesliga.png",
+      "color": "#d20515"
     },
     {
       "id": "ligue1",
@@ -44,7 +56,10 @@
       "icon": "🇫🇷",
       "championsSpots": 3,
       "europaSpots": 2,
-      "relegationSpots": 2
+      "relegationSpots": 2,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/53.png",
+      "localLogo": "./leagues/ligue1.png",
+      "color": "#091c3e"
     },
     {
       "id": "promesas",
@@ -54,7 +69,10 @@
       "isLowerDivision": true,
       "championsSpots": 0,
       "europaSpots": 0,
-      "relegationSpots": 2
+      "relegationSpots": 2,
+      "logo": "./leagues/promesas.svg",
+      "localLogo": "./leagues/promesas.svg",
+      "color": "#e5a600"
     },
     {
       "id": "segunda",
@@ -64,7 +82,10 @@
       "isLowerDivision": true,
       "championsSpots": 0,
       "europaSpots": 0,
-      "relegationSpots": 4
+      "relegationSpots": 4,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/140.png",
+      "localLogo": "./leagues/segunda.png",
+      "color": "#e20613"
     },
     {
       "id": "mls",
@@ -73,7 +94,10 @@
       "icon": "🇺🇸",
       "championsSpots": 4,
       "europaSpots": 0,
-      "relegationSpots": 0
+      "relegationSpots": 0,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/130.png",
+      "localLogo": "./leagues/mls.png",
+      "color": "#1c355e"
     },
     {
       "id": "saudi",
@@ -82,7 +106,10 @@
       "icon": "🇸🇦",
       "championsSpots": 3,
       "europaSpots": 0,
-      "relegationSpots": 3
+      "relegationSpots": 3,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png",
+      "localLogo": "./leagues/saudi.png",
+      "color": "#006847"
     },
     {
       "id": "other",
@@ -91,7 +118,10 @@
       "icon": "🌍",
       "championsSpots": 2,
       "europaSpots": 1,
-      "relegationSpots": 0
+      "relegationSpots": 0,
+      "logo": "https://images.fotmob.com/image_resources/logo/leaguelogo/42.png",
+      "localLogo": "./leagues/champions.png",
+      "color": "#001489"
     }
   ],
   "clubs": [
