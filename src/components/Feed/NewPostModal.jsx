@@ -101,7 +101,7 @@ export default function NewPostModal({
         name: `Titular ${i + 1}`,
         number: i === 0 ? 1 : i + 1,
         position: i === 0 ? 'POR' : i < 5 ? 'DFC' : i < 9 ? 'MC' : 'DC',
-        photo: 'https://images.fotmob.com/image_resources/playerimages/819528.png',
+        photo: './default_player.svg',
         rating: 80 - i
       }));
       setStarting11(mockEleven);
@@ -147,7 +147,7 @@ export default function NewPostModal({
           name: `Jugador ${chosen.length + 1}`,
           number: chosen.length + 1,
           position: c.slot,
-          photo: 'https://images.fotmob.com/image_resources/playerimages/819528.png',
+          photo: './default_player.svg',
           rating: 75
         });
       }

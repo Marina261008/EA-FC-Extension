@@ -168,7 +168,7 @@ export default function StartingXIGraphic({
                 name: `Titular ${idx + 1}`,
                 number: idx === 0 ? 1 : idx + 1,
                 position: c.slot,
-                photo: 'https://images.fotmob.com/image_resources/playerimages/819528.png'
+                photo: './default_player.svg'
               };
 
               const surname = player.name ? player.name.split(' ').pop().toUpperCase() : 'JUGADOR';
@@ -186,13 +186,13 @@ export default function StartingXIGraphic({
                       style={{ borderColor: theme.primary }}
                     >
                       <img
-                        src={player.photo || "https://images.fotmob.com/image_resources/playerimages/819528.png"}
+                        src={player.photo || "./default_player.svg"}
                         alt={player.name}
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover object-top"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = "https://images.fotmob.com/image_resources/playerimages/819528.png";
+                          e.target.src = "./default_player.svg";
                         }}
                       />
                     </div>
@@ -237,13 +237,13 @@ export default function StartingXIGraphic({
 
                 <div className="w-9 h-9 rounded-full overflow-hidden bg-[#182335] border border-white/20 shrink-0">
                   <img
-                    src={p.photo || "https://images.fotmob.com/image_resources/playerimages/819528.png"}
+                    src={p.photo || "./default_player.svg"}
                     alt={p.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-top"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "https://images.fotmob.com/image_resources/playerimages/819528.png";
+                      e.target.src = "./default_player.svg";
                     }}
                   />
                 </div>

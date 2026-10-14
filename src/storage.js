@@ -188,25 +188,34 @@ function hydrateCareerPhotos(career) {
   career.seasons.forEach(season => {
     if (season.squad) {
       season.squad.forEach(p => {
-        const isCorruptMbappe = p.photo && p.photo.includes('701154') && !p.name.toLowerCase().includes('mbapp');
-        if (!p.photo || p.photo.includes('unsplash.com') || p.photo.includes('pulse.ea.com') || isCorruptMbappe) {
-          p.photo = getRealPlayerPhoto(p.name, './default_player.svg');
+        if (p.photo && p.photo.startsWith('data:image/')) return;
+        const real = getRealPlayerPhoto(p.name);
+        if (real && !real.includes('default_player')) {
+          p.photo = real;
+        } else if (!p.photo || p.photo.includes('unsplash') || p.photo.includes('pulse.ea.com') || (p.photo.includes('701154') && !p.name.toLowerCase().includes('mbapp'))) {
+          p.photo = real || './default_player.svg';
         }
       });
     }
     if (season.transfersIn) {
       season.transfersIn.forEach(t => {
-        const isCorruptMbappe = t.photo && t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp');
-        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com') || isCorruptMbappe) {
-          t.photo = getRealPlayerPhoto(t.name, './default_player.svg');
+        if (t.photo && t.photo.startsWith('data:image/')) return;
+        const real = getRealPlayerPhoto(t.name);
+        if (real && !real.includes('default_player')) {
+          t.photo = real;
+        } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
+          t.photo = real || './default_player.svg';
         }
       });
     }
     if (season.transfersOut) {
       season.transfersOut.forEach(t => {
-        const isCorruptMbappe = t.photo && t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp');
-        if (!t.photo || t.photo.includes('unsplash.com') || t.photo.includes('pulse.ea.com') || isCorruptMbappe) {
-          t.photo = getRealPlayerPhoto(t.name, './default_player.svg');
+        if (t.photo && t.photo.startsWith('data:image/')) return;
+        const real = getRealPlayerPhoto(t.name);
+        if (real && !real.includes('default_player')) {
+          t.photo = real;
+        } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
+          t.photo = real || './default_player.svg';
         }
       });
     }
