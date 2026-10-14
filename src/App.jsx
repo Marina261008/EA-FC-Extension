@@ -1513,6 +1513,7 @@ export default function App() {
             onOpenNewPostModal={() => setIsNewPostModalOpen(true)}
             creatorProfile={creatorProfile}
             onUpdateCreatorProfile={handleUpdateCreatorProfile}
+            onUpdatePost={handleSaveEditedPost}
           />
         )}
 

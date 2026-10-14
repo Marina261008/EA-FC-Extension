@@ -20,7 +20,8 @@ export default function PresentationTab({
   onReactPost,
   onOpenNewPostModal,
   creatorProfile,
-  onUpdateCreatorProfile
+  onUpdateCreatorProfile,
+  onUpdatePost
 }) {
   const { manager } = career;
 
@@ -212,8 +213,12 @@ export default function PresentationTab({
               key={post.id}
               post={post}
               clubLogo={manager.clubLogo}
+              clubName={manager.club}
+              managerName={manager.name}
+              managerAvatar={manager.avatar}
               onEditPost={onEditPost}
               onReactPost={onReactPost}
+              onUpdatePost={onUpdatePost}
             />
           ))}
 
