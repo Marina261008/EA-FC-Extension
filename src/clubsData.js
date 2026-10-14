@@ -331,8 +331,20 @@ export const ARGENTINA_CLUBS = currentDb.clubs
   .filter(c => c.leagueId === 'argentina')
   .map(c => formatClub(c, 'Liga Profesional Argentina'));
 
+export const BRASILEIRAO_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'brasileirao')
+  .map(c => formatClub(c, 'Brasileirão Betano'));
+
+export const SCOTLAND_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'scotland')
+  .map(c => formatClub(c, 'Scottish Premiership'));
+
+export const BELGIUM_CLUBS = currentDb.clubs
+  .filter(c => c.leagueId === 'belgium')
+  .map(c => formatClub(c, 'Jupiler Pro League'));
+
 export const EUROPEAN_GIANTS = currentDb.clubs
-  .filter(c => ['bundesliga', 'ligue1', 'portugal', 'eredivisie', 'other'].includes(c.leagueId))
+  .filter(c => ['bundesliga', 'ligue1', 'portugal', 'eredivisie', 'scotland', 'belgium', 'other'].includes(c.leagueId))
   .map(c => formatClub(c));
 
 export const PROMESAS_CLUBS = currentDb.clubs
@@ -362,6 +374,9 @@ export const DATABASE_LEAGUES = currentDb.leagues || [
   { id: 'seriea', name: 'Serie A Enilive 26/27', shortName: 'Serie A', icon: '🇮🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/55.png', localLogo: './leagues/seriea.png', color: '#024494' },
   { id: 'bundesliga', name: 'Bundesliga 26/27', shortName: 'Bundesliga', icon: '🇩🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/54.png', localLogo: './leagues/bundesliga.png', color: '#d20515' },
   { id: 'ligue1', name: "Ligue 1 McDonald's 26/27", shortName: 'Ligue 1', icon: '🇫🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/53.png', localLogo: './leagues/ligue1.png', color: '#091c3e' },
+  { id: 'brasileirao', name: 'Brasileirão Betano 26/27', shortName: 'Brasileirão', icon: '🇧🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/268.png', localLogo: './leagues/brasileirao.png', color: '#009b3a' },
+  { id: 'scotland', name: 'Scottish Premiership 26/27', shortName: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/65.png', localLogo: './leagues/scotland.png', color: '#002d62' },
+  { id: 'belgium', name: 'Jupiler Pro League 26/27', shortName: 'Pro League', icon: '🇧🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/40.png', localLogo: './leagues/belgium.png', color: '#1a1a1a' },
   { id: 'portugal', name: 'Liga Portugal Betclic 26/27', shortName: 'Liga Portugal', icon: '🇵🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/61.png', localLogo: './leagues/portugal.png', color: '#006633' },
   { id: 'eredivisie', name: 'Eredivisie 26/27', shortName: 'Eredivisie', icon: '🇳🇱', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/57.png', localLogo: './leagues/eredivisie.png', color: '#002f6c' },
   { id: 'championship', name: 'EFL Championship 26/27', shortName: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/48.png', localLogo: './leagues/championship.png', color: '#132257' },
