@@ -107,36 +107,31 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
     const startDate = gameVersion === 'EA FC26' ? '01 jul 2025' : '01 jul 2026';
 
     // Build initial standings based on chosen league
-    let leagueClubs = LALIGA_CLUBS;
-    if (activeLeagueTab === 'segunda' || league.toLowerCase().includes('hypermotion') || league.toLowerCase().includes('segunda')) {
-      leagueClubs = SEGUNDA_CLUBS;
-    } else if (activeLeagueTab === 'promesas' || league.toLowerCase().includes('promesas')) {
-      leagueClubs = PROMESAS_CLUBS;
-    } else if (activeLeagueTab === 'premier' || league.toLowerCase().includes('premier')) {
-      leagueClubs = PREMIER_LEAGUE_CLUBS;
-    } else if (activeLeagueTab === 'seriea' || league.toLowerCase().includes('serie')) {
-      leagueClubs = SERIE_A_CLUBS;
-    } else if (activeLeagueTab === 'bundesliga' || league.toLowerCase().includes('bundesliga')) {
-      leagueClubs = BUNDESLIGA_CLUBS;
-    } else if (activeLeagueTab === 'ligue1' || league.toLowerCase().includes('ligue')) {
-      leagueClubs = LIGUE1_CLUBS;
-    } else if (activeLeagueTab === 'portugal' || league.toLowerCase().includes('portugal')) {
-      leagueClubs = PORTUGAL_CLUBS;
-    } else if (activeLeagueTab === 'eredivisie' || league.toLowerCase().includes('eredivisie')) {
-      leagueClubs = EREDIVISIE_CLUBS;
-    } else if (activeLeagueTab === 'championship' || league.toLowerCase().includes('championship')) {
-      leagueClubs = CHAMPIONSHIP_CLUBS;
-    } else if (activeLeagueTab === 'superlig' || league.toLowerCase().includes('super lig') || league.toLowerCase().includes('süper lig')) {
-      leagueClubs = SUPERLIG_CLUBS;
-    } else if (activeLeagueTab === 'argentina' || league.toLowerCase().includes('argentina')) {
-      leagueClubs = ARGENTINA_CLUBS;
-    } else if (activeLeagueTab === 'mls' || league.toLowerCase().includes('mls')) {
-      leagueClubs = MLS_CLUBS;
-    } else if (activeLeagueTab === 'saudi' || league.toLowerCase().includes('saudi')) {
-      leagueClubs = SAUDI_CLUBS;
-    } else if (activeLeagueTab === 'europe' || league.toLowerCase().includes('europe')) {
-      leagueClubs = EUROPEAN_GIANTS;
-    }
+    const tabToClubs = {
+      laliga: LALIGA_CLUBS,
+      segunda: SEGUNDA_CLUBS,
+      premier: PREMIER_LEAGUE_CLUBS,
+      seriea: SERIE_A_CLUBS,
+      bundesliga: BUNDESLIGA_CLUBS,
+      ligue1: LIGUE1_CLUBS,
+      portugal: PORTUGAL_CLUBS,
+      eredivisie: EREDIVISIE_CLUBS,
+      championship: CHAMPIONSHIP_CLUBS,
+      superlig: SUPERLIG_CLUBS,
+      argentina: ARGENTINA_CLUBS,
+      brasileirao: BRASILEIRAO_CLUBS,
+      scotland: SCOTLAND_CLUBS,
+      belgium: BELGIUM_CLUBS,
+      mls: MLS_CLUBS,
+      saudi: SAUDI_CLUBS,
+      europe: EUROPEAN_GIANTS,
+      promesas: PROMESAS_CLUBS
+    };
+
+    const leagueClubs = tabToClubs[activeLeagueTab] ||
+      tabToClubs[selectedClub?.leagueId] ||
+      Object.entries(tabToClubs).find(([k]) => league.toLowerCase().includes(k))?.[1] ||
+      LALIGA_CLUBS;
 
     const standings = leagueClubs.map((c, idx) => ({
       pos: idx + 1,

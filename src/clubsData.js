@@ -242,6 +242,9 @@ function formatClub(c, leagueName) {
   else if (c.leagueId === 'championship') leagueDisplayName = 'EFL Championship';
   else if (c.leagueId === 'superlig') leagueDisplayName = 'Trendyol Süper Lig';
   else if (c.leagueId === 'argentina') leagueDisplayName = 'Liga Profesional Argentina';
+  else if (c.leagueId === 'brasileirao') leagueDisplayName = 'Brasileirão Betano';
+  else if (c.leagueId === 'scotland') leagueDisplayName = 'Scottish Premiership';
+  else if (c.leagueId === 'belgium') leagueDisplayName = 'Jupiler Pro League';
   else if (c.leagueId === 'mls') leagueDisplayName = 'MLS (EEUU)';
   else if (c.leagueId === 'saudi') leagueDisplayName = 'Saudi Pro League';
   else if (c.leagueId === 'promesas') leagueDisplayName = 'Liga Promesas & Ascenso';
@@ -264,13 +267,16 @@ function formatClub(c, leagueName) {
              c.leagueId === 'eredivisie' ? 'Países Bajos' :
              c.leagueId === 'superlig' ? 'Turquía' :
              c.leagueId === 'argentina' ? 'Argentina' :
+             c.leagueId === 'brasileirao' ? 'Brasil' :
+             c.leagueId === 'scotland' ? 'Escocia' :
+             c.leagueId === 'belgium' ? 'Bélgica' :
              c.leagueId === 'mls' ? 'Estados Unidos' :
              c.leagueId === 'saudi' ? 'Arabia Saudí' :
              c.leagueId === 'segunda' || c.leagueId === 'laliga' ? 'España' : (c.country || 'Internacional'),
     city: c.city || '',
     stadium: c.stadium || 'Estadio Municipal',
-    budget: (c.budget ? c.budget * 1000000 : 35000000),
-    roster: (c.roster || []).map(p => ({
+    budget: (c.budget ? (c.budget > 100000 ? c.budget : c.budget * 1000000) : 35000000),
+    roster: (c.roster || c.players || []).map(p => ({
       ...p,
       team: c.name,
       teamId: c.id,
@@ -596,8 +602,9 @@ export function getRealPlayerPhoto(name, fallback = null) {
     const found = DATABASE_PLAYERS.find(p => 
       p.name && (p.name.toLowerCase() === lower || p.name.toLowerCase().includes(lower) || lower.includes(p.name.toLowerCase()))
     );
-    if (found?.imageUrl && !found.imageUrl.includes('default_player')) {
-      return found.imageUrl;
+    const img = found?.photo || found?.imageUrl;
+    if (img && !img.includes('default_player')) {
+      return img;
     }
   }
 
