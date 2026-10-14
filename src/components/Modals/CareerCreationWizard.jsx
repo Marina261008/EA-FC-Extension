@@ -12,9 +12,12 @@ import {
   ChevronLeft,
   Camera,
   Coins,
-  Check
+  Check,
+  Search,
+  Globe
 } from 'lucide-react';
 import { 
+  ALL_PRESET_CLUBS,
   LALIGA_CLUBS, 
   SEGUNDA_CLUBS,
   PREMIER_LEAGUE_CLUBS, 
@@ -32,7 +35,6 @@ import {
   MLS_CLUBS,
   SAUDI_CLUBS,
   EUROPEAN_GIANTS, 
-  PROMESAS_CLUBS,
   MANAGER_PRESETS, 
   getClubLogo,
   getClubRoster,
@@ -40,6 +42,47 @@ import {
 } from '../../clubsData';
 import { NATIONALITY_OPTIONS } from '../../data/dropdownPresets';
 import { createManagerPost } from '../../postGenerator';
+
+const TAB_TO_CLUBS = {
+  laliga: LALIGA_CLUBS,
+  segunda: SEGUNDA_CLUBS,
+  premier: PREMIER_LEAGUE_CLUBS,
+  seriea: SERIE_A_CLUBS,
+  bundesliga: BUNDESLIGA_CLUBS,
+  ligue1: LIGUE1_CLUBS,
+  portugal: PORTUGAL_CLUBS,
+  eredivisie: EREDIVISIE_CLUBS,
+  championship: CHAMPIONSHIP_CLUBS,
+  brasileirao: BRASILEIRAO_CLUBS,
+  argentina: ARGENTINA_CLUBS,
+  scotland: SCOTLAND_CLUBS,
+  belgium: BELGIUM_CLUBS,
+  superlig: SUPERLIG_CLUBS,
+  mls: MLS_CLUBS,
+  saudi: SAUDI_CLUBS,
+  europe: EUROPEAN_GIANTS
+};
+
+const WIZARD_LEAGUE_TABS = [
+  { id: 'laliga', label: 'LALIGA', icon: '🇪🇸', clubs: LALIGA_CLUBS, leagueKey: 'laliga' },
+  { id: 'segunda', label: 'HYPERMOTION', icon: '🥈', clubs: SEGUNDA_CLUBS, leagueKey: 'segunda' },
+  { id: 'premier', label: 'Premier League', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: PREMIER_LEAGUE_CLUBS, leagueKey: 'premier' },
+  { id: 'seriea', label: 'Serie A', icon: '🇮🇹', clubs: SERIE_A_CLUBS, leagueKey: 'seriea' },
+  { id: 'bundesliga', label: 'Bundesliga', icon: '🇩🇪', clubs: BUNDESLIGA_CLUBS, leagueKey: 'bundesliga' },
+  { id: 'ligue1', label: 'Ligue 1', icon: '🇫🇷', clubs: LIGUE1_CLUBS, leagueKey: 'ligue1' },
+  { id: 'portugal', label: 'Liga Portugal', icon: '🇵🇹', clubs: PORTUGAL_CLUBS, leagueKey: 'portugal' },
+  { id: 'eredivisie', label: 'Eredivisie', icon: '🇳🇱', clubs: EREDIVISIE_CLUBS, leagueKey: 'eredivisie' },
+  { id: 'championship', label: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: CHAMPIONSHIP_CLUBS, leagueKey: 'championship' },
+  { id: 'brasileirao', label: 'Brasileirão', icon: '🇧🇷', clubs: BRASILEIRAO_CLUBS, leagueKey: 'brasileirao' },
+  { id: 'argentina', label: 'Liga Argentina', icon: '🇦🇷', clubs: ARGENTINA_CLUBS, leagueKey: 'argentina' },
+  { id: 'scotland', label: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', clubs: SCOTLAND_CLUBS, leagueKey: 'scotland' },
+  { id: 'belgium', label: 'Pro League', icon: '🇧🇪', clubs: BELGIUM_CLUBS, leagueKey: 'belgium' },
+  { id: 'superlig', label: 'Süper Lig', icon: '🇹🇷', clubs: SUPERLIG_CLUBS, leagueKey: 'superlig' },
+  { id: 'mls', label: 'MLS', icon: '🇺🇸', clubs: MLS_CLUBS, leagueKey: 'mls' },
+  { id: 'saudi', label: 'Saudi Pro', icon: '🇸🇦', clubs: SAUDI_CLUBS, leagueKey: 'saudi' },
+  { id: 'europe', label: 'Resto de Europa', icon: '🌍', clubs: EUROPEAN_GIANTS, leagueKey: 'other' },
+  { id: 'custom', label: 'Crear Mi Club', icon: '🛠️', isCustom: true }
+];
 
 export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) {
   if (!isOpen) return null;
@@ -57,7 +100,9 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
   const [avatar, setAvatar] = useState(MANAGER_PRESETS[0].avatar);
 
   // Step 3: Club
-  const [activeLeagueTab, setActiveLeagueTab] = useState('laliga'); // 'laliga' | 'premier' | 'europe' | 'custom'
+  const [activeLeagueTab, setActiveLeagueTab] = useState('all'); // 'all' | 'laliga' | 'premier' | ... | 'custom'
+  const [showAllWizardLeagues, setShowAllWizardLeagues] = useState(false);
+  const [clubSearch, setClubSearch] = useState('');
   const [selectedClub, setSelectedClub] = useState(LALIGA_CLUBS[0]);
   const [customClubName, setCustomClubName] = useState('Real Deportivo');
   const [customLeague, setCustomLeague] = useState('LALIGA EA SPORTS');
@@ -107,31 +152,17 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
     const startDate = gameVersion === 'EA FC26' ? '01 jul 2025' : '01 jul 2026';
 
     // Build initial standings based on chosen league
-    const tabToClubs = {
-      laliga: LALIGA_CLUBS,
-      segunda: SEGUNDA_CLUBS,
-      premier: PREMIER_LEAGUE_CLUBS,
-      seriea: SERIE_A_CLUBS,
-      bundesliga: BUNDESLIGA_CLUBS,
-      ligue1: LIGUE1_CLUBS,
-      portugal: PORTUGAL_CLUBS,
-      eredivisie: EREDIVISIE_CLUBS,
-      championship: CHAMPIONSHIP_CLUBS,
-      superlig: SUPERLIG_CLUBS,
-      argentina: ARGENTINA_CLUBS,
-      brasileirao: BRASILEIRAO_CLUBS,
-      scotland: SCOTLAND_CLUBS,
-      belgium: BELGIUM_CLUBS,
-      mls: MLS_CLUBS,
-      saudi: SAUDI_CLUBS,
-      europe: EUROPEAN_GIANTS,
-      promesas: PROMESAS_CLUBS
-    };
-
-    const leagueClubs = tabToClubs[activeLeagueTab] ||
-      tabToClubs[selectedClub?.leagueId] ||
-      Object.entries(tabToClubs).find(([k]) => league.toLowerCase().includes(k))?.[1] ||
-      LALIGA_CLUBS;
+    const leagueClubs = isCustom
+      ? [
+          { name: customClubName, logo: customLogo, ovr: 75 },
+          ...LALIGA_CLUBS.slice(0, 19)
+        ]
+      : (
+          (activeLeagueTab !== 'all' ? TAB_TO_CLUBS[activeLeagueTab] : null) ||
+          TAB_TO_CLUBS[selectedClub?.leagueId] ||
+          Object.entries(TAB_TO_CLUBS).find(([k]) => league?.toLowerCase().includes(k))?.[1] ||
+          LALIGA_CLUBS
+        );
 
     const standings = leagueClubs.map((c, idx) => ({
       pos: idx + 1,
@@ -336,6 +367,16 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
     onSaveCareer(newCareer);
     onClose();
   };
+
+  const currentClubs = activeLeagueTab === 'all'
+    ? ALL_PRESET_CLUBS
+    : (TAB_TO_CLUBS[activeLeagueTab] || ALL_PRESET_CLUBS);
+
+  const displayClubs = currentClubs.filter(club => {
+    if (!clubSearch.trim()) return true;
+    const q = clubSearch.toLowerCase().trim();
+    return club.name.toLowerCase().includes(q) || (club.league && club.league.toLowerCase().includes(q));
+  });
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
@@ -558,71 +599,94 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
             <div className="space-y-4">
               {/* League Tabs - Larger & Visual Buttons with Official Logos */}
               <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#1f2b40] scrollbar-thin scrollbar-thumb-[#24354e]">
-                {[
-                  { id: 'laliga', label: 'LALIGA', icon: '🇪🇸', clubs: LALIGA_CLUBS, leagueKey: 'laliga' },
-                  { id: 'segunda', label: 'HYPERMOTION', icon: '🥈', clubs: SEGUNDA_CLUBS, leagueKey: 'segunda' },
-                  { id: 'premier', label: 'Premier League', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: PREMIER_LEAGUE_CLUBS, leagueKey: 'premier' },
-                  { id: 'seriea', label: 'Serie A', icon: '🇮🇹', clubs: SERIE_A_CLUBS, leagueKey: 'seriea' },
-                  { id: 'bundesliga', label: 'Bundesliga', icon: '🇩🇪', clubs: BUNDESLIGA_CLUBS, leagueKey: 'bundesliga' },
-                  { id: 'ligue1', label: 'Ligue 1', icon: '🇫🇷', clubs: LIGUE1_CLUBS, leagueKey: 'ligue1' },
-                  { id: 'portugal', label: 'Liga Portugal', icon: '🇵🇹', clubs: PORTUGAL_CLUBS, leagueKey: 'portugal' },
-                  { id: 'eredivisie', label: 'Eredivisie', icon: '🇳🇱', clubs: EREDIVISIE_CLUBS, leagueKey: 'eredivisie' },
-                  { id: 'championship', label: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: CHAMPIONSHIP_CLUBS, leagueKey: 'championship' },
-                  { id: 'brasileirao', label: 'Brasileirão', icon: '🇧🇷', clubs: BRASILEIRAO_CLUBS, leagueKey: 'brasileirao' },
-                  { id: 'argentina', label: 'Liga Argentina', icon: '🇦🇷', clubs: ARGENTINA_CLUBS, leagueKey: 'argentina' },
-                  { id: 'scotland', label: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', clubs: SCOTLAND_CLUBS, leagueKey: 'scotland' },
-                  { id: 'belgium', label: 'Pro League', icon: '🇧🇪', clubs: BELGIUM_CLUBS, leagueKey: 'belgium' },
-                  { id: 'superlig', label: 'Süper Lig', icon: '🇹🇷', clubs: SUPERLIG_CLUBS, leagueKey: 'superlig' },
-                  { id: 'mls', label: 'MLS', icon: '🇺🇸', clubs: MLS_CLUBS, leagueKey: 'mls' },
-                  { id: 'saudi', label: 'Saudi Pro', icon: '🇸🇦', clubs: SAUDI_CLUBS, leagueKey: 'saudi' },
-                  { id: 'europe', label: 'Resto de Europa', icon: '🌍', clubs: EUROPEAN_GIANTS, leagueKey: 'other' },
-                  { id: 'promesas', label: 'Promesas', icon: '🌟', clubs: PROMESAS_CLUBS, leagueKey: 'promesas' },
-                  { id: 'custom', label: 'Crear Mi Club', icon: '🛠️', isCustom: true }
-                ].map((item) => {
-                  const isSelected = activeLeagueTab === item.id;
-                  const logo = item.isCustom ? null : getLeagueLogo(item.leagueKey);
+                {/* Todas las Ligas */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveLeagueTab('all');
+                    setShowAllWizardLeagues(false);
+                  }}
+                  className={`group flex items-center gap-2 px-3.5 py-2 rounded-2xl font-bold transition-all text-xs shrink-0 border select-none ${
+                    activeLeagueTab === 'all'
+                      ? 'bg-gradient-to-r from-[#00ff87]/20 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]/50 scale-[1.02]'
+                      : 'bg-[#141e2e] border-[#22334b] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+                  }`}
+                >
+                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 border transition-all ${
+                    activeLeagueTab === 'all' ? 'bg-[#00ff87] text-[#080d14] border-[#00ff87]' : 'bg-[#0e1624] border-[#24354c] text-slate-300'
+                  }`}>
+                    <Globe className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="whitespace-nowrap font-black">Todas las Ligas</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ml-0.5 ${
+                    activeLeagueTab === 'all' ? 'bg-[#00ff87] text-[#080d14]' : 'bg-[#1e2a3c] text-slate-400'
+                  }`}>
+                    {ALL_PRESET_CLUBS.length}
+                  </span>
+                </button>
 
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setActiveLeagueTab(item.id)}
-                      className={`group flex items-center gap-2 px-3.5 py-2 rounded-2xl font-bold transition-all text-xs shrink-0 border select-none ${
-                        isSelected
-                          ? 'bg-gradient-to-r from-[#00ff87]/20 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]/50 scale-[1.02]'
-                          : 'bg-[#141e2e] border-[#22334b] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
-                      }`}
-                    >
-                      {logo ? (
-                        <div className={`w-6 h-6 rounded-lg p-0.5 flex items-center justify-center shrink-0 border transition-all ${
-                          isSelected ? 'bg-[#0a1019] border-[#00ff87]/50 shadow' : 'bg-[#0e1624] border-[#24354c]'
-                        }`}>
-                          <img
-                            src={logo}
-                            alt=""
-                            referrerPolicy="no-referrer"
-                            className="max-w-full max-h-full object-contain filter drop-shadow"
-                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                          />
-                        </div>
-                      ) : (
-                        <span className="text-sm">{item.icon}</span>
-                      )}
+                {/* Filtered League Buttons: if a league is selected, ONLY that league shows (unless expanded) */}
+                {WIZARD_LEAGUE_TABS
+                  .filter((item) => activeLeagueTab === 'all' || showAllWizardLeagues || item.id === activeLeagueTab)
+                  .map((item) => {
+                    const isSelected = activeLeagueTab === item.id;
+                    const logo = item.isCustom ? null : getLeagueLogo(item.leagueKey);
 
-                      <span className="whitespace-nowrap font-black">
-                        {item.icon} {item.label}
-                      </span>
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveLeagueTab(item.id);
+                          setShowAllWizardLeagues(false);
+                        }}
+                        className={`group flex items-center gap-2 px-3.5 py-2 rounded-2xl font-bold transition-all text-xs shrink-0 border select-none ${
+                          isSelected
+                            ? 'bg-gradient-to-r from-[#00ff87]/20 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]/50 scale-[1.02]'
+                            : 'bg-[#141e2e] border-[#22334b] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+                        }`}
+                      >
+                        {logo ? (
+                          <div className={`w-6 h-6 rounded-lg p-0.5 flex items-center justify-center shrink-0 border transition-all ${
+                            isSelected ? 'bg-[#0a1019] border-[#00ff87]/50 shadow' : 'bg-[#0e1624] border-[#24354c]'
+                          }`}>
+                            <img
+                              src={logo}
+                              alt=""
+                              referrerPolicy="no-referrer"
+                              className="max-w-full max-h-full object-contain filter drop-shadow"
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                            />
+                          </div>
+                        ) : (
+                          <span className="text-sm">{item.icon}</span>
+                        )}
 
-                      {item.clubs && (
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ml-0.5 ${
-                          isSelected ? 'bg-[#00ff87] text-[#080d14]' : 'bg-[#1e2a3c] text-slate-400'
-                        }`}>
-                          {item.clubs.length}
+                        <span className="whitespace-nowrap font-black">
+                          {item.label}
                         </span>
-                      )}
-                    </button>
-                  );
-                })}
+
+                        {item.clubs && (
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ml-0.5 ${
+                            isSelected ? 'bg-[#00ff87] text-[#080d14]' : 'bg-[#1e2a3c] text-slate-400'
+                          }`}>
+                            {item.clubs.length}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+
+                {/* Expand / collapse button when a league is selected */}
+                {activeLeagueTab !== 'all' && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllWizardLeagues(!showAllWizardLeagues)}
+                    className="px-2.5 py-1.5 rounded-xl bg-[#172233] hover:bg-[#202f45] border border-[#26374f] text-slate-300 hover:text-white text-xs font-bold transition-all shrink-0 flex items-center gap-1"
+                  >
+                    <span>{showAllWizardLeagues ? 'Ocultar ligas ▴' : 'Cambiar liga ▾'}</span>
+                  </button>
+                )}
               </div>
 
               {activeLeagueTab === 'custom' ? (
@@ -674,42 +738,58 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
                   </div>
                 </div>
               ) : (
-                /* Club Picker Grid */
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-56 overflow-y-auto p-1">
-                  {(activeLeagueTab === 'laliga' ? LALIGA_CLUBS : 
-                    activeLeagueTab === 'segunda' ? SEGUNDA_CLUBS :
-                    activeLeagueTab === 'premier' ? PREMIER_LEAGUE_CLUBS : 
-                    activeLeagueTab === 'seriea' ? SERIE_A_CLUBS :
-                    activeLeagueTab === 'bundesliga' ? BUNDESLIGA_CLUBS :
-                    activeLeagueTab === 'ligue1' ? LIGUE1_CLUBS :
-                    activeLeagueTab === 'mls' ? MLS_CLUBS :
-                    activeLeagueTab === 'saudi' ? SAUDI_CLUBS :
-                    activeLeagueTab === 'europe' ? EUROPEAN_GIANTS :
-                    activeLeagueTab === 'promesas' ? PROMESAS_CLUBS :
-                    LALIGA_CLUBS).map((club) => {
-                    const isSelected = selectedClub.name === club.name;
-                    return (
-                      <div
-                        key={club.id}
-                        onClick={() => handleSelectClub(club)}
-                        className={`p-3 rounded-2xl border cursor-pointer transition-all flex items-center gap-3 ${
-                          isSelected
-                            ? 'bg-[#00ff87]/15 border-[#00ff87] shadow-lg shadow-[#00ff87]/15'
-                            : 'bg-[#131b29] border-[#202e44] hover:bg-[#182335]'
-                        }`}
-                      >
-                        <div className="w-8 h-8 flex items-center justify-center shrink-0">
-                          <img src={club.logo} alt="" className="max-w-full max-h-full object-contain" />
+                <div className="space-y-2.5">
+                  {/* Search and counter */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="relative flex-1">
+                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        placeholder="Buscar club por nombre o liga..."
+                        value={clubSearch}
+                        onChange={(e) => setClubSearch(e.target.value)}
+                        className="w-full bg-[#141d2c] border border-[#22334b] rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#00ff87]"
+                      />
+                    </div>
+                    <span className="text-[11px] text-slate-400 font-semibold shrink-0">
+                      {displayClubs.length} {displayClubs.length === 1 ? 'club' : 'clubes'}
+                    </span>
+                  </div>
+
+                  {/* Club Picker Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-56 overflow-y-auto p-1 scrollbar-thin scrollbar-thumb-[#23354f]">
+                    {displayClubs.map((club) => {
+                      const isSelected = selectedClub.name === club.name;
+                      return (
+                        <div
+                          key={club.id || club.name}
+                          onClick={() => handleSelectClub(club)}
+                          className={`p-3 rounded-2xl border cursor-pointer transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? 'bg-[#00ff87]/15 border-[#00ff87] shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]/50'
+                              : 'bg-[#131b29] border-[#202e44] hover:bg-[#182335]'
+                          }`}
+                        >
+                          <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                            <img src={club.logo} alt="" className="max-w-full max-h-full object-contain" />
+                          </div>
+                          <div className="truncate">
+                            <h4 className="font-extrabold text-white text-xs truncate leading-tight">{club.name}</h4>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span className="text-[10px] text-slate-400 font-medium">
+                                {(club.budget / 1000000).toFixed(0)}M €
+                              </span>
+                              {activeLeagueTab === 'all' && club.league && (
+                                <span className="text-[9px] text-[#00ff87]/70 truncate max-w-[80px]">
+                                  • {club.shortName || club.league}
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        <div className="truncate">
-                          <h4 className="font-extrabold text-white text-xs truncate leading-tight">{club.name}</h4>
-                          <span className="text-[10px] text-slate-400 font-medium">
-                            {(club.budget / 1000000).toFixed(0)}M €
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>

@@ -247,7 +247,6 @@ function formatClub(c, leagueName) {
   else if (c.leagueId === 'belgium') leagueDisplayName = 'Jupiler Pro League';
   else if (c.leagueId === 'mls') leagueDisplayName = 'MLS (EEUU)';
   else if (c.leagueId === 'saudi') leagueDisplayName = 'Saudi Pro League';
-  else if (c.leagueId === 'promesas') leagueDisplayName = 'Liga Promesas & Ascenso';
   else if (c.leagueId === 'other') leagueDisplayName = 'Resto del Mundo';
 
   return {
@@ -353,9 +352,7 @@ export const EUROPEAN_GIANTS = currentDb.clubs
   .filter(c => ['bundesliga', 'ligue1', 'portugal', 'eredivisie', 'scotland', 'belgium', 'other'].includes(c.leagueId))
   .map(c => formatClub(c));
 
-export const PROMESAS_CLUBS = currentDb.clubs
-  .filter(c => c.leagueId === 'promesas')
-  .map(c => formatClub(c, 'Liga Promesas & Ascenso'));
+export const PROMESAS_CLUBS = [];
 
 // Include EVERY club present in currentDb.clubs!
 export const ALL_PRESET_CLUBS = currentDb.clubs.map(c => formatClub(c));
@@ -391,8 +388,7 @@ export const DATABASE_LEAGUES = currentDb.leagues || [
   { id: 'segunda', name: 'LaLiga Hypermotion 26/27', shortName: 'Hypermotion', icon: '🥈', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/140.png', localLogo: './leagues/segunda.png', color: '#e20613' },
   { id: 'mls', name: 'MLS (EEUU) 26/27', shortName: 'MLS', icon: '🇺🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/130.png', localLogo: './leagues/mls.png', color: '#1c355e' },
   { id: 'saudi', name: 'Saudi Pro League 26/27', shortName: 'Saudi Pro', icon: '🇸🇦', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png', localLogo: './leagues/saudi.png', color: '#006847' },
-  { id: 'other', name: 'Resto del Mundo & Europa 26/27', shortName: 'Champions', icon: '🌍', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/42.png', localLogo: './leagues/champions.png', color: '#001489' },
-  { id: 'promesas', name: 'Liga Promesas & Ascenso 26/27', shortName: 'Promesas', icon: '🌟', logo: './leagues/promesas.svg', localLogo: './leagues/promesas.svg', color: '#e5a600' }
+  { id: 'other', name: 'Resto del Mundo & Europa 26/27', shortName: 'Champions', icon: '🌍', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/42.png', localLogo: './leagues/champions.png', color: '#001489' }
 ];
 
 export function getLeagueInfo(leagueIdOrName) {

@@ -47,9 +47,10 @@ import {
 
 export default function DatabaseView({ activeCareer, onSignPlayer }) {
   const [dbVersion, setDbVersion] = useState(0); // For forcing re-render after DB upload
-  const [activeTab, setActiveTab] = useState('players'); // 'players' | 'clubs'
+  const [activeTab, setActiveTab] = useState('clubs'); // 'clubs' | 'players'
   const [search, setSearch] = useState('');
   const [selectedLeague, setSelectedLeague] = useState('ALL');
+  const [showAllLeagues, setShowAllLeagues] = useState(false);
   const [selectedPosCat, setSelectedPosCat] = useState('ALL'); // 'ALL' | 'POR' | 'DEF' | 'MED' | 'DEL'
   const [selectedClub, setSelectedClub] = useState('ALL');
   const [sortBy, setSortBy] = useState('ovr-desc');
@@ -356,11 +357,11 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
           )}
         </div>
 
-        {/* Large, Visual League Cards with Official Logos */}
+        {/* Visual League Filter Bar with Official Logos */}
         <div className="flex items-center gap-2.5 overflow-x-auto pb-2 pt-1 scrollbar-thin scrollbar-thumb-[#23354f]">
           {/* Todas las Ligas */}
           <button
-            onClick={() => { setSelectedLeague('ALL'); setSelectedClub('ALL'); }}
+            onClick={() => { setSelectedLeague('ALL'); setSelectedClub('ALL'); setShowAllLeagues(false); }}
             className={`group flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all duration-200 shrink-0 select-none ${
               selectedLeague === 'ALL'
                 ? 'bg-gradient-to-r from-[#00ff87]/25 via-[#00ff87]/10 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/20 ring-1 ring-[#00ff87]/60 scale-[1.02]'
@@ -381,7 +382,7 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
                 Todas las Ligas
               </span>
               <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">
-                {ALL_PRESET_CLUBS.length} Clubes
+                {selectedLeague === 'ALL' ? `${ALL_PRESET_CLUBS.length} Clubes` : 'Toca para ver todos'}
               </span>
             </div>
             {selectedLeague === 'ALL' && (
@@ -389,70 +390,82 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
             )}
           </button>
 
-          {/* Each Official League */}
-          {DATABASE_LEAGUES.map((league) => {
-            const isSelected = selectedLeague === league.id;
-            const clubCount = ALL_PRESET_CLUBS.filter(c => c.leagueId === league.id).length;
-            const logoSrc = league.logo || league.localLogo || getLeagueLogo(league.id);
+          {/* Render Leagues: If a league is selected and not expanding, show ONLY the selected league! */}
+          {DATABASE_LEAGUES
+            .filter((league) => selectedLeague === 'ALL' || showAllLeagues || league.id === selectedLeague)
+            .map((league) => {
+              const isSelected = selectedLeague === league.id;
+              const clubCount = ALL_PRESET_CLUBS.filter(c => c.leagueId === league.id).length;
+              const logoSrc = league.logo || league.localLogo || getLeagueLogo(league.id);
 
-            return (
-              <button
-                key={league.id}
-                onClick={() => { setSelectedLeague(league.id); setSelectedClub('ALL'); }}
-                className={`group flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all duration-200 shrink-0 select-none ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-[#00ff87]/25 via-[#00ff87]/10 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/20 ring-1 ring-[#00ff87]/60 scale-[1.02]'
-                    : 'bg-[#141d2d]/90 border-[#223249] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
-                }`}
-              >
-                {/* Visual Official Logo in dedicated frame */}
-                <div className={`w-11 h-11 rounded-xl p-1.5 flex items-center justify-center shrink-0 border transition-all ${
-                  isSelected
-                    ? 'bg-[#0b121e] border-[#00ff87] shadow-md shadow-[#00ff87]/30 ring-1 ring-[#00ff87]/40'
-                    : 'bg-[#0f1724] border-[#22344c] group-hover:border-slate-400 group-hover:scale-105'
-                }`}>
-                  <img
-                    src={logoSrc}
-                    alt={league.name}
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      if (league.localLogo && e.currentTarget.src !== league.localLogo) {
-                        e.currentTarget.src = league.localLogo;
-                      } else {
-                        e.currentTarget.src = './leagues/laliga.png';
-                      }
-                    }}
-                    className="max-w-full max-h-full object-contain filter drop-shadow"
-                  />
-                </div>
-
-                {/* League Name & Subtext */}
-                <div className="text-left">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs">{league.icon || '🏆'}</span>
-                    <span className={`text-xs font-black tracking-tight leading-tight whitespace-nowrap ${
-                      isSelected ? 'text-[#00ff87]' : 'text-slate-100 group-hover:text-white'
-                    }`}>
-                      {league.shortName || league.name.replace(/ 26\/27/g, '')}
-                    </span>
+              return (
+                <button
+                  key={league.id}
+                  onClick={() => { setSelectedLeague(league.id); setSelectedClub('ALL'); setShowAllLeagues(false); }}
+                  className={`group flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all duration-200 shrink-0 select-none ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-[#00ff87]/25 via-[#00ff87]/10 to-transparent border-[#00ff87] text-white shadow-lg shadow-[#00ff87]/20 ring-1 ring-[#00ff87]/60 scale-[1.02]'
+                      : 'bg-[#141d2d]/90 border-[#223249] text-slate-300 hover:text-white hover:border-slate-500 hover:bg-[#19253a] hover:scale-[1.01]'
+                  }`}
+                >
+                  {/* Visual Official Logo in dedicated frame */}
+                  <div className={`w-11 h-11 rounded-xl p-1.5 flex items-center justify-center shrink-0 border transition-all ${
+                    isSelected
+                      ? 'bg-[#0b121e] border-[#00ff87] shadow-md shadow-[#00ff87]/30 ring-1 ring-[#00ff87]/40'
+                      : 'bg-[#0f1724] border-[#22344c] group-hover:border-slate-400 group-hover:scale-105'
+                  }`}>
+                    <img
+                      src={logoSrc}
+                      alt={league.name}
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        if (league.localLogo && e.currentTarget.src !== league.localLogo) {
+                          e.currentTarget.src = league.localLogo;
+                        } else {
+                          e.currentTarget.src = './leagues/laliga.png';
+                        }
+                      }}
+                      className="max-w-full max-h-full object-contain filter drop-shadow"
+                    />
                   </div>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="text-[10px] text-slate-400 font-semibold">
-                      {league.country}
-                    </span>
-                    <span className="text-[9px] text-slate-600">•</span>
-                    <span className={`text-[10px] font-bold ${isSelected ? 'text-[#00ff87]' : 'text-sky-400'}`}>
-                      {clubCount} {clubCount === 1 ? 'club' : 'clubes'}
-                    </span>
-                  </div>
-                </div>
 
-                {isSelected && (
-                  <span className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse ml-1 shrink-0" />
-                )}
-              </button>
-            );
-          })}
+                  {/* League Name & Subtext */}
+                  <div className="text-left">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs">{league.icon || '🏆'}</span>
+                      <span className={`text-xs font-black tracking-tight leading-tight whitespace-nowrap ${
+                        isSelected ? 'text-[#00ff87]' : 'text-slate-100 group-hover:text-white'
+                      }`}>
+                        {league.shortName || league.name.replace(/ 26\/27/g, '')}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="text-[10px] text-slate-400 font-semibold">
+                        {league.country}
+                      </span>
+                      <span className="text-[9px] text-slate-600">•</span>
+                      <span className={`text-[10px] font-bold ${isSelected ? 'text-[#00ff87]' : 'text-sky-400'}`}>
+                        {clubCount} {clubCount === 1 ? 'club' : 'clubes'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {isSelected && (
+                    <span className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse ml-1 shrink-0" />
+                  )}
+                </button>
+              );
+            })}
+
+          {/* Toggle Button to change league if only one is shown */}
+          {selectedLeague !== 'ALL' && (
+            <button
+              onClick={() => setShowAllLeagues(!showAllLeagues)}
+              className="px-3 py-2 rounded-xl bg-[#172233] hover:bg-[#202f45] border border-[#26374f] text-slate-300 hover:text-white text-xs font-bold transition-all shrink-0 flex items-center gap-1.5"
+            >
+              <span>{showAllLeagues ? 'Ocultar ligas ▴' : 'Cambiar de liga ▾'}</span>
+            </button>
+          )}
         </div>
       </div>
 
