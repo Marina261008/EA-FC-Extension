@@ -16338,8 +16338,8 @@
       "leagueId": "premier",
       "country": "Inglaterra",
       "city": "Londres",
-      "badge": "https://as01.epimg.net/img/comunes/fotos/fichas/equipos/large/54.png",
-      "badgeUrl": "https://as01.epimg.net/img/comunes/fotos/fichas/equipos/large/54.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9825.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9825.png",
       "stadium": "Emirates Stadium",
       "budget": 115,
       "roster": [
@@ -16781,7 +16781,8 @@
           "nat": "Inglaterra",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1254234.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9825.png"
     },
     {
       "id": "avl",
@@ -38402,8 +38403,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/76.png?width=160&height=160",
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/76.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8358.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8358.png",
       "roster": [
         {
           "id": "scf_atubolu",
@@ -38658,7 +38659,8 @@
           "nat": "Austria",
           "photo": "https://images.fotmob.com/image_resources/playerimages/882163.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8358.png"
     },
     {
       "id": "tsg",
@@ -39224,8 +39226,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/49.png?width=160&height=160",
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/49.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8697.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8697.png",
       "roster": [
         {
           "id": "svw_zetterer",
@@ -39480,7 +39482,8 @@
           "nat": "Alemania",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1319717.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8697.png"
     },
     {
       "id": "bmg",
@@ -53122,8 +53125,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10276.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10276.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10283.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10283.png",
       "roster": [
         {
           "id": "palmeiras_weverton",
@@ -53399,7 +53402,8 @@
           "nat": "Brasil",
           "photo": "https://images.fotmob.com/image_resources/playerimages/796732.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10283.png"
     },
     {
       "id": "saopaulo",
@@ -53709,8 +53713,8 @@
       "textColor": "#000000",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9808.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9808.png",
       "roster": [
         {
           "id": "corinthians_hugo_souza",
@@ -53988,7 +53992,8 @@
           "nat": "Brasil",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1057583.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9808.png"
     },
     {
       "id": "botafogo",
@@ -55181,8 +55186,8 @@
       "textColor": "#ffffff",
       "kitPattern": "hoops",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9999.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9999.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9925.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9925.png",
       "roster": [
         {
           "id": "celtic_kasper_schmeichel",
@@ -55459,7 +55464,8 @@
           "nat": "Irlanda",
           "photo": "https://images.fotmob.com/image_resources/playerimages/846009.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9925.png"
     },
     {
       "id": "rangers",
@@ -55773,8 +55779,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8489.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8489.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8485.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8485.png",
       "roster": [
         {
           "id": "aberdeen_dimitar_mitov",
@@ -56029,7 +56035,8 @@
           "nat": "Eslovenia",
           "photo": "https://images.fotmob.com/image_resources/playerimages/813621.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8485.png"
     },
     {
       "id": "hearts",
@@ -57507,8 +57514,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png",
       "roster": [
         {
           "id": "racing_club_gabriel_arias",
@@ -57763,7 +57770,8 @@
           "nat": "Colombia",
           "photo": "https://images.fotmob.com/image_resources/playerimages/479026.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png"
     },
     {
       "id": "independiente",
@@ -57781,8 +57789,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10076.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10076.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png",
       "roster": [
         {
           "id": "independiente_rodrigo_rey",
@@ -58036,7 +58044,8 @@
           "age": 26,
           "nat": "Argentina"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png"
     },
     {
       "id": "san_lorenzo",
@@ -58054,8 +58063,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png",
       "roster": [
         {
           "id": "san_lorenzo_gast_n_g_mez",
@@ -58309,7 +58318,8 @@
           "nat": "Argentina",
           "photo": "https://images.fotmob.com/image_resources/playerimages/989370.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png"
     },
     {
       "id": "velez",
@@ -58327,8 +58337,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10079.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10079.png",
       "roster": [
         {
           "id": "velez_tom_s_marchiori",
@@ -58583,7 +58593,8 @@
           "nat": "Uruguay",
           "photo": "https://images.fotmob.com/image_resources/playerimages/675102.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10079.png"
     },
     {
       "id": "al_qadsiah",
@@ -62454,8 +62465,8 @@
       "textColor": "#800000",
       "kitPattern": "hoops",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9990.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9990.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9927.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9927.png",
       "roster": [
         {
           "id": "motherwell_aston_oxborough",
@@ -62710,7 +62721,8 @@
           "nat": "Inglaterra",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1110791.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9927.png"
     },
     {
       "id": "dundee_fc",
@@ -63001,8 +63013,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9992.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9992.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9938.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9938.png",
       "roster": [
         {
           "id": "dundee_utd_jack_walton",
@@ -63257,7 +63269,8 @@
           "nat": "Bonaire",
           "photo": "https://images.fotmob.com/image_resources/playerimages/561826.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9938.png"
     },
     {
       "id": "st_mirren",
@@ -65739,8 +65752,8 @@
       "textColor": "#002f6c",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9994.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9994.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9997.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9997.png",
       "roster": [
         {
           "id": "stvv_leo_kokubo",
@@ -65995,7 +66008,8 @@
           "nat": "Estados Unidos",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1557028.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9997.png"
     },
     {
       "id": "westerlo",
@@ -66013,8 +66027,8 @@
       "textColor": "#002f6c",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10001.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10001.png",
       "roster": [
         {
           "id": "westerlo_sinan_bolat",
@@ -66269,7 +66283,8 @@
           "nat": "Costa Rica",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1296660.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10001.png"
     },
     {
       "id": "oh_leuven",
@@ -66835,8 +66850,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9996.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9996.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/7947.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/7947.png",
       "roster": [
         {
           "id": "dender_michael_verrips",
@@ -67091,7 +67106,8 @@
           "nat": "Bélgica",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1257872.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/7947.png"
     },
     {
       "id": "beerschot",
@@ -67109,8 +67125,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9998.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9998.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/583877.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/583877.png",
       "roster": [
         {
           "id": "beerschot_nick_shinton",
@@ -67365,7 +67381,8 @@
           "nat": "Bélgica",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1127251.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/583877.png"
     },
     {
       "id": "boavista",
@@ -69018,8 +69035,8 @@
       "textColor": "#ffffff",
       "kitPattern": "plain",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1585885.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1585885.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1889.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1889.png",
       "roster": [
         {
           "id": "avs_futebol_guillermo_ochoa",
@@ -69273,7 +69290,8 @@
           "age": 42,
           "nat": "Brasil"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1889.png"
     },
     {
       "id": "nacional_madeira",
@@ -69291,8 +69309,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8614.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8614.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10214.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10214.png",
       "roster": [
         {
           "id": "nacional_madeira_lucas_fran_a",
@@ -69546,7 +69564,8 @@
           "nat": "Portugal",
           "photo": "https://images.fotmob.com/image_resources/playerimages/554295.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10214.png"
     },
     {
       "id": "farense",
@@ -70110,8 +70129,8 @@
       "textColor": "#ffffff",
       "kitPattern": "stripes",
       "championsQualified": false,
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1251392.png",
-      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1251392.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1074320.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1074320.png",
       "roster": [
         {
           "id": "estrela_amadora_bruno_br_gido",
@@ -70364,7 +70383,8 @@
           "nat": "Brasil",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1284944.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1074320.png"
     },
     {
       "id": "arouca",
@@ -70644,7 +70664,7 @@
       "name": "SC Heerenveen",
       "shortName": "Heerenveen",
       "leagueId": "eredivisie",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10235.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10228.png",
       "stadium": "Abe Lenstra Stadion",
       "capacity": 26100,
       "budget": 18000000,
@@ -70761,7 +70781,9 @@
           "id": "heerenveen_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1099476.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10228.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10228.png"
     },
     {
       "id": "go_ahead_eagles",
@@ -71016,7 +71038,7 @@
       "name": "Sparta Rotterdam",
       "shortName": "Sparta",
       "leagueId": "eredivisie",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8611.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8614.png",
       "stadium": "Sparta Stadion Het Kasteel",
       "capacity": 11000,
       "budget": 15000000,
@@ -71133,14 +71155,16 @@
           "id": "sparta_rotterdam_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1079216.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8614.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8614.png"
     },
     {
       "id": "fortuna_sittard",
       "name": "Fortuna Sittard",
       "shortName": "Fortuna",
       "leagueId": "eredivisie",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6413.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6422.png",
       "stadium": "Fortuna Sittard Stadion",
       "capacity": 12500,
       "budget": 13000000,
@@ -71257,14 +71281,16 @@
           "id": "fortuna_sittard_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/813429.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6422.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6422.png"
     },
     {
       "id": "pec_zwolle",
       "name": "PEC Zwolle",
       "shortName": "PEC Zwolle",
       "leagueId": "eredivisie",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6441.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6413.png",
       "stadium": "MAC³PARK Stadion",
       "capacity": 14000,
       "budget": 12000000,
@@ -71381,7 +71407,9 @@
           "id": "pec_zwolle_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1022702.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6413.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6413.png"
     },
     {
       "id": "heracles_almelo",
@@ -72380,7 +72408,7 @@
       "name": "CR Vasco da Gama",
       "shortName": "Vasco da Gama",
       "leagueId": "brasileirao",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10276.png",
       "stadium": "Estádio São Januário",
       "capacity": 21880,
       "budget": 32000000,
@@ -72497,7 +72525,9 @@
           "id": "vasco_da_gama_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10276.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10276.png"
     },
     {
       "id": "santos",
@@ -72628,7 +72658,7 @@
       "name": "Fortaleza EC",
       "shortName": "Fortaleza",
       "leagueId": "brasileirao",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9779.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8287.png",
       "stadium": "Arena Castelão",
       "capacity": 63903,
       "budget": 28000000,
@@ -72745,7 +72775,9 @@
           "id": "fortaleza_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/679873.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8287.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8287.png"
     },
     {
       "id": "bahia",
@@ -73124,7 +73156,7 @@
       "name": "EC Juventude",
       "shortName": "Juventude",
       "leagueId": "brasileirao",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9782.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png",
       "stadium": "Estádio Alfredo Jaconi",
       "capacity": 19924,
       "budget": 16000000,
@@ -73241,7 +73273,9 @@
           "id": "juventude_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10274.png"
     },
     {
       "id": "criciuma",
@@ -73372,7 +73406,7 @@
       "name": "Cuiabá EC",
       "shortName": "Cuiabá",
       "leagueId": "brasileirao",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/243763.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/197815.png",
       "stadium": "Arena Pantanal",
       "capacity": 44097,
       "budget": 16000000,
@@ -73489,14 +73523,16 @@
           "id": "cuiaba_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/476769.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/197815.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/197815.png"
     },
     {
       "id": "atletico_go",
       "name": "Atlético Clube Goianiense",
       "shortName": "Atlético-GO",
       "leagueId": "brasileirao",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10272.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/165545.png",
       "stadium": "Estádio Antônio Accioly",
       "capacity": 12500,
       "budget": 15000000,
@@ -73613,7 +73649,9 @@
           "id": "atletico_go_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/165545.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/165545.png"
     },
     {
       "id": "al_shabab",
@@ -73744,7 +73782,7 @@
       "name": "Al-Taawoun FC",
       "shortName": "Al-Taawoun",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203496.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/205686.png",
       "stadium": "King Abdullah Sport City Stadium (Buraidah)",
       "capacity": 25000,
       "budget": 35000000,
@@ -73861,14 +73899,16 @@
           "id": "al_taawoun_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/919253.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/205686.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/205686.png"
     },
     {
       "id": "al_fateh",
       "name": "Al-Fateh SC",
       "shortName": "Al-Fateh",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203497.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/177356.png",
       "stadium": "Al-Fateh Club Stadium",
       "capacity": 11000,
       "budget": 32000000,
@@ -73985,14 +74025,16 @@
           "id": "al_fateh_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1220488.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/177356.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/177356.png"
     },
     {
       "id": "al_fayha",
       "name": "Al-Fayha FC",
       "shortName": "Al-Fayha",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/599424.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/582749.png",
       "stadium": "Al Majma'ah Sports City",
       "capacity": 7000,
       "budget": 30000000,
@@ -74109,14 +74151,16 @@
           "id": "al_fayha_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/582749.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/582749.png"
     },
     {
       "id": "al_khaleej",
       "name": "Al-Khaleej FC",
       "shortName": "Al-Khaleej",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203498.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/550433.png",
       "stadium": "Prince Mohamed bin Fahd Stadium",
       "capacity": 35000,
       "budget": 28000000,
@@ -74233,14 +74277,16 @@
           "id": "al_khaleej_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/618180.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/550433.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/550433.png"
     },
     {
       "id": "al_raed",
       "name": "Al-Raed FC",
       "shortName": "Al-Raed",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203499.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/150413.png",
       "stadium": "King Abdullah Sport City Stadium (Buraidah)",
       "capacity": 25000,
       "budget": 27000000,
@@ -74357,14 +74403,16 @@
           "id": "al_raed_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/671162.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/150413.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/150413.png"
     },
     {
       "id": "damac",
       "name": "Damac FC",
       "shortName": "Damac",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/810903.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/582823.png",
       "stadium": "Damac Club Stadium",
       "capacity": 5000,
       "budget": 29000000,
@@ -74481,14 +74529,16 @@
           "id": "damac_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1610382.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/582823.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/582823.png"
     },
     {
       "id": "al_okhdood",
       "name": "Al-Okhdood Club",
       "shortName": "Al-Okhdood",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1110023.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/582759.png",
       "stadium": "Prince Hathloul bin Abdul Aziz Sports City",
       "capacity": 12000,
       "budget": 25000000,
@@ -74605,14 +74655,16 @@
           "id": "al_okhdood_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1340730.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/582759.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/582759.png"
     },
     {
       "id": "al_wehda",
       "name": "Al-Wehda FC",
       "shortName": "Al-Wehda",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203503.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6354.png",
       "stadium": "King Abdulaziz Sports City (Mecca)",
       "capacity": 38000,
       "budget": 30000000,
@@ -74729,14 +74781,16 @@
           "id": "al_wehda_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1054038.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6354.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6354.png"
     },
     {
       "id": "al_riyadh",
       "name": "Al-Riyadh SC",
       "shortName": "Al-Riyadh",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/203501.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/582739.png",
       "stadium": "Prince Turki bin Abdul Aziz Stadium",
       "capacity": 15000,
       "budget": 28000000,
@@ -74853,14 +74907,16 @@
           "id": "al_riyadh_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1245751.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/582739.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/582739.png"
     },
     {
       "id": "al_kholood",
       "name": "Al-Kholood Club",
       "shortName": "Al-Kholood",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/810902.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1523706.png",
       "stadium": "Al-Hazem Club Stadium",
       "capacity": 8000,
       "budget": 26000000,
@@ -74977,14 +75033,16 @@
           "id": "al_kholood_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/2140573.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1523706.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1523706.png"
     },
     {
       "id": "al_orobah",
       "name": "Al-Orobah FC",
       "shortName": "Al-Orobah",
       "leagueId": "saudi",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/307406.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/463259.png",
       "stadium": "Al-Orobah Club Stadium",
       "capacity": 7000,
       "budget": 26000000,
@@ -75101,7 +75159,9 @@
           "id": "al_orobah_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1113723.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/463259.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/463259.png"
     },
     {
       "id": "samsunspor",
@@ -75356,7 +75416,7 @@
       "name": "Antalyaspor",
       "shortName": "Antalyaspor",
       "leagueId": "superlig",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9759.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1931.png",
       "stadium": "Corendon Airlines Park",
       "capacity": 32537,
       "budget": 19000000,
@@ -75473,14 +75533,16 @@
           "id": "antalyaspor_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/853996.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1931.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1931.png"
     },
     {
       "id": "kasimpasa",
       "name": "Kasımpaşa SK",
       "shortName": "Kasımpaşa",
       "leagueId": "superlig",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9773.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/4685.png",
       "stadium": "Recep Tayyip Erdoğan Stadium",
       "capacity": 14234,
       "budget": 18000000,
@@ -75597,14 +75659,16 @@
           "id": "kasimpasa_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/688668.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/4685.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/4685.png"
     },
     {
       "id": "rizespor",
       "name": "Çaykur Rizespor",
       "shortName": "Rizespor",
       "leagueId": "superlig",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9764.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/2166.png",
       "stadium": "Çaykur Didi Stadium",
       "capacity": 15558,
       "budget": 17000000,
@@ -75721,14 +75785,16 @@
           "id": "rizespor_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/841180.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/2166.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/2166.png"
     },
     {
       "id": "alanyaspor",
       "name": "Alanyaspor",
       "shortName": "Alanyaspor",
       "leagueId": "superlig",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/371987.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/4678.png",
       "stadium": "Gain Park Stadium",
       "capacity": 10128,
       "budget": 18000000,
@@ -75845,14 +75911,16 @@
           "id": "alanyaspor_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/4678.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/4678.png"
     },
     {
       "id": "gaziantep",
       "name": "Gaziantep FK",
       "shortName": "Gaziantep",
       "leagueId": "superlig",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/176461.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/4081.png",
       "stadium": "Kalyon Stadium",
       "capacity": 33502,
       "budget": 17000000,
@@ -75969,7 +76037,9 @@
           "id": "gaziantep_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/740161.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/4081.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/4081.png"
     },
     {
       "id": "konyaspor",
@@ -77216,7 +77286,7 @@
       "name": "Luton Town",
       "shortName": "Luton",
       "leagueId": "championship",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8346.png",
       "stadium": "Kenilworth Road",
       "capacity": 12000,
       "budget": 34000000,
@@ -77333,7 +77403,9 @@
           "id": "luton_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/716230.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8346.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8346.png"
     },
     {
       "id": "bristol_city",
@@ -78084,7 +78156,7 @@
       "name": "Preston North End",
       "shortName": "Preston",
       "leagueId": "championship",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8489.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8411.png",
       "stadium": "Deepdale",
       "capacity": 23408,
       "budget": 23000000,
@@ -78201,14 +78273,16 @@
           "id": "preston_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/936603.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8411.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8411.png"
     },
     {
       "id": "cardiff",
       "name": "Cardiff City",
       "shortName": "Cardiff",
       "leagueId": "championship",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8342.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png",
       "stadium": "Cardiff City Stadium",
       "capacity": 33280,
       "budget": 25000000,
@@ -78325,7 +78399,9 @@
           "id": "cardiff_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/715281.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8344.png"
     },
     {
       "id": "derby",
@@ -78952,7 +79028,7 @@
       "name": "Estudiantes de La Plata",
       "shortName": "Estudiantes",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10080.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10094.png",
       "stadium": "Estadio Jorge Luis Hirschi (UNO)",
       "capacity": 32530,
       "budget": 26000000,
@@ -79069,14 +79145,16 @@
           "id": "estudiantes_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1226851.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10094.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10094.png"
     },
     {
       "id": "talleres",
       "name": "Talleres de Córdoba",
       "shortName": "Talleres",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10081.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10101.png",
       "stadium": "Estadio Mario Alberto Kempes",
       "capacity": 57000,
       "budget": 27000000,
@@ -79193,14 +79271,16 @@
           "id": "talleres_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/723668.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10101.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10101.png"
     },
     {
       "id": "rosario_central",
       "name": "Rosario Central",
       "shortName": "Rosario Central",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10078.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10084.png",
       "stadium": "Estadio Gigante de Arroyito",
       "capacity": 48900,
       "budget": 25000000,
@@ -79317,14 +79397,16 @@
           "id": "rosario_central_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/787284.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10084.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10084.png"
     },
     {
       "id": "newells",
       "name": "Newell's Old Boys",
       "shortName": "Newell's",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10077.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10201.png",
       "stadium": "Estadio Marcelo Bielsa (El Coloso del Parque)",
       "capacity": 42000,
       "budget": 24000000,
@@ -79441,7 +79523,9 @@
           "id": "newells_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10201.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10201.png"
     },
     {
       "id": "belgrano",
@@ -79572,7 +79656,7 @@
       "name": "Argentinos Juniors",
       "shortName": "Argentinos",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10083.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10086.png",
       "stadium": "Estadio Diego Armando Maradona",
       "capacity": 26000,
       "budget": 23000000,
@@ -79689,14 +79773,16 @@
           "id": "argentinos_jrs_p12",
           "photo": "./default_player.svg"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10086.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10086.png"
     },
     {
       "id": "huracan",
       "name": "CA Huracán",
       "shortName": "Huracán",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10084.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10081.png",
       "stadium": "Estadio Tomás Adolfo Ducó",
       "capacity": 48314,
       "budget": 22000000,
@@ -79813,7 +79899,9 @@
           "id": "huracan_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/589900.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10081.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10081.png"
     },
     {
       "id": "lanus",
@@ -79944,7 +80032,7 @@
       "name": "Godoy Cruz",
       "shortName": "Godoy Cruz",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10086.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10227.png",
       "stadium": "Estadio Malvinas Argentinas",
       "capacity": 42500,
       "budget": 21000000,
@@ -80061,7 +80149,9 @@
           "id": "godoy_cruz_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1085220.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10227.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10227.png"
     },
     {
       "id": "defensa_justicia",
@@ -80192,7 +80282,7 @@
       "name": "Gimnasia y Esgrima La Plata",
       "shortName": "Gimnasia",
       "leagueId": "argentina",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10079.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/10103.png",
       "stadium": "Estadio Juan Carmelo Zerillo (El Bosque)",
       "capacity": 24544,
       "budget": 20000000,
@@ -80309,7 +80399,9 @@
           "id": "gimnasia_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/788656.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/10103.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/10103.png"
     },
     {
       "id": "banfield",
@@ -80688,7 +80780,7 @@
       "name": "New York Red Bulls",
       "shortName": "NY Red Bulls",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9996.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6514.png",
       "stadium": "Red Bull Arena",
       "capacity": 25000,
       "budget": 35000000,
@@ -80805,14 +80897,16 @@
           "id": "ny_red_bulls_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1248672.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6514.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6514.png"
     },
     {
       "id": "philadelphia_union",
       "name": "Philadelphia Union",
       "shortName": "Philadelphia",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/192036.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/191716.png",
       "stadium": "Subaru Park",
       "capacity": 18500,
       "budget": 32000000,
@@ -80929,14 +81023,16 @@
           "id": "philadelphia_union_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/939140.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/191716.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/191716.png"
     },
     {
       "id": "orlando_city",
       "name": "Orlando City SC",
       "shortName": "Orlando City",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/500125.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/267810.png",
       "stadium": "Inter&Co Stadium",
       "capacity": 25500,
       "budget": 34000000,
@@ -81053,7 +81149,9 @@
           "id": "orlando_city_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/196484.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/267810.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/267810.png"
     },
     {
       "id": "atlanta_united",
@@ -81184,7 +81282,7 @@
       "name": "Charlotte FC",
       "shortName": "Charlotte",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1218653.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1323940.png",
       "stadium": "Bank of America Stadium",
       "capacity": 38000,
       "budget": 33000000,
@@ -81301,14 +81399,16 @@
           "id": "charlotte_fc_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1439800.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1323940.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1323940.png"
     },
     {
       "id": "nashville_sc",
       "name": "Nashville SC",
       "shortName": "Nashville",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/936302.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/915807.png",
       "stadium": "GEODIS Park",
       "capacity": 30109,
       "budget": 32000000,
@@ -81425,14 +81525,16 @@
           "id": "nashville_sc_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/198471.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/915807.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/915807.png"
     },
     {
       "id": "toronto_fc",
       "name": "Toronto FC",
       "shortName": "Toronto FC",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/77803.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/56453.png",
       "stadium": "BMO Field",
       "capacity": 28351,
       "budget": 36000000,
@@ -81549,14 +81651,16 @@
           "id": "toronto_fc_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1338703.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/56453.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/56453.png"
     },
     {
       "id": "cf_montreal",
       "name": "CF Montréal",
       "shortName": "CF Montréal",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/249629.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/161195.png",
       "stadium": "Stade Saputo",
       "capacity": 19619,
       "budget": 28000000,
@@ -81673,14 +81777,16 @@
           "id": "cf_montreal_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/921749.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/161195.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/161195.png"
     },
     {
       "id": "dc_united",
       "name": "D.C. United",
       "shortName": "DC United",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9998.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6602.png",
       "stadium": "Audi Field",
       "capacity": 20000,
       "budget": 30000000,
@@ -81797,14 +81903,16 @@
           "id": "dc_united_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/621537.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6602.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6602.png"
     },
     {
       "id": "chicago_fire",
       "name": "Chicago Fire",
       "shortName": "Chicago Fire",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9999.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6397.png",
       "stadium": "Soldier Field",
       "capacity": 24955,
       "budget": 32000000,
@@ -81921,14 +82029,16 @@
           "id": "chicago_fire_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1169353.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6397.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6397.png"
     },
     {
       "id": "new_england",
       "name": "New England Revolution",
       "shortName": "New England",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9997.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6580.png",
       "stadium": "Gillette Stadium",
       "capacity": 20000,
       "budget": 31000000,
@@ -82045,14 +82155,16 @@
           "id": "new_england_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/243925.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6580.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6580.png"
     },
     {
       "id": "austin_fc",
       "name": "Austin FC",
       "shortName": "Austin FC",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1169002.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1218886.png",
       "stadium": "Q2 Stadium",
       "capacity": 20738,
       "budget": 34000000,
@@ -82169,14 +82281,16 @@
           "id": "austin_fc_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/244377.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1218886.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1218886.png"
     },
     {
       "id": "houston_dynamo",
       "name": "Houston Dynamo",
       "shortName": "Houston",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/77801.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8259.png",
       "stadium": "Shell Energy Stadium",
       "capacity": 22039,
       "budget": 33000000,
@@ -82293,7 +82407,9 @@
           "id": "houston_dynamo_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/616783.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8259.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8259.png"
     },
     {
       "id": "fc_dallas",
@@ -82424,7 +82540,7 @@
       "name": "Sporting Kansas City",
       "shortName": "Sporting KC",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9994.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6604.png",
       "stadium": "Children's Mercy Park",
       "capacity": 18467,
       "budget": 31000000,
@@ -82541,14 +82657,16 @@
           "id": "sporting_kc_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/964391.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6604.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6604.png"
     },
     {
       "id": "st_louis_city",
       "name": "St. Louis CITY SC",
       "shortName": "St. Louis CITY",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1321453.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/1427963.png",
       "stadium": "CITYPARK",
       "capacity": 22423,
       "budget": 33000000,
@@ -82665,14 +82783,16 @@
           "id": "st_louis_city_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1370582.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/1427963.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/1427963.png"
     },
     {
       "id": "minnesota_united",
       "name": "Minnesota United",
       "shortName": "Minnesota Utd",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/773959.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/207242.png",
       "stadium": "Allianz Field",
       "capacity": 19600,
       "budget": 32000000,
@@ -82789,14 +82909,16 @@
           "id": "minnesota_united_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/66578.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/207242.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/207242.png"
     },
     {
       "id": "colorado_rapids",
       "name": "Colorado Rapids",
       "shortName": "Colorado",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9992.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8314.png",
       "stadium": "Dick's Sporting Goods Park",
       "capacity": 18061,
       "budget": 31000000,
@@ -82913,14 +83035,16 @@
           "id": "colorado_rapids_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1190710.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8314.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8314.png"
     },
     {
       "id": "real_salt_lake",
       "name": "Real Salt Lake",
       "shortName": "Real Salt Lake",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/77802.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6606.png",
       "stadium": "America First Field",
       "capacity": 20213,
       "budget": 33000000,
@@ -83037,14 +83161,16 @@
           "id": "real_salt_lake_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/801720.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6606.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6606.png"
     },
     {
       "id": "portland_timbers",
       "name": "Portland Timbers",
       "shortName": "Portland",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/216022.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/307690.png",
       "stadium": "Providence Park",
       "capacity": 25218,
       "budget": 35000000,
@@ -83161,14 +83287,16 @@
           "id": "portland_timbers_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1843214.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/307690.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/307690.png"
     },
     {
       "id": "san_jose_earthquakes",
       "name": "San Jose Earthquakes",
       "shortName": "San Jose",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/9991.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/6603.png",
       "stadium": "PayPal Park",
       "capacity": 18000,
       "budget": 30000000,
@@ -83285,14 +83413,16 @@
           "id": "san_jose_earthquakes_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1251793.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/6603.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/6603.png"
     },
     {
       "id": "vancouver_whitecaps",
       "name": "Vancouver Whitecaps",
       "shortName": "Vancouver",
       "leagueId": "mls",
-      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/216023.png",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/307691.png",
       "stadium": "BC Place",
       "capacity": 22120,
       "budget": 33000000,
@@ -83409,7 +83539,9 @@
           "id": "vancouver_whitecaps_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/237563.png"
         }
-      ]
+      ],
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/307691.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/307691.png"
     }
   ]
 }

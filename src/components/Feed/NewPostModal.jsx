@@ -64,6 +64,7 @@ export default function NewPostModal({
   const [subtitle, setSubtitle] = useState(`${league} · Modo Carrera`);
   const [imageUrl, setImageUrl] = useState(PRESET_POST_IMAGES[0].url);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [lineupCategory, setLineupCategory] = useState('all');
 
   // Dynamically resolve rivals based on active competition, club and league
   const [competition, setCompetition] = useState(league || 'LALIGA EA SPORTS');
@@ -190,6 +191,11 @@ export default function NewPostModal({
   const filteredStandardImages = activeCategory === 'all'
     ? PRESET_POST_IMAGES
     : PRESET_POST_IMAGES.filter(img => img.category === activeCategory);
+
+  // Filter preset images by category for lineup mode
+  const filteredLineupImages = lineupCategory === 'all'
+    ? PRESET_POST_IMAGES
+    : PRESET_POST_IMAGES.filter(img => img.category === lineupCategory);
 
   // Apply quick template
   const handleApplyTemplate = (tmpl) => {
@@ -447,9 +453,28 @@ export default function NewPostModal({
                   </label>
                 </div>
 
-                {/* Horizontal scrollable background gallery */}
-                <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
-                  {PRESET_POST_IMAGES.slice(0, 6).map((img) => {
+                {/* Category chips for Lineup Backgrounds */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                  {PRESET_CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setLineupCategory(cat.id)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition-colors flex items-center gap-1 ${
+                        lineupCategory === cat.id
+                          ? 'bg-[#00ff87] text-[#080d14]'
+                          : 'bg-[#151f30] text-slate-300 hover:bg-[#1c2940]'
+                      }`}
+                    >
+                      <span>{cat.icon}</span>
+                      <span>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Grid of Background options for Lineup */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-48 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#24354e]">
+                  {filteredLineupImages.map((img) => {
                     const isSelected = lineupBgImage === img.url;
                     return (
                       <div
@@ -466,7 +491,7 @@ export default function NewPostModal({
                           alt={img.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-1">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-1">
                           <p className="text-[9px] font-bold text-white truncate">{img.title}</p>
                         </div>
                         {isSelected && (
