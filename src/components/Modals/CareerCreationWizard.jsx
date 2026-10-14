@@ -7,7 +7,6 @@ import {
   User, 
   Upload, 
   DollarSign, 
-  CheckCircle2, 
   ChevronRight, 
   ChevronLeft,
   Camera,
@@ -89,9 +88,9 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
 
   const [step, setStep] = useState(1);
 
-  // Step 1: Game & Mode
-  const [gameVersion, setGameVersion] = useState('EA FC26'); // 'EA FC26' | 'EA FC27'
-  const [careerType, setCareerType] = useState('manager'); // 'manager' | 'player'
+  // Defaults
+  const gameVersion = 'EA FC26';
+  const careerType = 'manager';
 
   // Step 2: Manager
   const [managerName, setManagerName] = useState('Mi Entrenador');
@@ -400,10 +399,9 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
               Crear Tu Modo Carrera
             </h2>
             <p className="text-xs text-slate-400">
-              Paso {step} de 4 · {
-                step === 1 ? 'Versión y Modo de Juego' :
-                step === 2 ? 'Tu Entrenador y Perfil' :
-                step === 3 ? 'Selecciona tu Club y Escudo' :
+              Paso {step} de 3 · {
+                step === 1 ? 'Tu Entrenador y Perfil' :
+                step === 2 ? 'Selecciona tu Club y Escudo' :
                 'Presupuesto y Reto de Carrera'
               }
             </p>
@@ -411,8 +409,8 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
         </div>
 
         {/* Stepper Progress Bar */}
-        <div className="grid grid-cols-4 gap-2 my-4 shrink-0">
-          {[1, 2, 3, 4].map((s) => (
+        <div className="grid grid-cols-3 gap-2 my-4 shrink-0">
+          {[1, 2, 3].map((s) => (
             <div
               key={s}
               className={`h-1.5 rounded-full transition-all ${
@@ -425,90 +423,8 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
         {/* STEP CONTENT (Scrollable) */}
         <div className="flex-1 overflow-y-auto pr-1 space-y-5 text-xs py-2">
           
-          {/* STEP 1: GAME & MODE */}
+          {/* STEP 1: MANAGER */}
           {step === 1 && (
-            <div className="space-y-5">
-              <div>
-                <label className="block text-slate-300 font-bold mb-2">1. Selecciona la entrega de EA Sports FC</label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div
-                    onClick={() => setGameVersion('EA FC26')}
-                    className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
-                      gameVersion === 'EA FC26'
-                        ? 'bg-[#00ff87]/15 border-[#00ff87] shadow-lg shadow-[#00ff87]/15 text-white'
-                        : 'bg-[#131b29] border-[#202e44] text-slate-300 hover:border-[#2f4364]'
-                    }`}
-                  >
-                    <div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#033b24] text-[#00ff87]">
-                        Temporada 2025/26
-                      </span>
-                      <h4 className="text-lg font-black font-display text-white mt-1">EA Sports FC 26</h4>
-                      <p className="text-[11px] text-slate-400">Fichajes 2025/26, plantillas y calendario</p>
-                    </div>
-                    {gameVersion === 'EA FC26' && <CheckCircle2 className="w-6 h-6 text-[#00ff87]" />}
-                  </div>
-
-                  <div
-                    onClick={() => setGameVersion('EA FC27')}
-                    className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
-                      gameVersion === 'EA FC27'
-                        ? 'bg-sky-500/15 border-sky-400 shadow-lg shadow-sky-500/15 text-white'
-                        : 'bg-[#131b29] border-[#202e44] text-slate-300 hover:border-[#2f4364]'
-                    }`}
-                  >
-                    <div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-400">
-                        Temporada 2026/27
-                      </span>
-                      <h4 className="text-lg font-black font-display text-white mt-1">EA Sports FC 27</h4>
-                      <p className="text-[11px] text-slate-400">Próxima generación, nuevo motor y reglas</p>
-                    </div>
-                    {gameVersion === 'EA FC27' && <CheckCircle2 className="w-6 h-6 text-sky-400" />}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-bold mb-2">2. Tipo de Modo Carrera</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setCareerType('manager')}
-                    className={`p-3.5 rounded-2xl border text-left transition-all ${
-                      careerType === 'manager'
-                        ? 'bg-[#172336] border-[#00ff87] text-white shadow-sm'
-                        : 'bg-[#131b29] border-[#202e44] text-slate-400'
-                    }`}
-                  >
-                    <p className="font-extrabold text-sm text-white flex items-center gap-2">
-                      <span>👔 Modo Mánager</span>
-                      {careerType === 'manager' && <span className="text-[10px] bg-[#00ff87] text-black px-1.5 rounded font-black">Activo</span>}
-                    </p>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Controla fichajes, tácticas, cantera y partidos</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setCareerType('player')}
-                    className={`p-3.5 rounded-2xl border text-left transition-all ${
-                      careerType === 'player'
-                        ? 'bg-[#172336] border-[#00ff87] text-white shadow-sm'
-                        : 'bg-[#131b29] border-[#202e44] text-slate-400'
-                    }`}
-                  >
-                    <p className="font-extrabold text-sm text-white flex items-center gap-2">
-                      <span>⚽ Modo Jugador</span>
-                    </p>
-                    <p className="text-[11px] text-slate-400 mt-0.5">Sigue la progresión de tu futbolista estrella</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: MANAGER */}
-          {step === 2 && (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2">
@@ -594,8 +510,8 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
             </div>
           )}
 
-          {/* STEP 3: CLUB SELECTION & CREST */}
-          {step === 3 && (
+          {/* STEP 2: CLUB SELECTION & CREST */}
+          {step === 2 && (
             <div className="space-y-4">
               {/* League Tabs - Larger & Visual Buttons with Official Logos */}
               <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#1f2b40] scrollbar-thin scrollbar-thumb-[#24354e]">
@@ -795,14 +711,14 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
             </div>
           )}
 
-          {/* STEP 4: BUDGET & REALISM RULES */}
-          {step === 4 && (
+          {/* STEP 3: BUDGET & REALISM RULES */}
+          {step === 3 && (
             <div className="space-y-4">
               <div className="bg-[#141d2c] p-4 rounded-2xl border border-[#23334d] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">Resumen de tu Nuevo Club</span>
                   <span className="text-xs font-bold text-[#00ff87] bg-[#033b24] px-2 py-0.5 rounded">
-                    {gameVersion}
+                    Modo Carrera
                   </span>
                 </div>
 
@@ -873,7 +789,7 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
             <div></div>
           )}
 
-          {step < 4 ? (
+          {step < 3 ? (
             <button
               type="button"
               onClick={() => setStep(step + 1)}

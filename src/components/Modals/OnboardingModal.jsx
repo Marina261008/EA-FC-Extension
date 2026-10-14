@@ -85,55 +85,30 @@ export default function OnboardingModal({ isOpen, onComplete }) {
             />
           </div>
 
-          {/* 2. Game Version & Nationality in 2 columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
-                <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                <span>Versión del Juego</span>
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {['EA FC26', 'EA FC27'].map((v) => (
-                  <button
-                    key={v}
-                    type="button"
-                    onClick={() => setGameVersion(v)}
-                    className={`py-2 px-3 rounded-xl text-xs font-black transition-all border ${
-                      gameVersion === v
-                        ? 'bg-[#00ff87] text-[#080d14] border-[#00ff87] shadow-md shadow-[#00ff87]/20'
-                        : 'bg-[#141e2e] text-slate-400 border-[#263750] hover:text-white'
-                    }`}
-                  >
-                    {v}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-sky-400" />
-                <span>Nacionalidad</span>
-              </label>
-              <select
-                value={nationality}
-                onChange={(e) => setNationality(e.target.value)}
-                className="w-full bg-[#141e2e] border border-[#263750] rounded-xl px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-[#00ff87]"
-              >
-                <option value="🇪🇸 España">🇪🇸 España</option>
-                <option value="🇦🇷 Argentina">🇦🇷 Argentina</option>
-                <option value="🇫🇷 Francia">🇫🇷 Francia</option>
-                <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
-                <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
-                <option value="🇩🇪 Alemania">🇩🇪 Alemania</option>
-                <option value="🇮🇹 Italia">🇮🇹 Italia</option>
-                <option value="🇵🇹 Portugal">🇵🇹 Portugal</option>
-                <option value="🇺🇸 Estados Unidos">🇺🇸 Estados Unidos</option>
-                <option value="🇺🇾 Uruguay">🇺🇾 Uruguay</option>
-                <option value="🇨🇴 Colombia">🇨🇴 Colombia</option>
-                <option value="🇲🇽 México">🇲🇽 México</option>
-              </select>
-            </div>
+          {/* 2. Nationality */}
+          <div className="space-y-1.5">
+            <label className="text-xs font-extrabold text-slate-300 flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-sky-400" />
+              <span>Nacionalidad del Mánager</span>
+            </label>
+            <select
+              value={nationality}
+              onChange={(e) => setNationality(e.target.value)}
+              className="w-full bg-[#141e2e] border border-[#263750] rounded-xl px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-[#00ff87]"
+            >
+              <option value="🇪🇸 España">🇪🇸 España</option>
+              <option value="🇦🇷 Argentina">🇦🇷 Argentina</option>
+              <option value="🇫🇷 Francia">🇫🇷 Francia</option>
+              <option value="🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
+              <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
+              <option value="🇩🇪 Alemania">🇩🇪 Alemania</option>
+              <option value="🇮🇹 Italia">🇮🇹 Italia</option>
+              <option value="🇵🇹 Portugal">🇵🇹 Portugal</option>
+              <option value="🇺🇸 Estados Unidos">🇺🇸 Estados Unidos</option>
+              <option value="🇺🇾 Uruguay">🇺🇾 Uruguay</option>
+              <option value="🇨🇴 Colombia">🇨🇴 Colombia</option>
+              <option value="🇲🇽 México">🇲🇽 México</option>
+            </select>
           </div>
 
           {/* 3. Club Selection */}

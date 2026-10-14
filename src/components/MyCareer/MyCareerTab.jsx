@@ -45,7 +45,7 @@ export default function MyCareerTab({ career, onCelebrateTitle }) {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-[#1b2537]">
           <div>
             <span className="text-xs font-bold text-[#00ff87] bg-[#033b24] px-2.5 py-0.5 rounded-full border border-[#00ff87]/30">
-              Trayectoria Histórica · {gameVersion}
+              Trayectoria Histórica · Modo Carrera
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white font-display mt-1">
               Carrera de {manager.name}

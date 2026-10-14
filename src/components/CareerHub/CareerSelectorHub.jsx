@@ -208,7 +208,7 @@ export default function CareerSelectorHub({
                   <div className="flex flex-wrap items-center gap-1.5">
                     {/* Game Version Badge */}
                     <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#162338] text-slate-300 border border-[#25354e]">
-                      {gameVersion}
+                      Modo Carrera
                     </span>
 
                     {/* Active Pill */}

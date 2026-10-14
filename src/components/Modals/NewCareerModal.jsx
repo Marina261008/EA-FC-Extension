@@ -156,37 +156,6 @@ export default function NewCareerModal({ isOpen, onClose, onSaveCareer }) {
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           
-          {/* Game Version Toggle */}
-          <div>
-            <label className="block text-slate-400 font-semibold mb-1">Versión del Juego</label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setGameVersion('EA FC26')}
-                className={`py-2 px-3 rounded-xl font-bold flex items-center justify-center gap-2 border transition-all ${
-                  gameVersion === 'EA FC26'
-                    ? 'bg-[#00ff87] text-[#090d14] border-[#00ff87] shadow-lg shadow-[#00ff87]/20'
-                    : 'bg-[#151f30] text-slate-300 border-[#23334d]'
-                }`}
-              >
-                <span>EA Sports FC 26</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setGameVersion('EA FC27')}
-                className={`py-2 px-3 rounded-xl font-bold flex items-center justify-center gap-2 border transition-all ${
-                  gameVersion === 'EA FC27'
-                    ? 'bg-gradient-to-r from-sky-400 to-indigo-500 text-white border-sky-400 shadow-lg shadow-sky-500/20'
-                    : 'bg-[#151f30] text-slate-300 border-[#23334d]'
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>EA Sports FC 27</span>
-              </button>
-            </div>
-          </div>
-
           {/* Manager Name & Nationality */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>

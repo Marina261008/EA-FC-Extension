@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Plus, 
-  Sparkles, 
   ChevronDown,
   LayoutGrid
 } from 'lucide-react';
@@ -11,7 +10,6 @@ export default function Header({
   activeCareer, 
   onSelectCareer, 
   onNewCareer, 
-  onGameVersionToggle,
   onOpenCareerHub
 }) {
   const [showCareerMenu, setShowCareerMenu] = useState(false);
@@ -94,7 +92,7 @@ export default function Header({
                           <span className="text-xs font-semibold text-white truncate">{c.manager.club}</span>
                         </div>
                         <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold shrink-0">
-                          {c.gameVersion}
+                          {c.manager.league ? c.manager.league.split(' ')[0] : 'Carrera'}
                         </span>
                       </button>
                     ))}
@@ -119,38 +117,8 @@ export default function Header({
           )}
         </div>
 
-        {/* Right side: Only the 2 requested elements */}
+        {/* Right side: Botón Crear Modo Carrera */}
         <div className="flex items-center gap-3">
-          
-          {/* 1. Selector EA FC 26 / EA FC 27 */}
-          <div className="flex items-center bg-[#111724] p-1 rounded-2xl border border-[#212f45] shadow-inner">
-            <button
-              type="button"
-              onClick={() => onGameVersionToggle('EA FC26')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeCareer.gameVersion === 'EA FC26'
-                  ? 'bg-gradient-to-r from-[#00ff87] to-[#10b981] text-[#080d14] shadow-md shadow-[#00ff87]/20'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>EA FC 26</span>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => onGameVersionToggle('EA FC27')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeCareer.gameVersion === 'EA FC27'
-                  ? 'bg-gradient-to-r from-[#38bdf8] to-[#6366f1] text-white shadow-md shadow-sky-500/20'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Sparkles className="w-3 h-3 text-sky-200" />
-              <span>EA FC 27</span>
-            </button>
-          </div>
-
-          {/* 2. Botón Crear Modo Carrera */}
           <button
             type="button"
             onClick={onNewCareer}
@@ -161,7 +129,6 @@ export default function Header({
             <span className="hidden sm:inline">Crear Modo Carrera</span>
             <span className="sm:hidden">Crear</span>
           </button>
-
         </div>
 
       </div>

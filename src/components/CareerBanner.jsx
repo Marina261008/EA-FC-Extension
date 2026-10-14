@@ -70,7 +70,7 @@ export default function CareerBanner({
                 Actualizada justo ahora
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#172235] text-slate-300 border border-[#293c5c]">
-                {gameVersion}
+                Modo Carrera
               </span>
               <span className="text-xs text-slate-400 font-medium hidden sm:inline">
                 {manager.nationality}
