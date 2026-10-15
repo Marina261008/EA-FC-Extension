@@ -6,7 +6,9 @@ import {
   SEGUNDA_CLUBS,
   PREMIER_LEAGUE_CLUBS,
   SERIE_A_CLUBS,
-  EUROPEAN_GIANTS,
+  BUNDESLIGA_CLUBS,
+  LIGUE1_CLUBS,
+  ARGENTINA_CLUBS,
   MANAGER_PRESETS, 
   getClubLogo,
   getClubRoster
@@ -239,8 +241,18 @@ export default function EditManagerModal({ isOpen, onClose, career, activeSeason
                     <option key={c.id} value={c.name}>{c.name}</option>
                   ))}
                 </optgroup>
-                <optgroup label="🌍 RESTO DE EUROPA">
-                  {EUROPEAN_GIANTS.map((c) => (
+                <optgroup label="🇩🇪 BUNDESLIGA">
+                  {BUNDESLIGA_CLUBS.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="🇫🇷 LIGUE 1">
+                  {LIGUE1_CLUBS.map((c) => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="🇦🇷 LIGA PROFESIONAL ARGENTINA">
+                  {ARGENTINA_CLUBS.map((c) => (
                     <option key={c.id} value={c.name}>{c.name}</option>
                   ))}
                 </optgroup>

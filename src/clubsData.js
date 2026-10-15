@@ -371,24 +371,23 @@ export const DATABASE_PLAYERS = ALL_PRESET_CLUBS.flatMap(club =>
   }))
 );
 
-export const DATABASE_LEAGUES = currentDb.leagues || [
+export const DATABASE_LEAGUES = [
   { id: 'laliga', name: 'La Liga EA Sports 26/27', shortName: 'LALIGA', icon: '🇪🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/87.png', localLogo: './leagues/laliga.png', color: '#ff4b44' },
   { id: 'premier', name: 'Premier League 26/27', shortName: 'Premier League', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/47.png', localLogo: './leagues/premier.png', color: '#38003c' },
   { id: 'seriea', name: 'Serie A Enilive 26/27', shortName: 'Serie A', icon: '🇮🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/55.png', localLogo: './leagues/seriea.png', color: '#024494' },
   { id: 'bundesliga', name: 'Bundesliga 26/27', shortName: 'Bundesliga', icon: '🇩🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/54.png', localLogo: './leagues/bundesliga.png', color: '#d20515' },
   { id: 'ligue1', name: "Ligue 1 McDonald's 26/27", shortName: 'Ligue 1', icon: '🇫🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/53.png', localLogo: './leagues/ligue1.png', color: '#091c3e' },
+  { id: 'argentina', name: 'Liga Profesional Argentina 26/27', shortName: 'Liga Argentina', icon: '🇦🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/112.png', localLogo: './leagues/argentina.png', color: '#74acdf' },
+  { id: 'segunda', name: 'LaLiga Hypermotion 26/27', shortName: 'Hypermotion', icon: '🥈', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/140.png', localLogo: './leagues/segunda.png', color: '#e20613' },
   { id: 'brasileirao', name: 'Brasileirão Betano 26/27', shortName: 'Brasileirão', icon: '🇧🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/268.png', localLogo: './leagues/brasileirao.png', color: '#009b3a' },
-  { id: 'scotland', name: 'Scottish Premiership 26/27', shortName: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/65.png', localLogo: './leagues/scotland.png', color: '#002d62' },
-  { id: 'belgium', name: 'Jupiler Pro League 26/27', shortName: 'Pro League', icon: '🇧🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/40.png', localLogo: './leagues/belgium.png', color: '#1a1a1a' },
   { id: 'portugal', name: 'Liga Portugal Betclic 26/27', shortName: 'Liga Portugal', icon: '🇵🇹', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/61.png', localLogo: './leagues/portugal.png', color: '#006633' },
   { id: 'eredivisie', name: 'Eredivisie 26/27', shortName: 'Eredivisie', icon: '🇳🇱', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/57.png', localLogo: './leagues/eredivisie.png', color: '#002f6c' },
   { id: 'championship', name: 'EFL Championship 26/27', shortName: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/48.png', localLogo: './leagues/championship.png', color: '#132257' },
   { id: 'superlig', name: 'Trendyol Süper Lig 26/27', shortName: 'Süper Lig', icon: '🇹🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/71.png', localLogo: './leagues/superlig.png', color: '#e30a17' },
-  { id: 'argentina', name: 'Liga Profesional Argentina 26/27', shortName: 'Liga Profesional', icon: '🇦🇷', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/112.png', localLogo: './leagues/argentina.png', color: '#74acdf' },
-  { id: 'segunda', name: 'LaLiga Hypermotion 26/27', shortName: 'Hypermotion', icon: '🥈', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/140.png', localLogo: './leagues/segunda.png', color: '#e20613' },
+  { id: 'scotland', name: 'Scottish Premiership 26/27', shortName: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/65.png', localLogo: './leagues/scotland.png', color: '#002d62' },
+  { id: 'belgium', name: 'Jupiler Pro League 26/27', shortName: 'Pro League', icon: '🇧🇪', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/40.png', localLogo: './leagues/belgium.png', color: '#1a1a1a' },
   { id: 'mls', name: 'MLS (EEUU) 26/27', shortName: 'MLS', icon: '🇺🇸', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/130.png', localLogo: './leagues/mls.png', color: '#1c355e' },
-  { id: 'saudi', name: 'Saudi Pro League 26/27', shortName: 'Saudi Pro', icon: '🇸🇦', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png', localLogo: './leagues/saudi.png', color: '#006847' },
-  { id: 'other', name: 'Resto del Mundo & Europa 26/27', shortName: 'Champions', icon: '🌍', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/42.png', localLogo: './leagues/champions.png', color: '#001489' }
+  { id: 'saudi', name: 'Saudi Pro League 26/27', shortName: 'Saudi Pro', icon: '🇸🇦', logo: 'https://images.fotmob.com/image_resources/logo/leaguelogo/9906.png', localLogo: './leagues/saudi.png', color: '#006847' }
 ];
 
 export function getLeagueInfo(leagueIdOrName) {
@@ -461,7 +460,90 @@ const CLUB_ALIASES = {
   'boca juniors': 'boca_juniors',
   'boca': 'boca_juniors',
   'river plate': 'river_plate',
-  'river': 'river_plate'
+  'river': 'river_plate',
+  'racing': 'racing_club',
+  'racing club': 'racing_club',
+  'independiente': 'independiente',
+  'ca independiente': 'independiente',
+  'san lorenzo': 'san_lorenzo',
+  'ca san lorenzo': 'san_lorenzo',
+  'velez': 'velez',
+  'vélez': 'velez',
+  'velez sarsfield': 'velez',
+  'vélez sarsfield': 'velez',
+  'estudiantes': 'estudiantes',
+  'estudiantes de la plata': 'estudiantes',
+  'talleres': 'talleres',
+  'talleres de córdoba': 'talleres',
+  'talleres de cordoba': 'talleres',
+  'rosario central': 'rosario_central',
+  'newells': 'newells',
+  "newell's": 'newells',
+  "newell's old boys": 'newells',
+  'belgrano': 'belgrano',
+  'argentinos': 'argentinos_jrs',
+  'argentinos juniors': 'argentinos_jrs',
+  'huracan': 'huracan',
+  'huracán': 'huracan',
+  'lanus': 'lanus',
+  'lanús': 'lanus',
+  'godoy cruz': 'godoy_cruz',
+  'defensa y justicia': 'defensa_justicia',
+  'gimnasia': 'gimnasia',
+  'banfield': 'banfield',
+  'platense': 'platense',
+  'tigre': 'tigre',
+  // Bundesliga aliases
+  'bayern': 'bay',
+  'bayern munich': 'bay',
+  'bayern münchen': 'bay',
+  'fc bayern': 'bay',
+  'fc bayern münchen': 'bay',
+  'dortmund': 'bvb',
+  'borussia dortmund': 'bvb',
+  'leverkusen': 'bayer_leverkusen',
+  'bayer leverkusen': 'bayer_leverkusen',
+  'bayer 04 leverkusen': 'bayer_leverkusen',
+  'leipzig': 'rbl',
+  'rb leipzig': 'rbl',
+  'stuttgart': 'vfb',
+  'vfb stuttgart': 'vfb',
+  'frankfurt': 'sge',
+  'eintracht frankfurt': 'sge',
+  'freiburg': 'scf',
+  'sc freiburg': 'scf',
+  'hoffenheim': 'tsg',
+  'tsg hoffenheim': 'tsg',
+  'union berlin': 'fcu',
+  '1. fc union berlin': 'fcu',
+  'werder': 'svw',
+  'werder bremen': 'svw',
+  'sv werder bremen': 'svw',
+  'bremen': 'svw',
+  'gladbach': 'bmg',
+  'borussia mönchengladbach': 'bmg',
+  'borussia monchengladbach': 'bmg',
+  'augsburg': 'fca',
+  'fc augsburg': 'fca',
+  'fc augsburgo': 'fca',
+  'augsburgo': 'fca',
+  'mainz': 'm05',
+  '1. fsv mainz 05': 'm05',
+  'köln': 'koln',
+  'koln': 'koln',
+  '1. fc köln': 'koln',
+  '1. fc koln': 'koln',
+  'cologne': 'koln',
+  'fc cologne': 'koln',
+  'hamburg': 'hsv',
+  'hamburger sv': 'hsv',
+  'schalke': 'schalke',
+  'fc schalke 04': 'schalke',
+  'schalke 04': 'schalke',
+  'paderborn': 'paderborn',
+  'sc paderborn 07': 'paderborn',
+  'elversberg': 'elversberg',
+  'sv elversberg': 'elversberg'
 };
 
 export function getClubLogo(clubName) {
@@ -807,7 +889,8 @@ export function getClubKit(clubName = '') {
       textBorder: '#003366',
       collarColor: '#ffcc00',
       cuffColor: '#ffcc00',
-      sleeveColor: '#003366'
+      sleeveColor: '#003366',
+      motto: 'LA MITAD MÁS UNO'
     };
   }
   if (n.includes('river')) {
@@ -820,7 +903,284 @@ export function getClubKit(clubName = '') {
       textBorder: '#d20000',
       collarColor: '#d20000',
       cuffColor: '#d20000',
-      sleeveColor: '#ffffff'
+      sleeveColor: '#ffffff',
+      motto: 'EL MÁS GRANDE'
+    };
+  }
+  if (n.includes('racing')) {
+    return {
+      jerseyColor: '#74acdf',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#1c355e',
+      collarColor: '#1c355e',
+      cuffColor: '#ffffff',
+      sleeveColor: '#74acdf',
+      motto: 'LA ACADEMIA'
+    };
+  }
+  if (n.includes('independiente')) {
+    return {
+      jerseyColor: '#d50000',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#001c3d',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#d50000',
+      motto: 'REY DE COPAS'
+    };
+  }
+  if (n.includes('san lorenzo') || n.includes('cuervo')) {
+    return {
+      jerseyColor: '#0b2341',
+      secondaryColor: '#b5121b',
+      stripeColor: '#b5121b',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#0b2341',
+      collarColor: '#b5121b',
+      cuffColor: '#0b2341',
+      sleeveColor: '#0b2341',
+      motto: 'EL CICLÓN'
+    };
+  }
+  if (n.includes('velez') || n.includes('vélez')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#002d62',
+      stripeColor: null,
+      pattern: 'chevron',
+      textColor: '#002d62',
+      textBorder: '#ffffff',
+      collarColor: '#002d62',
+      cuffColor: '#002d62',
+      sleeveColor: '#ffffff',
+      motto: 'EL FORTÍN'
+    };
+  }
+  if (n.includes('estudiantes')) {
+    return {
+      jerseyColor: '#cc0000',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#000000',
+      textBorder: '#cc0000',
+      collarColor: '#000000',
+      cuffColor: '#000000',
+      sleeveColor: '#cc0000',
+      motto: 'PINCHARRATA'
+    };
+  }
+  if (n.includes('talleres')) {
+    return {
+      jerseyColor: '#0a1c38',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#0a1c38',
+      collarColor: '#ffffff',
+      cuffColor: '#0a1c38',
+      sleeveColor: '#0a1c38',
+      motto: 'LA T'
+    };
+  }
+  if (n.includes('rosario') || n.includes('central')) {
+    return {
+      jerseyColor: '#001f3f',
+      secondaryColor: '#ffcc00',
+      stripeColor: '#ffcc00',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#001f3f',
+      collarColor: '#ffcc00',
+      cuffColor: '#001f3f',
+      sleeveColor: '#001f3f',
+      motto: 'EL CANALLA'
+    };
+  }
+  if (n.includes('newell') || n.includes('lepra')) {
+    return {
+      jerseyColor: '#d00000',
+      secondaryColor: '#000000',
+      stripeColor: null,
+      pattern: 'halves',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#000000',
+      cuffColor: '#d00000',
+      sleeveColor: '#000000',
+      motto: 'LA LEPRA'
+    };
+  }
+  if (n.includes('leverkusen') || n.includes('bayer')) {
+    return {
+      jerseyColor: '#000000',
+      secondaryColor: '#e32219',
+      stripeColor: '#e32219',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#e32219',
+      collarColor: '#e32219',
+      cuffColor: '#e32219',
+      sleeveColor: '#000000',
+      motto: 'WERKSELF'
+    };
+  }
+  if (n.includes('leipzig') || n.includes('rbl')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#dd0741',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#dd0741',
+      textBorder: '#0a1c3f',
+      collarColor: '#dd0741',
+      cuffColor: '#dd0741',
+      sleeveColor: '#ffffff',
+      motto: 'DIE ROTEN BULLEN'
+    };
+  }
+  if (n.includes('frankfurt') || n.includes('eintracht')) {
+    return {
+      jerseyColor: '#000000',
+      secondaryColor: '#e1000f',
+      stripeColor: '#e1000f',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#000000',
+      cuffColor: '#e1000f',
+      sleeveColor: '#000000',
+      motto: 'SGE'
+    };
+  }
+  if (n.includes('stuttgart') || n.includes('vfb')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#e30613',
+      stripeColor: null,
+      pattern: 'horizontal-stripes',
+      textColor: '#000000',
+      textBorder: '#e30613',
+      collarColor: '#e30613',
+      cuffColor: '#e30613',
+      sleeveColor: '#ffffff',
+      motto: 'VFB'
+    };
+  }
+  if (n.includes('bremen') || n.includes('werder')) {
+    return {
+      jerseyColor: '#008e4d',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#008e4d',
+      collarColor: '#ffffff',
+      cuffColor: '#008e4d',
+      sleeveColor: '#008e4d',
+      motto: 'LEBENSLANG'
+    };
+  }
+  if (n.includes('schalke')) {
+    return {
+      jerseyColor: '#004d9d',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#002f6c',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#004d9d',
+      motto: 'WIR LEBEN DICH'
+    };
+  }
+  if (n.includes('gladbach') || n.includes('mönchengladbach') || n.includes('monchengladbach')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#009944',
+      stripeColor: '#009944',
+      pattern: 'vertical-stripes',
+      textColor: '#000000',
+      textBorder: '#009944',
+      collarColor: '#000000',
+      cuffColor: '#009944',
+      sleeveColor: '#ffffff',
+      motto: 'DIE FOHLEN'
+    };
+  }
+  if (n.includes('union') && n.includes('berlin')) {
+    return {
+      jerseyColor: '#da251d',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#1b233a',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#da251d',
+      motto: 'EISERN UNION'
+    };
+  }
+  if (n.includes('hamburg') || n.includes('hsv')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#003399',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#003399',
+      textBorder: '#da251d',
+      collarColor: '#003399',
+      cuffColor: '#da251d',
+      sleeveColor: '#ffffff',
+      motto: 'NUR DER HSV'
+    };
+  }
+  if (n.includes('cologne') || n.includes('köln') || n.includes('koln')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#e30613',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#e30613',
+      textBorder: '#000000',
+      collarColor: '#e30613',
+      cuffColor: '#e30613',
+      sleeveColor: '#ffffff',
+      motto: 'EFFZEH'
+    };
+  }
+
+  // Dynamic lookup by club in database if available
+  const dbClub = ALL_PRESET_CLUBS.find(c => 
+    c.name.toLowerCase() === n || 
+    (c.shortName && c.shortName.toLowerCase() === n) ||
+    c.name.toLowerCase().includes(n) ||
+    n.includes(c.name.toLowerCase())
+  );
+  if (dbClub) {
+    const pColor = dbClub.primaryColor || '#00ff87';
+    const sColor = dbClub.secondaryColor || '#111827';
+    return {
+      jerseyColor: sColor,
+      secondaryColor: pColor,
+      stripeColor: dbClub.kitPattern === 'stripes' ? pColor : null,
+      pattern: dbClub.kitPattern === 'stripes' ? 'vertical-stripes' : 'solid',
+      textColor: '#ffffff',
+      textBorder: pColor,
+      collarColor: pColor,
+      cuffColor: pColor,
+      sleeveColor: sColor,
+      motto: dbClub.shortName || dbClub.name
     };
   }
 
@@ -835,7 +1195,8 @@ export function getClubKit(clubName = '') {
     textBorder: theme.primary || '#00ff87',
     collarColor: theme.primary || '#00ff87',
     cuffColor: theme.primary || '#00ff87',
-    sleeveColor: theme.secondary || '#111827'
+    sleeveColor: theme.secondary || '#111827',
+    motto: clubName ? clubName.toUpperCase() : 'MI CLUB'
   };
 }
 
@@ -1025,17 +1386,24 @@ export function getOpponentsForContext(competition, userLeague, userClubName) {
     primaryLabel = '🇫🇷 Rivales de Ligue 1';
     secondary = filterOutMe([...BUNDESLIGA_CLUBS, ...PREMIER_LEAGUE_CLUBS, ...SERIE_A_CLUBS, ...LALIGA_CLUBS]);
   }
-  // 5. MLS (Major League Soccer) / US Open Cup
+  // 5. Liga Profesional Argentina / Copa de la Liga / Copa Argentina / Conmebol Libertadores / Sudamericana
+  else if (comp.includes('argentina') || comp.includes('libertadores') || comp.includes('sudamericana')) {
+    primary = filterOutMe(ARGENTINA_CLUBS);
+    primaryLabel = '🇦🇷 Rivales de Liga Profesional Argentina';
+    secondary = filterOutMe([...BRASILEIRAO_CLUBS, ...LALIGA_CLUBS, ...PREMIER_LEAGUE_CLUBS]);
+    secondaryLabel = '🌎 Conmebol Libertadores & Amistosos';
+  }
+  // 6. MLS (Major League Soccer) / US Open Cup
   else if (comp.includes('mls') || comp.includes('major league') || comp.includes('us open cup')) {
     primary = filterOutMe(MLS_CLUBS);
     primaryLabel = '🇺🇸 Rivales de MLS';
     secondary = filterOutMe([...SAUDI_CLUBS, ...LALIGA_CLUBS, ...PREMIER_LEAGUE_CLUBS]);
   }
-  // 6. Saudi Pro League / King Cup
+  // 7. Saudi Pro League / King Cup
   else if (comp.includes('saudi') || comp.includes('pro league') || comp.includes('king cup')) {
     primary = filterOutMe(SAUDI_CLUBS);
     primaryLabel = '🇸🇦 Rivales de Saudi Pro League';
-    secondary = filterOutMe([...MLS_CLUBS, ...EUROPEAN_GIANTS, ...LALIGA_CLUBS]);
+    secondary = filterOutMe([...MLS_CLUBS, ...ARGENTINA_CLUBS, ...LALIGA_CLUBS]);
   }
   // 7. LALIGA HYPERMOTION (Segunda División)
   else if (comp.includes('hypermotion') || comp.includes('segunda')) {

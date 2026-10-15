@@ -49,17 +49,16 @@ const TAB_TO_CLUBS = {
   seriea: SERIE_A_CLUBS,
   bundesliga: BUNDESLIGA_CLUBS,
   ligue1: LIGUE1_CLUBS,
+  argentina: ARGENTINA_CLUBS,
+  brasileirao: BRASILEIRAO_CLUBS,
   portugal: PORTUGAL_CLUBS,
   eredivisie: EREDIVISIE_CLUBS,
   championship: CHAMPIONSHIP_CLUBS,
-  brasileirao: BRASILEIRAO_CLUBS,
-  argentina: ARGENTINA_CLUBS,
   scotland: SCOTLAND_CLUBS,
   belgium: BELGIUM_CLUBS,
   superlig: SUPERLIG_CLUBS,
   mls: MLS_CLUBS,
-  saudi: SAUDI_CLUBS,
-  europe: EUROPEAN_GIANTS
+  saudi: SAUDI_CLUBS
 };
 
 const WIZARD_LEAGUE_TABS = [
@@ -69,17 +68,16 @@ const WIZARD_LEAGUE_TABS = [
   { id: 'seriea', label: 'Serie A', icon: '🇮🇹', clubs: SERIE_A_CLUBS, leagueKey: 'seriea' },
   { id: 'bundesliga', label: 'Bundesliga', icon: '🇩🇪', clubs: BUNDESLIGA_CLUBS, leagueKey: 'bundesliga' },
   { id: 'ligue1', label: 'Ligue 1', icon: '🇫🇷', clubs: LIGUE1_CLUBS, leagueKey: 'ligue1' },
+  { id: 'argentina', label: 'Liga Argentina', icon: '🇦🇷', clubs: ARGENTINA_CLUBS, leagueKey: 'argentina' },
+  { id: 'brasileirao', label: 'Brasileirão', icon: '🇧🇷', clubs: BRASILEIRAO_CLUBS, leagueKey: 'brasileirao' },
   { id: 'portugal', label: 'Liga Portugal', icon: '🇵🇹', clubs: PORTUGAL_CLUBS, leagueKey: 'portugal' },
   { id: 'eredivisie', label: 'Eredivisie', icon: '🇳🇱', clubs: EREDIVISIE_CLUBS, leagueKey: 'eredivisie' },
   { id: 'championship', label: 'Championship', icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', clubs: CHAMPIONSHIP_CLUBS, leagueKey: 'championship' },
-  { id: 'brasileirao', label: 'Brasileirão', icon: '🇧🇷', clubs: BRASILEIRAO_CLUBS, leagueKey: 'brasileirao' },
-  { id: 'argentina', label: 'Liga Argentina', icon: '🇦🇷', clubs: ARGENTINA_CLUBS, leagueKey: 'argentina' },
   { id: 'scotland', label: 'Premiership', icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', clubs: SCOTLAND_CLUBS, leagueKey: 'scotland' },
   { id: 'belgium', label: 'Pro League', icon: '🇧🇪', clubs: BELGIUM_CLUBS, leagueKey: 'belgium' },
   { id: 'superlig', label: 'Süper Lig', icon: '🇹🇷', clubs: SUPERLIG_CLUBS, leagueKey: 'superlig' },
   { id: 'mls', label: 'MLS', icon: '🇺🇸', clubs: MLS_CLUBS, leagueKey: 'mls' },
   { id: 'saudi', label: 'Saudi Pro', icon: '🇸🇦', clubs: SAUDI_CLUBS, leagueKey: 'saudi' },
-  { id: 'europe', label: 'Resto de Europa', icon: '🌍', clubs: EUROPEAN_GIANTS, leagueKey: 'other' },
   { id: 'custom', label: 'Crear Mi Club', icon: '🛠️', isCustom: true }
 ];
 

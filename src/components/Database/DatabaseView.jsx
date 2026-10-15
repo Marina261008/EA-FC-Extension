@@ -32,9 +32,9 @@ import {
   SERIE_A_CLUBS,
   BUNDESLIGA_CLUBS,
   LIGUE1_CLUBS,
+  ARGENTINA_CLUBS,
   MLS_CLUBS,
   SAUDI_CLUBS,
-  EUROPEAN_GIANTS,
   DATABASE_LEAGUES,
   getLeagueLogo,
   getLeagueInfo,
@@ -942,8 +942,8 @@ function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
                       <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
                   </optgroup>
-                  <optgroup label="🌍 RESTO DE EUROPA / MUNDO">
-                    {EUROPEAN_GIANTS.map((c) => (
+                  <optgroup label="🇦🇷 LIGA PROFESIONAL ARGENTINA">
+                    {ARGENTINA_CLUBS.map((c) => (
                       <option key={c.id} value={c.name}>{c.name}</option>
                     ))}
                   </optgroup>

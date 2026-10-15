@@ -5,7 +5,8 @@ import {
   SEGUNDA_CLUBS, 
   PREMIER_LEAGUE_CLUBS, 
   SERIE_A_CLUBS, 
-  EUROPEAN_GIANTS, 
+  BUNDESLIGA_CLUBS,
+  ARGENTINA_CLUBS,
   getClubRoster, 
   getClubLogo 
 } from './clubsData';
@@ -48,10 +49,14 @@ export function buildFreshCareer({
     leagueClubs = PREMIER_LEAGUE_CLUBS;
   } else if (lLower.includes('serie')) {
     leagueClubs = SERIE_A_CLUBS;
-  } else if (lLower.includes('bundesliga') || lLower.includes('champions') || lLower.includes('ligue') || lLower.includes('europa') || lLower.includes('saudi') || lLower.includes('mls')) {
+  } else if (lLower.includes('argentina') || lLower.includes('libertadores') || lLower.includes('sudamericana')) {
+    leagueClubs = ARGENTINA_CLUBS;
+  } else if (lLower.includes('bundesliga')) {
+    leagueClubs = BUNDESLIGA_CLUBS;
+  } else if (lLower.includes('champions') || lLower.includes('ligue') || lLower.includes('europa') || lLower.includes('saudi') || lLower.includes('mls')) {
     leagueClubs = clubs.filter(c => c.league === finalLeague);
     if (!leagueClubs || leagueClubs.length === 0) {
-      leagueClubs = EUROPEAN_GIANTS;
+      leagueClubs = BUNDESLIGA_CLUBS;
     }
   }
 

@@ -291,14 +291,19 @@ export default function PlayerModal({ isOpen, onClose, onSavePlayer, playerToEdi
               <select
                 value={contract}
                 onChange={(e) => setContract(e.target.value)}
-                className="w-full bg-[#162234] border border-[#25364f] rounded-xl px-3 py-2 text-white font-medium focus:outline-none focus:border-[#00ff87]"
+                className="w-full bg-[#162234] border border-[#25364f] rounded-xl px-3 py-2 text-amber-300 font-bold focus:outline-none focus:border-[#00ff87]"
               >
                 {!CONTRACT_YEAR_OPTIONS.includes(contract) && (
                   <option value={contract}>{contract}</option>
                 )}
-                {CONTRACT_YEAR_OPTIONS.map((y, i) => (
-                  <option key={i} value={y}>{y}</option>
-                ))}
+                {CONTRACT_YEAR_OPTIONS.map((y, i) => {
+                  const diff = Math.max(0, parseInt(y, 10) - 2026);
+                  return (
+                    <option key={i} value={y}>
+                      Hasta {y} ({diff} {diff === 1 ? 'año' : 'años'} restantes)
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>

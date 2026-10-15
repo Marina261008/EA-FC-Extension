@@ -8,13 +8,20 @@ export const COMPETITION_OPTIONS = [
   'Serie A',
   'Bundesliga',
   'Ligue 1',
+  'Liga Profesional Argentina',
+  'Copa de la Liga Argentina',
+  'Copa Argentina',
+  'CONMEBOL Libertadores',
+  'CONMEBOL Sudamericana',
   'UEFA Champions League',
   'UEFA Europa League',
   'UEFA Conference League',
   'Copa del Rey',
   'FA Cup',
   'Carabao Cup',
+  'DFB-Pokal',
   'Coppa Italia',
+  'Coupe de France',
   'Supercopa de España',
   'Supercopa de Europa',
   'Amistoso de Pretemporada'
@@ -139,7 +146,10 @@ export const CONTRACT_YEAR_OPTIONS = [
   '2029',
   '2030',
   '2031',
-  '2032'
+  '2032',
+  '2033',
+  '2034',
+  '2035'
 ];
 
 export const WAGE_OPTIONS = [

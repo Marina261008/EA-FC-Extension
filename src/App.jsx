@@ -47,7 +47,8 @@ import {
   createLineupPost,
   createGoalPost,
   createYouthPost,
-  createTrophyPost
+  createTrophyPost,
+  createRenewalPost
 } from './postGenerator';
 
 import { 
@@ -93,7 +94,13 @@ export default function App() {
   const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState(null);
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
+  const [newPostModalMode, setNewPostModalMode] = useState('lineup');
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
+
+  const handleOpenNewPostModal = (mode = 'lineup') => {
+    setNewPostModalMode(mode);
+    setIsNewPostModalOpen(true);
+  };
 
   // Active career & season resolution
   const activeCareer = careers.find(c => c.id === activeCareerId) || careers[0];
@@ -607,30 +614,107 @@ export default function App() {
   };
 
   // SQUAD HANDLERS
-  const handleSavePlayer = (playerData) => {
-    const updated = careers.map(c => {
+  const handleRenewPlayer = (player, { renewalYear, wage, clause, autoPost = true, bgImage } = {}) => {
+    const updatedContract = String(renewalYear);
+    const updatedWage = wage || player.wage;
+    const numVal = parseFloat(String(player.value || '').replace(/[^0-9.]/g, '')) || 25;
+    const updatedClause = clause || player.clause || `${Math.round(numVal * 1.6)} M €`;
+
+    const updatedPlayerData = {
+      ...player,
+      contract: updatedContract,
+      wage: updatedWage,
+      clause: updatedClause
+    };
+
+    let newPost = null;
+    if (autoPost) {
+      newPost = createRenewalPost(
+        updatedPlayerData,
+        activeCareer.manager.club,
+        activeCareer.manager.clubLogo,
+        updatedContract,
+        updatedClause,
+        activeCareer.manager.name,
+        activeCareer.manager.currentDate || '12 oct 2026',
+        { bgImage }
+      );
+    }
+
+    const updatedCareers = careers.map(c => {
       if (c.id === activeCareer.id) {
+        const updatedSeasons = c.seasons.map(s => {
+          if (s.id === activeSeason.id) {
+            const updatedSquad = (s.squad || []).map(p => p.id === player.id ? updatedPlayerData : p);
+            return { ...s, squad: updatedSquad };
+          }
+          return s;
+        });
+
+        const updatedPosts = newPost ? [newPost, ...(c.posts || [])] : (c.posts || []);
+
         return {
           ...c,
-          seasons: c.seasons.map(s => {
-            if (s.id === activeSeason.id) {
-              const existingIndex = s.squad.findIndex(p => p.id === playerData.id);
-              let updatedSquad;
-              if (existingIndex >= 0) {
-                updatedSquad = [...s.squad];
-                updatedSquad[existingIndex] = playerData;
-              } else {
-                updatedSquad = [...s.squad, playerData];
-              }
-              return { ...s, squad: updatedSquad };
+          updatedAt: new Date().toISOString(),
+          seasons: updatedSeasons,
+          posts: updatedPosts
+        };
+      }
+      return c;
+    });
+
+    setCareers(updatedCareers);
+    saveCareers(updatedCareers);
+  };
+
+  const handleSavePlayer = (playerData) => {
+    let renewalPost = null;
+    // Check if contract was extended
+    const existingPlayer = activeSeason.squad?.find(p => p.id === playerData.id);
+    if (existingPlayer && playerData.contract && parseInt(playerData.contract, 10) > parseInt(existingPlayer.contract || '2026', 10)) {
+      const numVal = parseFloat(String(playerData.value || '').replace(/[^0-9.]/g, '')) || 25;
+      const clause = playerData.clause || `${Math.round(numVal * 1.6)} M €`;
+      renewalPost = createRenewalPost(
+        playerData,
+        activeCareer.manager.club,
+        activeCareer.manager.clubLogo,
+        playerData.contract,
+        clause,
+        activeCareer.manager.name,
+        activeCareer.manager.currentDate || '12 oct 2026'
+      );
+    }
+
+    const updated = careers.map(c => {
+      if (c.id === activeCareer.id) {
+        const updatedSeasons = c.seasons.map(s => {
+          if (s.id === activeSeason.id) {
+            const existingIndex = s.squad.findIndex(p => p.id === playerData.id);
+            let updatedSquad;
+            if (existingIndex >= 0) {
+              updatedSquad = [...s.squad];
+              updatedSquad[existingIndex] = playerData;
+            } else {
+              updatedSquad = [...s.squad, playerData];
             }
-            return s;
-          })
+            return { ...s, squad: updatedSquad };
+          }
+          return s;
+        });
+
+        const updatedPosts = renewalPost ? [renewalPost, ...(c.posts || [])] : (c.posts || []);
+
+        return {
+          ...c,
+          updatedAt: new Date().toISOString(),
+          seasons: updatedSeasons,
+          posts: updatedPosts
         };
       }
       return c;
     });
     setCareers(updated);
+    saveCareers(updated);
   };
 
   const handleDeletePlayer = (playerId) => {
@@ -1434,10 +1518,13 @@ export default function App() {
                 <SquadTab
                   season={activeSeason}
                   clubName={activeCareer.manager.club}
+                  clubLogo={activeCareer.manager.clubLogo}
+                  manager={activeCareer.manager}
                   onOpenPlayerModal={() => { setPlayerToEdit(null); setIsPlayerModalOpen(true); }}
                   onEditPlayer={(p) => { setPlayerToEdit(p); setIsPlayerModalOpen(true); }}
                   onDeletePlayer={handleDeletePlayer}
                   onResetToRealSquad={handleResetToRealSquad}
+                  onRenewPlayer={handleRenewPlayer}
                 />
               )}
 
@@ -1510,7 +1597,7 @@ export default function App() {
               setIsEditPostModalOpen(true);
             }}
             onReactPost={handleReactPost}
-            onOpenNewPostModal={() => setIsNewPostModalOpen(true)}
+            onOpenNewPostModal={handleOpenNewPostModal}
             creatorProfile={creatorProfile}
             onUpdateCreatorProfile={handleUpdateCreatorProfile}
             onUpdatePost={handleSaveEditedPost}
@@ -1635,6 +1722,7 @@ export default function App() {
         managerName={activeCareer.manager.name}
         league={activeCareer.manager.league}
         squad={activeSeason.squad || []}
+        initialMode={newPostModalMode}
       />
 
       {/* Floating Míster IA button */}

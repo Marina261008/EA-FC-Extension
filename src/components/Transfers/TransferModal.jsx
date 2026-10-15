@@ -7,9 +7,10 @@ import {
   PREMIER_LEAGUE_CLUBS,
   SERIE_A_CLUBS,
   BUNDESLIGA_CLUBS,
+  LIGUE1_CLUBS,
+  ARGENTINA_CLUBS,
   MLS_CLUBS,
   SAUDI_CLUBS,
-  EUROPEAN_GIANTS,
   getClubLogo, 
   PLAYER_FACE_PRESETS,
   searchDatabasePlayers,
@@ -478,6 +479,16 @@ export default function TransferModal({
                         <option key={c.id} value={c.name}>{c.name}</option>
                       ))}
                     </optgroup>
+                    <optgroup label="🇫🇷 LIGUE 1">
+                      {LIGUE1_CLUBS.map((c) => (
+                        <option key={c.id} value={c.name}>{c.name}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="🇦🇷 LIGA PROFESIONAL ARGENTINA">
+                      {ARGENTINA_CLUBS.map((c) => (
+                        <option key={c.id} value={c.name}>{c.name}</option>
+                      ))}
+                    </optgroup>
                     <optgroup label="🇺🇸 MLS (EE.UU.)">
                       {MLS_CLUBS.map((c) => (
                         <option key={c.id} value={c.name}>{c.name}</option>
@@ -485,11 +496,6 @@ export default function TransferModal({
                     </optgroup>
                     <optgroup label="🇸🇦 SAUDI PRO LEAGUE">
                       {SAUDI_CLUBS.map((c) => (
-                        <option key={c.id} value={c.name}>{c.name}</option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="🌍 RESTO DE EUROPA / MUNDO">
-                      {EUROPEAN_GIANTS.map((c) => (
                         <option key={c.id} value={c.name}>{c.name}</option>
                       ))}
                     </optgroup>

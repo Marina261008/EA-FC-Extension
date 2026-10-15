@@ -35,7 +35,8 @@ import {
   SEGUNDA_CLUBS, 
   PREMIER_LEAGUE_CLUBS, 
   SERIE_A_CLUBS, 
-  EUROPEAN_GIANTS, 
+  BUNDESLIGA_CLUBS,
+  ARGENTINA_CLUBS, 
   getClubLogo, 
   getClubTheme,
   getOpponentsForContext
@@ -52,12 +53,19 @@ export default function NewPostModal({
   clubLogo = '',
   managerName = 'Entrenador',
   league = 'LALIGA EA SPORTS',
-  squad = [] 
+  squad = [],
+  initialMode = 'lineup'
 }) {
   if (!isOpen) return null;
 
-  // Active top-level mode: 'standard' (Comunicado normal) vs 'lineup' (11 Inicial Oficial)
-  const [modalMode, setModalMode] = useState('lineup'); // default to lineup for user request!
+  // Active top-level mode: 'standard' (Comunicado normal) vs 'lineup' (11 Inicial Oficial) vs 'renewal' (Renovación de Jugador)
+  const [modalMode, setModalMode] = useState(initialMode || 'lineup');
+
+  useEffect(() => {
+    if (isOpen && initialMode) {
+      setModalMode(initialMode);
+    }
+  }, [isOpen, initialMode]);
 
   // --- STANDARD COMUNICADO STATE ---
   const [text, setText] = useState(`¡Nueva actualización de la plantilla! ⚽\n\nTrabajando al máximo nivel para el próximo compromiso de ${league}.`);
@@ -120,7 +128,8 @@ export default function NewPostModal({
     if (p.clause) {
       setRenewalClause(p.clause);
     } else if (p.value) {
-      setRenewalClause(`${p.value * 2} €`);
+      const numVal = parseFloat(String(p.value).replace(/[^0-9.]/g, '')) || 25;
+      setRenewalClause(`${Math.round(numVal * 1.6)} M €`);
     }
     setRenewalText(
       `✍️👕 ¡OFICIAL | ${p.name.toUpperCase()} RENUEVA HASTA ${renewalYear}! 🤝💛\n\nEl ${clubName} y el futbolista han alcanzado un acuerdo oficial para la ampliación y blindaje de su contrato.\n\nUna pieza clave en el esquema del míster ${managerName} seguirá defendiendo nuestro escudo y haciendo vibrar a la afición. ¡Enhorabuena, crack!`

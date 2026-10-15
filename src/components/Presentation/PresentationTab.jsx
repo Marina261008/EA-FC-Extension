@@ -8,7 +8,8 @@ import {
   ArrowUp,
   Sparkles,
   Trophy,
-  Send
+  Send,
+  Award
 } from 'lucide-react';
 import ClubPostCard from '../Feed/ClubPostCard';
 
@@ -189,16 +190,24 @@ export default function PresentationTab({
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
-              onClick={onOpenNewPostModal}
+              onClick={() => onOpenNewPostModal && onOpenNewPostModal('renewal')}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 hover:from-amber-300 hover:to-yellow-200 text-black font-black text-xs px-3.5 py-1.5 rounded-xl shadow-md shadow-amber-400/25 transition-all active:scale-95"
+              title="Publicar renovación de jugador con su camiseta oficial"
+            >
+              <Award className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>✍️👕 Renovar Jugador</span>
+            </button>
+            <button
+              onClick={() => onOpenNewPostModal && onOpenNewPostModal('lineup')}
               className="flex items-center gap-1.5 bg-[#00ff87] hover:bg-[#00e676] text-[#090d14] font-black text-xs px-3.5 py-1.5 rounded-xl shadow-md shadow-[#00ff87]/20 transition-all active:scale-95"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>📋 Publicar 11 Inicial</span>
+              <span>📋 11 Inicial</span>
             </button>
             <button
-              onClick={onOpenNewPostModal}
+              onClick={() => onOpenNewPostModal && onOpenNewPostModal('standard')}
               className="hidden sm:flex items-center gap-1.5 bg-[#172336] hover:bg-[#202e47] text-slate-200 font-bold text-xs px-3 py-1.5 rounded-xl border border-[#263753] transition-all"
             >
               <span>📢 Comunicado</span>
