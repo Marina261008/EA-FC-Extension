@@ -190,11 +190,18 @@ export default function TransfersTab({
                       )}
                       <div>
                         <p className="font-bold text-white leading-tight">{player.name}</p>
-                        <span className={`text-[10px] font-bold px-1 rounded ${
-                          activeTab === 'in' ? 'text-emerald-400 bg-emerald-950/60' : 'text-amber-400 bg-amber-950/60'
-                        }`}>
-                          {player.position}
-                        </span>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[10px] font-bold px-1 rounded ${
+                            activeTab === 'in' ? 'text-emerald-400 bg-emerald-950/60' : 'text-amber-400 bg-amber-950/60'
+                          }`}>
+                            {player.position}
+                          </span>
+                          {activeTab === 'in' && player.contract && (
+                            <span className="text-[10px] text-amber-300 font-bold bg-amber-950/40 border border-amber-500/30 px-1.5 py-0.2 rounded">
+                              Hasta {player.contract}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </td>

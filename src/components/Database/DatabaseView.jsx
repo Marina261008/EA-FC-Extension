@@ -21,8 +21,10 @@ import {
   Edit3,
   Trophy,
   Globe,
-  Award
+  Award,
+  Calendar
 } from 'lucide-react';
+import { CONTRACT_YEAR_OPTIONS } from '../../data/dropdownPresets';
 import { 
   DATABASE_PLAYERS, 
   ALL_PRESET_CLUBS, 
@@ -759,11 +761,13 @@ export default function DatabaseView({ activeCareer, onSignPlayer }) {
 }
 
 function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
+  const currentYear = parseInt(activeCareer?.manager?.currentDate?.match(/\d{4}/)?.[0] || '2025', 10);
   const [selectedClubFrom, setSelectedClubFrom] = useState(player.teamName || '');
   const [isCustomClub, setIsCustomClub] = useState(false);
   const [customClubName, setCustomClubName] = useState('');
   const [cost, setCost] = useState(player.val || Math.round((player.ovr || 75) * 0.4));
   const [wage, setWage] = useState(`${((player.wage || 35) * 1000).toLocaleString('es-ES')} €/sem`);
+  const [contractYear, setContractYear] = useState(String(currentYear + 4));
 
   const effectiveClubName = isCustomClub 
     ? (customClubName.trim() || 'Club Desconocido') 
@@ -780,7 +784,8 @@ function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
       originClub: effectiveClubName.trim(),
       originLogo: effectiveClubLogo,
       cost: Number(cost),
-      wage: wage
+      wage: wage,
+      contract: contractYear
     });
   };
 
@@ -984,6 +989,59 @@ function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
                 placeholder="Ej. 35.000 €/sem"
                 className="w-full bg-[#162234] border border-[#283b54] rounded-xl px-3 py-2 text-white font-medium text-sm focus:outline-none focus:border-[#00ff87]"
               />
+            </div>
+          </div>
+
+          {/* Duración del Contrato */}
+          <div className="bg-[#0e1624] p-3 rounded-xl border border-[#00ff87]/30 space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-[#00ff87]" />
+                <span>¿Hasta qué año ficha? / Duración de Contrato</span>
+              </label>
+              <span className="text-[11px] font-black text-[#00ff87] bg-[#00ff87]/10 px-2 py-0.5 rounded border border-[#00ff87]/30">
+                Hasta junio de {contractYear} ({Math.max(1, parseInt(contractYear, 10) - currentYear)} {Math.max(1, parseInt(contractYear, 10) - currentYear) === 1 ? 'temporada' : 'temporadas'})
+              </span>
+            </div>
+
+            <select
+              value={contractYear}
+              onChange={(e) => setContractYear(e.target.value)}
+              className="w-full bg-[#162234] border border-[#283b54] rounded-xl px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-[#00ff87]"
+            >
+              {!CONTRACT_YEAR_OPTIONS.includes(contractYear) && (
+                <option value={contractYear}>{contractYear}</option>
+              )}
+              {CONTRACT_YEAR_OPTIONS.map((year) => {
+                const diff = Math.max(0, parseInt(year, 10) - currentYear);
+                return (
+                  <option key={year} value={year}>
+                    Firma hasta {year} ({diff > 0 ? `${diff} ${diff === 1 ? 'año' : 'años'} de contrato` : 'Fin de temporada'})
+                  </option>
+                );
+              })}
+            </select>
+
+            <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+              <span className="text-[10px] text-slate-400 font-semibold mr-1">Opciones rápidas:</span>
+              {[1, 2, 3, 4, 5].map((numYears) => {
+                const targetYear = String(currentYear + numYears);
+                const isSelected = contractYear === targetYear;
+                return (
+                  <button
+                    key={numYears}
+                    type="button"
+                    onClick={() => setContractYear(targetYear)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                      isSelected 
+                        ? 'bg-[#00ff87] text-[#090d14] shadow shadow-[#00ff87]/20 scale-105' 
+                        : 'bg-[#162234] text-slate-300 hover:text-white hover:bg-[#202e42]'
+                    }`}
+                  >
+                    +{numYears} {numYears === 1 ? 'año' : 'años'} ({targetYear})
+                  </button>
+                );
+              })}
             </div>
           </div>
 

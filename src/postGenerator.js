@@ -196,21 +196,22 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
     }
 
     case 'transfer_in': {
+      const contractText = context.contract ? `hasta ${context.contract}` : 'por varias temporadas';
       const press = [
-        makeComment(personas.marca, `🔴 DETALLES DE LA OPERACIÓN | Fuentes de MARCA confirman que el contrato de ${name} incluye una cláusula de rescisión de más de 80M€. La llamada personal de ${managerName} fue decisiva para superar la puja de la Premier.`),
-        makeComment(personas.relevo, `💣 RUMOR MERCATO | La llegada de ${name} no cierra la ventana para el ${clubName}: la secretaría técnica acelera contactos con un extremo desequilibrante para apuntalar el ataque.`),
-        makeComment(personas.fabrizio, `🚨 HERE WE GO CONFIRMADO | ${name} ya es jugador oficial del ${clubName}. Documentos firmados, acuerdo sellado y luz verde tras semanas de intensas negociaciones.`),
-        makeComment(personas.dazn, `📺 Análisis DAZN: Con ${name}, ${managerName} gana una pieza diferencial en tres cuartos de campo. Su capacidad para romper líneas entre centrales será clave esta temporada.`),
-        makeComment(personas.as, `📰 INFORME AS | El fichaje de ${name} genera un impacto inmediato en el vestuario. Varios pesos pesados ya le han dado la bienvenida en el grupo de mensajería del equipo.`),
-        makeComment(personas.chiringuito, `🔥 ¡BOMBAZO EN EL MERCADO! Exclusiva en el plató: ${name} ya ha conocido la ciudad deportiva y mañana se pondrá a las órdenes de ${managerName}.`)
+        makeComment(personas.marca, `🔴 DETALLES DE LA OPERACIÓN | Fuentes de MARCA confirman que ${name} firma contrato ${contractText} con una cláusula de rescisión de más de 80M€. La llamada personal de ${managerName} fue decisiva para superar la puja de la Premier.`),
+        makeComment(personas.relevo, `💣 RUMOR MERCATO | Blindaje contractual: ${name} queda vinculado ${contractText} con el ${clubName}. La secretaría técnica celebra el acuerdo y acelera contactos por un extremo desequilibrante.`),
+        makeComment(personas.fabrizio, `🚨 HERE WE GO CONFIRMADO | ${name} ya es jugador oficial del ${clubName}. Firma contrato ${contractText}. Documentos firmados, acuerdo sellado y luz verde definitiva.`),
+        makeComment(personas.dazn, `📺 Análisis DAZN: Con ${name} atado ${contractText}, ${managerName} gana una pieza diferencial en tres cuartos de campo. Su capacidad para romper líneas entre centrales será clave esta temporada.`),
+        makeComment(personas.as, `📰 INFORME AS | El fichaje de ${name} (${contractText}) genera un impacto inmediato en el vestuario. Varios pesos pesados ya le han dado la bienvenida en el grupo de mensajería del equipo.`),
+        makeComment(personas.chiringuito, `🔥 ¡BOMBAZO EN EL MERCADO! Exclusiva en el plató: ${name} firma ${contractText}, ya ha conocido la ciudad deportiva y mañana se pondrá a las órdenes de ${managerName}.`)
       ];
       const socios = [
-        makeComment(personas.socio, `Bienvenido a nuestro club. A sudar y defender esta camiseta con orgullo y entrega cada jornada 🤝`),
-        makeComment(personas.socio2, `Operación impecable de la dirección deportiva. Perfil idóneo para el estilo que pide ${managerName}. Ahora a arroparle desde la grada.`),
-        makeComment(personas.veterano, `Un jugador de equipo, trabajador y con gol. Si las lesiones le respetan, va a ser uno de los ídolos de la afición.`)
+        makeComment(personas.socio, `Bienvenido a nuestro club. Contrato ${contractText} para un jugador con un futuro enorme. A sudar y defender esta camiseta con orgullo y entrega cada jornada 🤝`),
+        makeComment(personas.socio2, `Operación impecable de la dirección deportiva asegurando a ${name} ${contractText}. Perfil idóneo para el estilo que pide ${managerName}. Ahora a arroparle desde la grada.`),
+        makeComment(personas.veterano, `Un jugador de equipo, trabajador y con gol. Si las lesiones le respetan, va a ser uno de los ídolos de la afición durante estos años.`)
       ];
       const ultras = [
-        makeComment(personas.ultra, `¡¡VAYA BOMBAZO DE FICHAJE!! ${name} tiene una calidad descomunal. Titular indiscutible desde ya 🔥🔥💣`),
+        makeComment(personas.ultra, `¡¡VAYA BOMBAZO DE FICHAJE!! ${name} atado ${contractText}. Tiene una calidad descomunal, titular indiscutible desde ya 🔥🔥💣`),
         makeComment(personas.ultra2, `¡Bienvenido al infierno de nuestro estadio! A dejarse la piel por este escudo y a romperla en cada jugada ⚔️🔥`),
         makeComment(personas.fan2, `¡FICHAJAZO DE ÉPOCA! Este año sí que vamos con todo a pelear por todos los títulos. ¡¡A por ellos!! 🔴⚪`)
       ];
@@ -500,6 +501,7 @@ export function createSigningPost(transfer, club, clubLogoParam, date = '1 jul 2
   const clubTag = `#${clubName.replace(/[^a-zA-Z0-9]/g, '')}`;
   const firstName = transfer.name.split(' ')[0];
   const originClub = transfer.clubFrom || 'mercado de fichajes';
+  const contractYear = transfer.contract || '2029';
 
   return {
     id: `post-sign-${Date.now()}`,
@@ -511,23 +513,24 @@ export function createSigningPost(transfer, club, clubLogoParam, date = '1 jul 2
       avatar: userClubLogo
     },
     date: transfer.date || date,
-    text: `✍️ Te damos la bienvenida, ${firstName}. 💛\n\nEl ${transfer.position === 'POR' ? 'guardameta' : transfer.position.includes('D') ? 'defensa' : 'futbolista'} llega procedente del ${originClub}. ¡Muchos éxitos defendiendo nuestro escudo!`,
+    text: `✍️ Te damos la bienvenida, ${firstName}. 💛\n\nEl ${transfer.position === 'POR' ? 'guardameta' : transfer.position.includes('D') ? 'defensa' : 'futbolista'} llega procedente del ${originClub} y firma contrato oficial hasta junio de ${contractYear}. ¡Muchos éxitos defendiendo nuestro escudo!`,
     hashtags: [clubTag, '#FichajeOficial', `#Bienvenido${transfer.name.split(' ').pop()}`],
     graphic: {
       tag: 'Nuevo fichaje',
       title: `¡Bienvenido, ${transfer.name}!`,
-      subtitle: `${transfer.position} · Media: ${transfer.rating} OVR · Procedente del ${originClub}`,
+      subtitle: `${transfer.position} · Media: ${transfer.rating} OVR · Contrato hasta ${contractYear} · Del ${originClub}`,
       image: transfer.photo || "./default_player.svg",
       clubLogo: userClubLogo,
       rating: transfer.rating,
       position: transfer.position,
       cost: transfer.cost,
+      contractYear: contractYear,
       countryFlag: transfer.flag || '🏳️',
       theme: 'emerald'
     },
     likes: 2450,
     commentsCount: 134,
-    comments: generateContextualComments('transfer_in', clubName, 'Mánager', { name: transfer.name }),
+    comments: generateContextualComments('transfer_in', clubName, 'Mánager', { name: transfer.name, contract: contractYear }),
     reactions: ['🔥', '👏', '😍']
   };
 }

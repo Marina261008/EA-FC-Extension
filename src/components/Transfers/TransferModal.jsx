@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowDownLeft, ArrowUpRight, DollarSign, Camera, Edit3, Shield } from 'lucide-react';
+import { X, ArrowDownLeft, ArrowUpRight, DollarSign, Camera, Edit3, Shield, Calendar } from 'lucide-react';
 import { 
   ALL_PRESET_CLUBS, 
   LALIGA_CLUBS,
@@ -21,7 +21,8 @@ import {
   NATIONALITY_OPTIONS,
   TRANSFER_COST_OPTIONS,
   TRANSFER_DATE_OPTIONS,
-  WAGE_OPTIONS
+  WAGE_OPTIONS,
+  CONTRACT_YEAR_OPTIONS
 } from '../../data/dropdownPresets';
 import { 
   parseFormattedNumber, 
@@ -35,10 +36,12 @@ export default function TransferModal({
   onSaveTransfer, 
   defaultType = 'in',
   squad = [],
-  clubName: userClub = ''
+  clubName: userClub = '',
+  currentDate = '15 jul 2025'
 }) {
   if (!isOpen) return null;
 
+  const currentYear = parseInt(currentDate?.match(/\d{4}/)?.[0] || '2025', 10);
   const [type, setType] = useState(defaultType); // 'in' (Fichaje) | 'out' (Venta)
   const [name, setName] = useState('');
   const [position, setPosition] = useState('MC');
@@ -52,6 +55,7 @@ export default function TransferModal({
   const [cost, setCost] = useState('15 M €');
   const [costNumber, setCostNumber] = useState(15000000);
   const [wage, setWage] = useState('35.000 €/sem');
+  const [contractYear, setContractYear] = useState(String(currentYear + 4));
   const [date, setDate] = useState('15 jul 2025');
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -146,6 +150,7 @@ export default function TransferModal({
       transferData.originClubLogo = logo;
       transferData.clubLogo = logo;
       transferData.wage = wage;
+      transferData.contract = contractYear;
     } else {
       transferData.clubTo = clubName;
       transferData.destClubLogo = logo;
@@ -567,6 +572,65 @@ export default function TransferModal({
               </select>
             </div>
           </div>
+
+          {/* Duración del Contrato (solo para Fichajes / Altas) */}
+          {type === 'in' && (
+            <div className="bg-[#141d2c] p-3.5 rounded-xl border border-[#00ff87]/30 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4 text-[#00ff87]" />
+                  <span>Duración del Contrato / ¿Hasta qué año ficha?</span>
+                  <span className="text-[10px] text-[#00ff87] font-semibold bg-[#033b24] px-1.5 py-0.5 rounded border border-[#00ff87]/30">
+                    Obligatorio
+                  </span>
+                </label>
+                <span className="text-xs font-black text-[#00ff87] bg-[#00ff87]/10 px-2 py-0.5 rounded-md border border-[#00ff87]/30">
+                  Hasta junio de {contractYear} ({Math.max(1, parseInt(contractYear, 10) - currentYear)} {Math.max(1, parseInt(contractYear, 10) - currentYear) === 1 ? 'temporada' : 'temporadas'})
+                </span>
+              </div>
+
+              <select
+                value={contractYear}
+                onChange={(e) => setContractYear(e.target.value)}
+                className="w-full bg-[#162234] border border-[#25364f] rounded-xl px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-[#00ff87]"
+              >
+                {!CONTRACT_YEAR_OPTIONS.includes(contractYear) && (
+                  <option value={contractYear}>{contractYear}</option>
+                )}
+                {CONTRACT_YEAR_OPTIONS.map((year) => {
+                  const diff = Math.max(0, parseInt(year, 10) - currentYear);
+                  return (
+                    <option key={year} value={year}>
+                      Firma hasta {year} ({diff > 0 ? `${diff} ${diff === 1 ? 'año' : 'años'} de contrato` : 'Fin de temporada'})
+                    </option>
+                  );
+                })}
+              </select>
+
+              {/* Botones rápidos de años de contrato */}
+              <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                <span className="text-[10px] text-slate-400 font-semibold mr-1">Opciones rápidas:</span>
+                {[1, 2, 3, 4, 5].map((numYears) => {
+                  const targetYear = String(currentYear + numYears);
+                  const isSelected = contractYear === targetYear;
+                  return (
+                    <button
+                      key={numYears}
+                      type="button"
+                      onClick={() => setContractYear(targetYear)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                        isSelected 
+                          ? 'bg-[#00ff87] text-[#090d14] shadow-md shadow-[#00ff87]/20 scale-105' 
+                          : 'bg-[#1b2638] text-slate-300 hover:text-white hover:bg-[#25364f]'
+                      }`}
+                    >
+                      +{numYears} {numYears === 1 ? 'año' : 'años'} ({targetYear})
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1c273a]">
             <button

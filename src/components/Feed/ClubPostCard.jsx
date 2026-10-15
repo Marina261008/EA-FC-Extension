@@ -480,6 +480,13 @@ export default function ClubPostCard({
                     {graphic.subtitle}
                   </p>
                 )}
+                {graphic.contractYear && (
+                  <div className="pt-1">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#00ff87] bg-[#00ff87]/10 border border-[#00ff87]/30 px-2.5 py-0.5 rounded-full shadow-sm">
+                      🔒 Contrato hasta junio de {graphic.contractYear}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           )}

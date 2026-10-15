@@ -816,6 +816,12 @@ export default function App() {
 
   // TRANSFER HANDLERS
   const handleSaveTransfer = (transferData, type) => {
+    const currentYear = parseInt(activeCareer?.manager?.currentDate?.match(/\d{4}/)?.[0] || '2025', 10);
+    const contractExpYear = transferData.contract || String(currentYear + 4);
+    const enrichedTransferData = type === 'in' 
+      ? { ...transferData, contract: contractExpYear } 
+      : transferData;
+
     const updated = careers.map(c => {
       if (c.id === activeCareer.id) {
         return {
@@ -839,7 +845,7 @@ export default function App() {
                   potential: transferData.rating + 4,
                   value: transferData.cost,
                   wage: transferData.wage || '35.000 €/sem',
-                  contract: '2029',
+                  contract: contractExpYear,
                   matches: 0,
                   goals: 0,
                   assists: 0,
@@ -852,7 +858,7 @@ export default function App() {
                 };
                 return {
                   ...s,
-                  transfersIn: [transferData, ...(s.transfersIn || [])],
+                  transfersIn: [enrichedTransferData, ...(s.transfersIn || [])],
                   squad: [...s.squad, newPlayer]
                 };
               } else {
@@ -869,7 +875,7 @@ export default function App() {
           posts: [
             ...(type === 'in'
               ? [
-                  createSigningPost(transferData, c.manager.club, c.manager.clubLogo, transferData.date),
+                  createSigningPost(enrichedTransferData, c.manager.club, c.manager.clubLogo, transferData.date),
                   createOriginFarewellPost(transferData, c.manager.club, transferData.date)
                 ]
               : [
@@ -936,6 +942,7 @@ export default function App() {
   };
 
   const handlePromoteYouth = (prospect) => {
+    const currentYear = parseInt(activeCareer?.manager?.currentDate?.match(/\d{4}/)?.[0] || '2025', 10);
     const promotedPlayer = {
       id: `sq-${Date.now()}`,
       name: prospect.name,
@@ -951,7 +958,7 @@ export default function App() {
       potential: prospect.potentialMax,
       value: '4,5 M €',
       wage: '12.000 €/sem',
-      contract: '2029',
+      contract: String(currentYear + 4),
       matches: 0,
       goals: 0,
       assists: 0,
@@ -1335,7 +1342,9 @@ export default function App() {
 
   // SIGN PLAYER FROM DATABASE (supports custom origin club, fee & wage for multi-season realism)
   const handleSignPlayerFromDatabase = (player, overrides = {}) => {
-    const squadPlayer = convertRosterPlayerToSquad(player);
+    const currentYear = parseInt(activeCareer.manager.currentDate?.match(/\d{4}/)?.[0] || '2025', 10);
+    const contractYear = overrides.contract || String(currentYear + 4);
+    const baseSquad = convertRosterPlayerToSquad(player);
     const originClub = overrides.originClub || player.customClubFrom || player.teamName;
     const originLogo = overrides.originLogo || player.customClubLogo || getClubLogo(originClub) || player.teamLogo;
 
@@ -1346,6 +1355,13 @@ export default function App() {
 
     const wageStr = overrides.wage || player.customWage || `${((player.wage || 35) * 1000).toLocaleString('es-ES')} €/sem`;
     const dateStr = overrides.date || activeCareer.manager.currentDate || activeCareer.manager.startDate;
+
+    const squadPlayer = {
+      ...baseSquad,
+      contract: contractYear,
+      value: overrides.cost !== undefined ? `${costMil} M €` : baseSquad.value,
+      wage: wageStr
+    };
 
     const newTransfer = {
       id: `tr-db-${Date.now()}`,
@@ -1359,6 +1375,7 @@ export default function App() {
       cost: `${costMil} M €`,
       costNumber: costNum,
       wage: wageStr,
+      contract: contractYear,
       clubFrom: originClub,
       clubLogo: originLogo,
       originClubLogo: originLogo,
@@ -1718,6 +1735,7 @@ export default function App() {
         defaultType={transferDefaultType}
         squad={activeSeason.squad || []}
         clubName={activeCareer.manager.club}
+        currentDate={activeCareer.manager.currentDate || activeCareer.manager.startDate || '15 jul 2025'}
       />
 
       <YouthModal
