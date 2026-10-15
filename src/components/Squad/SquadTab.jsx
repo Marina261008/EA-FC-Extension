@@ -433,7 +433,7 @@ function QuickRenewalModal({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-[#101724] border border-[#22314a] rounded-2xl max-w-3xl w-full p-5 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 my-6 max-h-[94vh] flex flex-col overflow-y-auto">
+      <div className="bg-[#101724] border border-[#22314a] rounded-2xl max-w-5xl w-full p-5 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 my-6 max-h-[94vh] flex flex-col overflow-y-auto">
         
         {/* Close Button */}
         <button
@@ -546,7 +546,7 @@ function QuickRenewalModal({
                 <span>Vista Previa: Camiseta Oficial de Espalda</span>
               </label>
 
-              <div className="scale-95 origin-top">
+              <div className="w-full">
                 <JerseyBackGraphic
                   playerName={player.name}
                   playerNumber={player.number || 10}
