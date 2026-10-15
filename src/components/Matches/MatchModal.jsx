@@ -39,10 +39,15 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   const initialOpponent = rivalsData.primaryClubs[0]?.name || rivalsData.allAvailable[0]?.name || 'Atlético de Madrid';
   const [opponent, setOpponent] = useState(initialOpponent);
 
+  const defaultAttacker = squad.find(p => ['DC', 'ST', 'CF', 'ED', 'EI', 'RW', 'LW', 'MCO', 'CAM'].includes(p.position)) || squad.find(p => p.position !== 'POR') || squad[0];
+  const defaultMid = squad.find(p => ['MC', 'MCD', 'MCO', 'CM', 'CDM', 'CAM', 'MD', 'MI'].includes(p.position)) || squad.find(p => p.position !== 'POR') || squad[0];
+  const defaultDef = squad.find(p => ['DFC', 'CB', 'LD', 'LI', 'RB', 'LB'].includes(p.position)) || squad.find(p => p.position !== 'POR') || squad[0];
+  const defaultMvp = squad.find(p => (p.rating || 0) >= 80 && p.position !== 'POR') || defaultAttacker || squad[0];
+
   const [ourScore, setOurScore] = useState(2);
   const [rivalScore, setRivalScore] = useState(1);
   const [stadium, setStadium] = useState('Estadio Principal');
-  const [mvp, setMvp] = useState(squad[0]?.name || '');
+  const [mvp, setMvp] = useState(defaultMvp?.name || '');
   const [shots, setShots] = useState('14 - 9');
   const [possession, setPossession] = useState('54% - 46%');
   const [notes, setNotes] = useState('');
@@ -73,9 +78,9 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   const [scorers, setScorers] = useState([
     { 
       team: 'us',
-      player: squad[11]?.name || squad[0]?.name || 'Hugo Duro', 
+      player: defaultAttacker?.name || 'Hugo Duro', 
       minute: "33'", 
-      assist: '',
+      assist: defaultMid?.name || '',
       type: 'Gol en Jugada'
     }
   ]);
@@ -83,8 +88,8 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   // Substitutions during match: reason is completely optional (defaults to '')
   const [substitutions, setSubstitutions] = useState([
     {
-      playerOut: squad[10]?.name || squad[0]?.name || '',
-      playerIn: squad[12]?.name || squad[1]?.name || '',
+      playerOut: defaultAttacker?.name || '',
+      playerIn: squad.find(p => p.status === 'Suplente' && p.position !== 'POR')?.name || squad[12]?.name || '',
       minute: "62'",
       reason: ''
     }
@@ -94,7 +99,7 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   const [cards, setCards] = useState([
     {
       team: 'us',
-      player: squad[4]?.name || squad[0]?.name || '',
+      player: defaultDef?.name || '',
       type: 'yellow',
       minute: "41'",
       reason: 'Falta táctica'
@@ -102,7 +107,7 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   ]);
 
   const addScorerRow = () => {
-    setScorers([...scorers, { team: 'us', player: squad[0]?.name || '', minute: "45'", assist: '', type: 'Gol en Jugada' }]);
+    setScorers([...scorers, { team: 'us', player: defaultAttacker?.name || '', minute: "45'", assist: '', type: 'Gol en Jugada' }]);
   };
 
   const removeScorerRow = (index) => {
@@ -118,7 +123,7 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   const addSubstitutionRow = () => {
     setSubstitutions([
       ...substitutions,
-      { playerOut: squad[0]?.name || '', playerIn: squad[1]?.name || '', minute: "60'", reason: '' }
+      { playerOut: defaultMid?.name || '', playerIn: squad.find(p => p.status === 'Suplente' && p.position !== 'POR')?.name || squad[1]?.name || '', minute: "60'", reason: '' }
     ]);
   };
 
@@ -135,7 +140,7 @@ export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], c
   const addCardRow = () => {
     setCards([
       ...cards,
-      { team: 'us', player: squad[0]?.name || '', type: 'yellow', minute: "55'", reason: 'Falta táctica' }
+      { team: 'us', player: defaultDef?.name || '', type: 'yellow', minute: "55'", reason: 'Falta táctica' }
     ]);
   };
 

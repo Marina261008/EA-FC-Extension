@@ -84,22 +84,25 @@ export function analyzeSquadAndRecommend(career, season, filterCategory = 'ALL')
   const medList = squad.filter(p => p.category === 'MED');
   const delList = squad.filter(p => p.category === 'DEL');
 
-  // Diagnostic logic
-  let weakCategory = 'DEF';
-  let weakReason = 'Falta fondo de armario defensivo y jerarquía en balones aéreos.';
+  // Diagnostic logic: outfield needs take priority unless user explicitly filters by POR or has 0 keepers
+  let weakCategory = 'DEL';
+  let weakReason = 'Añadir dinamismo, desborde y gol en los metros finales para dar un salto competitivo.';
 
-  if (delList.length < 3 || delList.every(p => p.rating < 81)) {
+  if (filterCategory && filterCategory !== 'ALL') {
+    weakCategory = filterCategory;
+    weakReason = `Búsqueda focalizada en reforzar la demarcación de ${filterCategory === 'DEL' ? 'delantera' : filterCategory === 'MED' ? 'centro del campo' : filterCategory === 'DEF' ? 'defensa' : 'portería'}.`;
+  } else if (delList.length < 3 || delList.every(p => (p.ovr || p.rating || 0) < 81)) {
     weakCategory = 'DEL';
-    weakReason = 'El equipo necesita mayor pegada ofensiva para desatascar encuentros cerrados.';
-  } else if (medList.length < 5 || medList.every(p => (p.ovr || p.rating) < 80)) {
+    weakReason = 'El equipo necesita mayor pegada ofensiva y desmarques al espacio para desatascar encuentros cerrados.';
+  } else if (medList.length < 5 || medList.every(p => (p.ovr || p.rating || 0) < 80)) {
     weakCategory = 'MED';
-    weakReason = 'La sala de máquinas necesita más fluidez en la distribución y contención física.';
+    weakReason = 'La sala de máquinas necesita más fluidez en la distribución, llegada y contención física.';
   } else if (defList.length < 6) {
     weakCategory = 'DEF';
-    weakReason = 'Poco relevo en la zaga central; una lesión comprometería la temporada.';
-  } else if (porList.length < 2 || (porList[0] && porList[0].age > 33)) {
+    weakReason = 'Fondo de armario defensivo corto; se requiere jerarquía y contundencia en los duelos.';
+  } else if (porList.length === 0) {
     weakCategory = 'POR';
-    weakReason = 'Conviene proyectar la portería del futuro con un relevo solvente.';
+    weakReason = 'Urgencia máxima: la plantilla no dispone de guardameta titular bajo palos.';
   }
 
   // Filter candidates from authentic database players (cannot scout own players or own club)
@@ -112,6 +115,8 @@ export function analyzeSquadAndRecommend(career, season, filterCategory = 'ALL')
     return !isOurPlayer && !isOurClub;
   });
 
+  const outfieldAvailable = available.filter(p => p.pos !== 'GK');
+
   // 1. Prioridad Táctica (Weak Spot)
   const weakCandidates = available.filter(p => {
     const isAffordable = (p.val || 25) * 1000000 <= budget * 1.1;
@@ -121,25 +126,25 @@ export function analyzeSquadAndRecommend(career, season, filterCategory = 'ALL')
     return (p.pos === 'GK') && isAffordable;
   }).sort((a, b) => (b.ovr || 0) - (a.ovr || 0));
 
-  const topPick = weakCandidates[0] || available[0];
+  const topPick = weakCandidates[0] || (weakCategory === 'POR' ? available.find(p => p.pos === 'GK') : outfieldAvailable[0]) || available[0];
 
-  // 2. Wonderkids Sub-21
-  const wonderkids = available
+  // 2. Wonderkids Sub-21 (Outfield only!)
+  const wonderkids = outfieldAvailable
     .filter(p => p.age <= 21 && (p.val || 20) * 1000000 <= budget)
     .sort((a, b) => ((b.ovr || 75) + (b.pac || 75)) - ((a.ovr || 75) + (a.pac || 75)));
-  const wonderkidPick = wonderkids[0] || available[1];
+  const wonderkidPick = wonderkids[0] || outfieldAvailable.find(p => p.age <= 22) || outfieldAvailable[1] || outfieldAvailable[0];
 
-  // 3. Gangas Calidad/Precio (< 18M € y >= 79 OVR)
-  const bargains = available
+  // 3. Gangas Calidad/Precio (< 20M € y >= 78 OVR, Outfield only!)
+  const bargains = outfieldAvailable
     .filter(p => (p.val || 15) <= 20 && (p.ovr || 75) >= 78 && ((p.val || 15) * 1000000) <= budget)
     .sort((a, b) => (b.ovr || 0) / (b.val || 1) - (a.ovr || 0) / (a.val || 1));
-  const bargainPick = bargains[0] || available[2];
+  const bargainPick = bargains[0] || outfieldAvailable.find(p => (p.val || 15) <= 25) || outfieldAvailable[2] || outfieldAvailable[0];
 
-  // 4. Estrella Consagrada (> 82 OVR)
-  const stars = available
+  // 4. Estrella Consagrada (> 81 OVR, Outfield only!)
+  const stars = outfieldAvailable
     .filter(p => (p.ovr || 75) >= 81 && (p.val || 35) * 1000000 <= budget * 1.3)
     .sort((a, b) => (b.ovr || 0) - (a.ovr || 0));
-  const starPick = stars[0] || available[3];
+  const starPick = stars[0] || outfieldAvailable.find(p => (p.ovr || 75) >= 80) || outfieldAvailable[3] || outfieldAvailable[0];
 
   // 5. Oportunidades por posición
   const posMap = {
@@ -268,7 +273,7 @@ export function analyzeYouthAcademy(squad, clubName) {
 
 // 3. MATCH PREDICTION & COUNTER-TACTICAL SCOUTING
 export function predictMatchAgainst(opponentName, userClub, season, personalityId = 'guardiola') {
-  const oppClub = ALL_PRESET_CLUBS.find(c => c.name.toLowerCase() === opponentName.toLowerCase()) || ALL_PRESET_CLUBS[0];
+  const oppClub = ALL_PRESET_CLUBS.find(c => c.name.toLowerCase() === (opponentName || '').toLowerCase()) || ALL_PRESET_CLUBS[0];
   const squad = season.squad || [];
   const coach = COACH_PERSONALITIES.find(cp => cp.id === personalityId) || COACH_PERSONALITIES[0];
 
@@ -281,42 +286,100 @@ export function predictMatchAgainst(opponentName, userClub, season, personalityI
   let drawProb = Math.round((100 - winProb) * 0.35);
   let lossProb = 100 - winProb - drawProb;
 
-  const dangerPlayer = oppClub.roster?.[0]?.name || "la delantera rival";
-  const weakSpot = oppRating > 82 
-    ? "Espalda de sus laterales cuando suben al ataque desordenados." 
-    : "Fragilidad en balones parados y pérdida de marcas en centros laterales.";
+  // Extract and normalize opponent roster
+  const oppRoster = (oppClub.roster || []).map(p => ({
+    ...p,
+    ovr: p.ovr || p.rating || 78,
+    photo: p.imageUrl || p.photo || getRealPlayerPhoto(p.name)
+  }));
 
-  // Tactical plans
+  // Separate positions: forwards, midfielders, defenders, goalkeepers
+  const oppForwards = oppRoster.filter(p => ['ST', 'CF', 'RW', 'LW', 'DC', 'ED', 'EI'].includes(p.pos));
+  const oppMidfielders = oppRoster.filter(p => ['CM', 'CDM', 'CAM', 'LM', 'RM', 'MC', 'MCD', 'MCO', 'MD', 'MI'].includes(p.pos));
+  const oppDefenders = oppRoster.filter(p => ['CB', 'LB', 'RB', 'LWB', 'RWB', 'DFC', 'LI', 'LD', 'CAD', 'CAI'].includes(p.pos));
+  const oppGoalkeepers = oppRoster.filter(p => p.pos === 'GK' || p.pos === 'POR');
+
+  // 1. STAR ATTACKER (STRICTLY OUTFIELD - NEVER A GOALKEEPER!)
+  const starAttacker = [...oppForwards, ...oppMidfielders.filter(p => ['CAM', 'MCO', 'LM', 'RM', 'MD', 'MI'].includes(p.pos))]
+    .sort((a, b) => b.ovr - a.ovr)[0]
+    || oppForwards[0]
+    || oppRoster.find(p => p.pos !== 'GK' && p.pos !== 'POR')
+    || { name: 'Delantero Referencia', pos: 'DC', ovr: 83, photo: './default_player.svg' };
+
+  // 2. PLAYMAKER / ENGINE (STRICTLY OUTFIELD)
+  const playmaker = oppMidfielders
+    .filter(p => p.name !== starAttacker.name)
+    .sort((a, b) => ((b.pas || 0) + (b.dri || 0) + b.ovr) - ((a.pas || 0) + (a.dri || 0) + a.ovr))[0]
+    || oppMidfielders[0]
+    || oppRoster.find(p => p.pos !== 'GK' && p.pos !== 'POR' && p.name !== starAttacker.name)
+    || { name: 'Organizador en Medular', pos: 'MC', ovr: 81, photo: './default_player.svg' };
+
+  // 3. DEFENSIVE PILLAR
+  const keyDefender = oppDefenders
+    .sort((a, b) => b.ovr - a.ovr)[0]
+    || { name: 'Central de Jerarquía', pos: 'DFC', ovr: 80, photo: './default_player.svg' };
+
+  // 4. OPPONENT GOALKEEPER (correctly assigned under the posts)
+  const rivalGk = oppGoalkeepers[0]
+    || oppRoster.find(p => p.pos === 'GK' || p.pos === 'POR')
+    || { name: 'Guardameta Titular', pos: 'POR', ovr: 81, photo: './default_player.svg' };
+
+  const dangerPlayer = starAttacker.name;
+
+  const starThreatTrait = ['ST', 'CF', 'DC'].includes(starAttacker.pos)
+    ? 'Remate implacable de primeras y desmarques de ruptura a la espalda de centrales.'
+    : ['RW', 'LW', 'ED', 'EI'].includes(starAttacker.pos)
+    ? 'Extremo vertical y desequilibrante en el 1vs1, diagonal hacia el arco y centros con rosca.'
+    : 'Llegador demoledor desde segunda línea, golpeo potente de media distancia y visión en tres cuartos.';
+
+  const playmakerTrait = 'Metrónomo del equipo: canaliza la circulación, filtra balones entre líneas y acelera transiciones.';
+  const defenderTrait = 'Contundencia en el juego aéreo y cortes expeditivos, pero sufre con delanteros ágiles.';
+  const gkTrait = `Gran reflejo bajo palos (${rivalGk.ovr} OVR). Conviene probar disparos cruzados rasos y balones disputados al segundo palo.`;
+
+  const weakSpot = oppRating > 82 
+    ? `Espalda de sus laterales cuando se incorporan al ataque y lentitud de ${keyDefender.name} en giros rápidos.` 
+    : `Pérdida de marcas en centros laterales y repliegues desordenados tras pérdida en campo rival.`;
+
+  // Tactical plans with detailed instructions for the tactical board
   const tacticalPlans = [
     {
       id: 'dominate',
       name: 'Plan A: Asedio & Posesión',
       formation: '4-3-3 Ofensivo',
-      depth: 70,
-      width: 60,
+      depth: 72,
+      width: 62,
       passingSpeed: 'Rápido y al primer toque',
       pressingStyle: 'Presión tras pérdida asfixiante',
-      summary: `Inunda el campo rival y somete al ${oppClub.name} con posesiones largas hasta encontrar el desmarque interior.`
+      summary: `Inunda el campo rival y somete al ${oppClub.name} con posesión larga hasta desorganizar a ${keyDefender.name} y sus laterales.`,
+      attackInstruction: `Superioridad numérica interior; extremos pegados a la cal para ensanchar el campo y diagonales en el área pequeña.`,
+      defenseInstruction: `Línea de 4 adelantada con coberturas rápidas para no conceder carreras al espacio a ${starAttacker.name}.`,
+      antiRivalTask: `Presión asfixiante sobre ${playmaker.name} en cuanto reciba para que no conecte con ${starAttacker.name}.`
     },
     {
       id: 'balance',
       name: 'Plan B: Control Equilibrado',
       formation: '4-2-3-1 Clásico',
-      depth: 52,
+      depth: 54,
       width: 50,
-      passingSpeed: 'Construcción equilibrada',
-      pressingStyle: 'Bloque medio ordenado',
-      summary: `Mantiene las líneas juntas para anular a ${dangerPlayer} y atacar los espacios vacíos con transiciones precisas.`
+      passingSpeed: 'Construcción equilibrada y precisa',
+      pressingStyle: 'Bloque medio ordenado con trampa de fuera de juego',
+      summary: `Mantiene las líneas compactas para desconectar a ${starAttacker.name} y castigar los huecos libres con transiciones verticales.`,
+      attackInstruction: `El mediapunta flota entre líneas para filtrar balones al punta y dar llegada a los volantes.`,
+      defenseInstruction: `Doble pivote defensivo cerrando pasillos interiores y laterales atentos a los apoyos defensivos.`,
+      antiRivalTask: `Vigilancia estrecha sobre ${starAttacker.name}: encimar de espaldas e interceptar el pase filtrado.`
     },
     {
       id: 'counter',
       name: 'Plan C: Muralla & Contragolpe Letal',
       formation: '5-3-2 / 4-4-2 Férreo',
       depth: 35,
-      width: 45,
-      passingSpeed: 'Balones largos verticales al extremo',
-      pressingStyle: 'Repliegue bajo y robo',
-      summary: `Cierra todas las vías interiores. En cuanto recuperes la pelota, balón vertical hacia las bandas explotando que: ${weakSpot}`
+      width: 44,
+      passingSpeed: 'Transición supersónica vertical',
+      pressingStyle: 'Repliegue bajo férreo y robo en zona de aceleración',
+      summary: `Cierra todas las vías interiores. En cuanto se recupere la posesión, salida en tromba castigando que: ${weakSpot}`,
+      attackInstruction: `Salida directa en 3 toques hacia las bandas y desmarques de ruptura de los dos puntas.`,
+      defenseInstruction: `Bloque bajo inexpugnable, cerrando el embudo y obligando al ${oppClub.name} a disparar incómodo desde lejos.`,
+      antiRivalTask: `Jaula defensiva con ayudas dobles sobre ${starAttacker.name} para que no gire ni encare dentro del área.`
     }
   ];
 
@@ -325,9 +388,37 @@ export function predictMatchAgainst(opponentName, userClub, season, personalityI
     coach,
     probabilities: { win: winProb, draw: drawProb, loss: lossProb },
     dangerPlayer,
+    dangerPlayerObj: {
+      name: starAttacker.name,
+      pos: starAttacker.pos,
+      ovr: starAttacker.ovr,
+      photo: starAttacker.photo,
+      trait: starThreatTrait
+    },
+    playmakerObj: {
+      name: playmaker.name,
+      pos: playmaker.pos,
+      ovr: playmaker.ovr,
+      photo: playmaker.photo,
+      trait: playmakerTrait
+    },
+    defenderObj: {
+      name: keyDefender.name,
+      pos: keyDefender.pos,
+      ovr: keyDefender.ovr,
+      photo: keyDefender.photo,
+      trait: defenderTrait
+    },
+    gkObj: {
+      name: rivalGk.name,
+      pos: 'POR',
+      ovr: rivalGk.ovr,
+      photo: rivalGk.photo,
+      trait: gkTrait
+    },
     weakSpot,
     tacticalPlans,
-    keyAdvice: `El ${oppClub.name} basa su juego en transiciones de ${dangerPlayer}. Para contrarrestarlo bajo la batuta de ${coach.name}, ${coach.speechStyle}.`
+    keyAdvice: `El ${oppClub.name} basa su peligro en ${starAttacker.name} asistido por ${playmaker.name}. Bajo el libreto de ${coach.name}, la clave es ahogar la salida de balón y golpear a la espalda de sus laterales.`
   };
 }
 
@@ -502,6 +593,7 @@ export async function askMisterAI(prompt, career, season, personalityId = 'guard
   // If user provided a Gemini API Key, call Gemini!
   if (apiKey) {
     try {
+      const topStars = [...(season.squad || [])].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 3);
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -512,7 +604,7 @@ export async function askMisterAI(prompt, career, season, personalityId = 'guard
 Entrenador: ${career.manager.name}.
 Filosofía: ${coach.philosophy}. Lema: ${coach.motto}.
 Presupuesto: ${(season.budget?.transfer / 1000000).toFixed(1)} M €.
-Plantilla: ${season.squad?.length || 20} jugadores (estrellas: ${season.squad?.slice(0, 3).map(p => p.name).join(', ')}).
+Plantilla: ${season.squad?.length || 20} jugadores (estrellas: ${topStars.map(p => p.name).join(', ')}).
 Responde en primera persona con la personalidad de ${coach.name}, de forma apasionada, profesional, con jerga futbolística de EA FC, en español y con formato Markdown rico y emojis.
 
 Pregunta del usuario: "${prompt}"`

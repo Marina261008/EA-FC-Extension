@@ -74,12 +74,18 @@ export default function AIAssistantModal({
   const [tacticsPreview, setTacticsPreview] = useState(() => 
     predictMatchAgainst(selectedOpponent, career.manager.club, season, activePersonality)
   );
+  const [activePlanIdx, setActivePlanIdx] = useState(0);
 
   useEffect(() => {
     setTacticsPreview(predictMatchAgainst(selectedOpponent, career.manager.club, season, activePersonality));
   }, [selectedOpponent, activePersonality]);
 
-  // Chronicle State
+  // Chronicle State - prioritize outfield stars, not goalkeepers
+  const defaultAttacker = (season.squad || []).find(p => ['DC', 'ST', 'CF', 'ED', 'EI', 'RW', 'LW'].includes(p.position)) 
+    || (season.squad || []).find(p => p.position !== 'POR') 
+    || season.squad?.[0];
+  const defaultStar = (season.squad || []).find(p => (p.rating || 0) >= 80 && p.position !== 'POR') || defaultAttacker;
+
   const latestMatch = season.matches && season.matches.length > 0 
     ? season.matches[season.matches.length - 1] 
     : {
@@ -89,8 +95,8 @@ export default function AIAssistantModal({
         awayScore: 1,
         result: "Victoria",
         competition: "LALIGA EA SPORTS",
-        mvp: season.squad?.[0]?.name || "Estrella del Club",
-        scorers: [{ player: season.squad?.[0]?.name || "Goleador", minute: "38'" }]
+        mvp: defaultStar?.name || "Estrella del Club",
+        scorers: [{ player: defaultAttacker?.name || "Goleador", minute: "38'" }]
       };
   const [chronicle, setChronicle] = useState(() => generateMatchChronicle(latestMatch, career.manager.club, career.manager.name));
 
@@ -228,8 +234,10 @@ export default function AIAssistantModal({
   };
 
   // Publish tactical preview to feed
-  const handlePublishTactics = (plan) => {
+  const handlePublishTactics = (planToPublish) => {
     if (!onAddPost) return;
+    const plan = planToPublish || tacticsPreview.tacticalPlans[activePlanIdx] || tacticsPreview.tacticalPlans[0];
+    const dangerName = tacticsPreview.dangerPlayerObj?.name || tacticsPreview.dangerPlayer || 'referencia rival';
     const post = {
       id: `post-ai-tactics-${Date.now()}`,
       type: 'news',
@@ -240,12 +248,12 @@ export default function AIAssistantModal({
         avatar: currentCoach.avatar
       },
       date: 'Plan de Partido',
-      text: `📊 **Plan de Partido vs ${selectedOpponent}**: ${plan.name}\n\n• Formación: **${plan.formation}**\n• Estilo de Presión: ${plan.pressingStyle}\n• Ritmo de Pase: ${plan.passingSpeed}\n\n${plan.summary}\n\n*Clave táctica:* ${tacticsPreview.keyAdvice}`,
-      hashtags: ['#PizarraTactica', `#${career.manager.club.replace(/\s+/g, '')}`, '#EAFCCareer'],
+      text: `📊 **Plan de Partido vs ${selectedOpponent}**: ${plan.name}\n\n• Formación: **${plan.formation}**\n• Estilo de Presión: ${plan.pressingStyle}\n• Ritmo de Pase: ${plan.passingSpeed}\n\n${plan.summary}\n\n🎯 *Consigna Anti-Rival:* ${plan.antiRivalTask || tacticsPreview.keyAdvice}\n\n🛡️ *Punto Débil a Castigar:* ${tacticsPreview.weakSpot}`,
+      hashtags: ['#PizarraTactica', `#${career.manager.club.replace(/\s+/g, '')}`, '#EAFCCareer', '#AntiRival'],
       graphic: {
         tag: '📊 Plan Táctico Anti-Rival',
         title: `${plan.name} (${plan.formation})`,
-        subtitle: `Vs ${selectedOpponent}`,
+        subtitle: `Vs ${selectedOpponent} · Marcaje sobre ${dangerName}`,
         theme: 'blue'
       },
       likes: 3820,
@@ -561,110 +569,526 @@ export default function AIAssistantModal({
           )}
 
           {/* 2. TACTICS TAB */}
-          {activeTab === 'tactics' && (
-            <div className="space-y-6">
-              
-              {/* Rival Picker */}
-              <div className="bg-[#121a28] p-4 rounded-2xl border border-[#213045] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-[#182336] p-1.5 flex items-center justify-center shrink-0 border border-[#28384f]">
-                    <img src={getClubLogo(selectedOpponent)} alt="" className="max-w-full max-h-full object-contain" />
+          {activeTab === 'tactics' && (() => {
+            const activePlan = tacticsPreview.tacticalPlans[activePlanIdx] || tacticsPreview.tacticalPlans[0];
+            const squadPool = (season.squad || []).length > 0 ? season.squad : [];
+            const titularSquad = squadPool.filter(p => p.status === 'Titular');
+            const starters = titularSquad.length >= 11 ? titularSquad.slice(0, 11) : squadPool.slice(0, 11);
+
+            const usedStarters = new Set();
+            const pickTacticalStarter = (positions) => {
+              const found = starters.find(p => !usedStarters.has(p.id) && positions.includes(p.position));
+              if (found) {
+                usedStarters.add(found.id);
+                return found;
+              }
+              const fallback = starters.find(p => !usedStarters.has(p.id) && p.position !== 'POR') 
+                || starters.find(p => !usedStarters.has(p.id)) 
+                || starters[0];
+              if (fallback) usedStarters.add(fallback.id);
+              return fallback;
+            };
+
+            const gkStarter = starters.find(p => p.position === 'POR') || squadPool.find(p => p.position === 'POR') || starters[0];
+            if (gkStarter) usedStarters.add(gkStarter.id);
+
+            // Layout based on formation
+            let pitchLines = {
+              attack: [],
+              midfieldUpper: [],
+              midfieldLower: [],
+              defense: [],
+              gk: gkStarter
+            };
+
+            if (activePlan.formation.includes('5-3-2')) {
+              const st1 = pickTacticalStarter(['DC', 'ST', 'CF']);
+              const st2 = pickTacticalStarter(['DC', 'ST', 'CF', 'ED', 'EI', 'SD']);
+              const mc1 = pickTacticalStarter(['MC', 'CM', 'MCO']);
+              const mcd = pickTacticalStarter(['MCD', 'CDM', 'MC']);
+              const mc2 = pickTacticalStarter(['MC', 'CM', 'MCD']);
+              const cai = pickTacticalStarter(['CAI', 'LI', 'LB']);
+              const cb1 = pickTacticalStarter(['DFC', 'CB']);
+              const cb2 = pickTacticalStarter(['DFC', 'CB', 'LD', 'LI']);
+              const cb3 = pickTacticalStarter(['DFC', 'CB']);
+              const cad = pickTacticalStarter(['CAD', 'LD', 'RB']);
+              pitchLines = {
+                attack: [{ p: st1, role: 'DC' }, { p: st2, role: 'DC' }],
+                midfieldUpper: [{ p: mc1, role: 'MC' }, { p: mcd, role: 'MCD' }, { p: mc2, role: 'MC' }],
+                midfieldLower: [],
+                defense: [{ p: cai, role: 'CAI' }, { p: cb1, role: 'DFC' }, { p: cb2, role: 'DFC' }, { p: cb3, role: 'DFC' }, { p: cad, role: 'CAD' }],
+                gk: gkStarter
+              };
+            } else if (activePlan.formation.includes('4-2-3-1')) {
+              const st = pickTacticalStarter(['DC', 'ST', 'CF']);
+              const lm = pickTacticalStarter(['EI', 'MI', 'LW', 'LM']);
+              const cam = pickTacticalStarter(['MCO', 'CAM', 'MC']);
+              const rm = pickTacticalStarter(['ED', 'MD', 'RW', 'RM']);
+              const mcd1 = pickTacticalStarter(['MCD', 'CDM', 'MC']);
+              const mcd2 = pickTacticalStarter(['MC', 'CM', 'MCD']);
+              const lb = pickTacticalStarter(['LI', 'CAI', 'LB']);
+              const cb1 = pickTacticalStarter(['DFC', 'CB']);
+              const cb2 = pickTacticalStarter(['DFC', 'CB']);
+              const rb = pickTacticalStarter(['LD', 'CAD', 'RB']);
+              pitchLines = {
+                attack: [{ p: st, role: 'DC' }],
+                midfieldUpper: [{ p: lm, role: 'EI' }, { p: cam, role: 'MCO' }, { p: rm, role: 'ED' }],
+                midfieldLower: [{ p: mcd1, role: 'MCD' }, { p: mcd2, role: 'MC' }],
+                defense: [{ p: lb, role: 'LI' }, { p: cb1, role: 'DFC' }, { p: cb2, role: 'DFC' }, { p: rb, role: 'LD' }],
+                gk: gkStarter
+              };
+            } else {
+              // 4-3-3 Ofensivo
+              const lw = pickTacticalStarter(['EI', 'MI', 'LW']);
+              const st = pickTacticalStarter(['DC', 'ST', 'CF']);
+              const rw = pickTacticalStarter(['ED', 'MD', 'RW']);
+              const mc1 = pickTacticalStarter(['MC', 'CM']);
+              const mcd = pickTacticalStarter(['MCD', 'CDM']);
+              const mco = pickTacticalStarter(['MCO', 'CAM', 'MC']);
+              const lb = pickTacticalStarter(['LI', 'CAI', 'LB']);
+              const cb1 = pickTacticalStarter(['DFC', 'CB']);
+              const cb2 = pickTacticalStarter(['DFC', 'CB']);
+              const rb = pickTacticalStarter(['LD', 'CAD', 'RB']);
+              pitchLines = {
+                attack: [{ p: lw, role: 'EI' }, { p: st, role: 'DC' }, { p: rw, role: 'ED' }],
+                midfieldUpper: [{ p: mc1, role: 'MC' }, { p: mcd, role: 'MCD' }, { p: mco, role: 'MCO' }],
+                midfieldLower: [],
+                defense: [{ p: lb, role: 'LI' }, { p: cb1, role: 'DFC' }, { p: cb2, role: 'DFC' }, { p: rb, role: 'LD' }],
+                gk: gkStarter
+              };
+            }
+
+            const renderBoardPlayer = (item) => {
+              if (!item || !item.p) return null;
+              const p = item.p;
+              return (
+                <div key={p.id || p.name} className="flex flex-col items-center group cursor-pointer transition-transform hover:scale-105 select-none">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#111927] border-2 border-[#00ff87] flex flex-col items-center justify-center shadow-lg shadow-black/80 relative overflow-hidden">
+                    {p.photo ? (
+                      <img 
+                        src={p.photo} 
+                        alt={p.name} 
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover object-top" 
+                        onError={(e) => { 
+                          e.target.onerror = null;
+                          e.target.src = "./default_player.svg"; 
+                        }}
+                      />
+                    ) : (
+                      <span className="text-[10px] font-black text-white">{p.rating || p.ovr || 80}</span>
+                    )}
+                    <span className="absolute bottom-0 right-0 bg-[#00ff87] text-[#090d14] font-black text-[8px] px-1 rounded-tl leading-none shadow">
+                      {p.rating || p.ovr || 80}
+                    </span>
+                    <span className="absolute top-0 left-0 bg-[#0b121e]/90 text-white font-black text-[7px] px-1 rounded-br leading-none border-r border-b border-white/20">
+                      #{p.number || 10}
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Próximo Rival a Analizar</span>
-                    <h3 className="text-base font-black text-white">{selectedOpponent}</h3>
+                  <div className="bg-[#0b1019]/90 border border-[#1e2b40] px-1.5 py-0.5 rounded mt-0.5 shadow text-center max-w-[80px]">
+                    <p className="text-[9px] font-bold text-white truncate leading-tight">
+                      {(p.name || '').split(' ').pop()}
+                    </p>
+                    <span className="text-[7px] font-black text-[#00ff87] uppercase leading-none block">
+                      {item.role || p.position}
+                    </span>
                   </div>
                 </div>
+              );
+            };
 
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <select
-                    value={selectedOpponent}
-                    onChange={(e) => setSelectedOpponent(e.target.value)}
-                    className="bg-[#162133] border border-[#293951] text-white text-xs font-bold rounded-xl px-3 py-2 w-full sm:w-64 focus:outline-none focus:border-[#00ff87]"
-                  >
-                    {ALL_PRESET_CLUBS.map(club => (
-                      <option key={club.id} value={club.name}>{club.name} ({club.league})</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* Scouting Intel Bar */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="bg-[#111825] border border-[#202e42] p-4 rounded-2xl">
-                  <span className="text-[10px] font-black uppercase text-amber-400 block mb-1">⚠️ Principal Amenaza Rival</span>
-                  <p className="text-sm font-black text-white">{tacticsPreview.dangerPlayer}</p>
-                  <p className="text-[11px] text-slate-400 mt-1">Conviene encimar con el MCD y no concederle tiro fácil.</p>
-                </div>
-
-                <div className="bg-[#111825] border border-[#202e42] p-4 rounded-2xl">
-                  <span className="text-[10px] font-black uppercase text-emerald-400 block mb-1">🎯 Punto Débil a Explotar</span>
-                  <p className="text-xs font-bold text-slate-200 mt-1">{tacticsPreview.weakSpot}</p>
-                </div>
-
-                <div className="bg-[#111825] border border-[#202e42] p-4 rounded-2xl">
-                  <span className="text-[10px] font-black uppercase text-cyan-400 block mb-1">📈 Pronóstico de Victoria</span>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xl font-black text-[#00ff87]">{tacticsPreview.probabilities.win}%</span>
-                    <span className="text-xs text-slate-400 font-semibold">(Empate: {tacticsPreview.probabilities.draw}% · Derrota: {tacticsPreview.probabilities.loss}%)</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3 Counter Tactical Plans */}
-              <div className="space-y-4">
-                <h4 className="text-sm font-black text-white flex items-center gap-2">
-                  <Sliders className="w-4 h-4 text-[#00ff87]" />
-                  <span>Planes de Partido Recomendados por {currentCoach.name}</span>
-                </h4>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {tacticsPreview.tacticalPlans.map((plan, idx) => (
-                    <div 
-                      key={plan.id}
-                      className="bg-[#111826] border border-[#213047] hover:border-[#00ff87]/60 rounded-2xl p-4 flex flex-col justify-between transition-all"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-black text-white">{plan.name}</span>
-                          <span className="bg-[#1c293c] text-[#00ff87] text-[10px] font-black px-2 py-0.5 rounded">
-                            {plan.formation}
-                          </span>
-                        </div>
-
-                        <p className="text-xs text-slate-300 leading-relaxed mb-3">
-                          {plan.summary}
-                        </p>
-
-                        <div className="space-y-2 bg-[#0c131f] p-3 rounded-xl border border-[#1b2638] text-[11px] mb-3">
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Presión:</span>
-                            <span className="text-slate-200 font-bold">{plan.pressingStyle}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Ritmo de pase:</span>
-                            <span className="text-slate-200 font-bold">{plan.passingSpeed}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Profundidad de bloque:</span>
-                            <span className="text-[#00ff87] font-bold">{plan.depth} / 100</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={() => handlePublishTactics(plan)}
-                        className="w-full bg-[#182538] hover:bg-[#00ff87] text-white hover:text-black font-black py-2 rounded-xl text-xs transition-colors text-center"
-                      >
-                        📋 Publicar Plan Táctico en el Feed
-                      </button>
+            return (
+              <div className="space-y-6">
+                
+                {/* Rival Picker Bar */}
+                <div className="bg-[#121a28] p-4 rounded-2xl border border-[#213045] flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-[#182336] p-1.5 flex items-center justify-center shrink-0 border border-[#28384f]">
+                      <img src={getClubLogo(selectedOpponent)} alt="" className="max-w-full max-h-full object-contain" />
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Próximo Rival a Analizar</span>
+                      <h3 className="text-base font-black text-white flex items-center gap-2">
+                        <span>{selectedOpponent}</span>
+                        <span className="text-xs bg-[#19273c] text-[#00ff87] px-2 py-0.5 rounded-full font-bold">
+                          {tacticsPreview.opponent?.league || 'Competición Oficial'}
+                        </span>
+                      </h3>
+                    </div>
+                  </div>
 
-            </div>
-          )}
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <select
+                      value={selectedOpponent}
+                      onChange={(e) => setSelectedOpponent(e.target.value)}
+                      className="bg-[#162133] border border-[#293951] text-white text-xs font-bold rounded-xl px-3 py-2 w-full sm:w-64 focus:outline-none focus:border-[#00ff87]"
+                    >
+                      {ALL_PRESET_CLUBS.map(club => (
+                        <option key={club.id} value={club.name}>{club.name} ({club.league})</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Scouting Intel Grid: Outfield Stars, Playmaker, Weak Spot & Keeper */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  
+                  {/* 1. Main Offensive Threat */}
+                  <div className="bg-[#111825] border border-amber-500/30 p-3.5 rounded-2xl space-y-2 relative overflow-hidden shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-amber-400 flex items-center gap-1">
+                        <span>⚠️ Amenaza Ofensiva</span>
+                      </span>
+                      <span className="bg-amber-500/20 text-amber-300 text-[10px] font-black px-1.5 py-0.5 rounded border border-amber-500/30">
+                        {tacticsPreview.dangerPlayerObj?.pos || 'DEL'} · {tacticsPreview.dangerPlayerObj?.ovr || 84} OVR
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-11 h-11 rounded-full bg-[#182335] border border-amber-500/40 overflow-hidden shrink-0">
+                        <img 
+                          src={tacticsPreview.dangerPlayerObj?.photo || './default_player.svg'} 
+                          alt="" 
+                          className="w-full h-full object-cover object-top"
+                          onError={(e) => { e.target.src = './default_player.svg'; }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-black text-white truncate">
+                          {tacticsPreview.dangerPlayerObj?.name || tacticsPreview.dangerPlayer}
+                        </h4>
+                        <p className="text-[10px] text-slate-400 line-clamp-1">
+                          Peligro máximo al espacio
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-slate-300 leading-tight">
+                      {tacticsPreview.dangerPlayerObj?.trait || 'Desmarques y tiro letal al primer toque.'}
+                    </p>
+                  </div>
+
+                  {/* 2. Playmaker / Engine */}
+                  <div className="bg-[#111825] border border-sky-500/30 p-3.5 rounded-2xl space-y-2 relative overflow-hidden shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-sky-400 flex items-center gap-1">
+                        <span>🧠 Cerebro Rival</span>
+                      </span>
+                      <span className="bg-sky-500/20 text-sky-300 text-[10px] font-black px-1.5 py-0.5 rounded border border-sky-500/30">
+                        {tacticsPreview.playmakerObj?.pos || 'MC'} · {tacticsPreview.playmakerObj?.ovr || 82} OVR
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-11 h-11 rounded-full bg-[#182335] border border-sky-500/40 overflow-hidden shrink-0">
+                        <img 
+                          src={tacticsPreview.playmakerObj?.photo || './default_player.svg'} 
+                          alt="" 
+                          className="w-full h-full object-cover object-top"
+                          onError={(e) => { e.target.src = './default_player.svg'; }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-black text-white truncate">
+                          {tacticsPreview.playmakerObj?.name || 'Medular rival'}
+                        </h4>
+                        <p className="text-[10px] text-slate-400 line-clamp-1">
+                          Distribución y último pase
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-slate-300 leading-tight">
+                      {tacticsPreview.playmakerObj?.trait || 'Canaliza todas las transiciones ofensivas.'}
+                    </p>
+                  </div>
+
+                  {/* 3. Tactical Weak Spot */}
+                  <div className="bg-[#111825] border border-emerald-500/30 p-3.5 rounded-2xl space-y-2 relative overflow-hidden shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-emerald-400 flex items-center gap-1">
+                        <span>🎯 Punto Débil</span>
+                      </span>
+                      <span className="bg-emerald-500/20 text-[#00ff87] text-[10px] font-black px-1.5 py-0.5 rounded border border-emerald-500/30">
+                        A Explotar
+                      </span>
+                    </div>
+
+                    <p className="text-xs font-black text-white">
+                      Zaga Vulnerable
+                    </p>
+
+                    <p className="text-[11px] text-slate-300 leading-tight">
+                      {tacticsPreview.weakSpot}
+                    </p>
+                  </div>
+
+                  {/* 4. Opponent Goalkeeper (In his true context) */}
+                  <div className="bg-[#111825] border border-purple-500/30 p-3.5 rounded-2xl space-y-2 relative overflow-hidden shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-purple-400 flex items-center gap-1">
+                        <span>🧤 Bajo Palos</span>
+                      </span>
+                      <span className="bg-purple-500/20 text-purple-300 text-[10px] font-black px-1.5 py-0.5 rounded border border-purple-500/30">
+                        POR · {tacticsPreview.gkObj?.ovr || 81} OVR
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-11 h-11 rounded-full bg-[#182335] border border-purple-500/40 overflow-hidden shrink-0">
+                        <img 
+                          src={tacticsPreview.gkObj?.photo || './default_player.svg'} 
+                          alt="" 
+                          className="w-full h-full object-cover object-top"
+                          onError={(e) => { e.target.src = './default_player.svg'; }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-black text-white truncate">
+                          {tacticsPreview.gkObj?.name || 'Portero rival'}
+                        </h4>
+                        <p className="text-[10px] text-slate-400 line-clamp-1">
+                          Guardameta titular
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-slate-300 leading-tight">
+                      {tacticsPreview.gkObj?.trait || 'Probar con disparos ajustados y centros con rosca.'}
+                    </p>
+                  </div>
+
+                </div>
+
+                {/* Match Probabilities Bar */}
+                <div className="bg-[#101725] p-3.5 rounded-2xl border border-[#1f2d43] flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-white">Pronóstico del Míster IA:</span>
+                    <span className="text-xs text-slate-400">Balance táctico y estimación de victoria</span>
+                  </div>
+                  <div className="flex items-center gap-3 w-full sm:w-auto justify-end text-xs font-bold">
+                    <span className="text-[#00ff87] flex items-center gap-1">
+                      <span>Victoria:</span>
+                      <span className="font-black text-sm">{tacticsPreview.probabilities.win}%</span>
+                    </span>
+                    <span className="text-amber-400 flex items-center gap-1">
+                      <span>Empate:</span>
+                      <span className="font-black text-sm">{tacticsPreview.probabilities.draw}%</span>
+                    </span>
+                    <span className="text-rose-400 flex items-center gap-1">
+                      <span>Derrota:</span>
+                      <span className="font-black text-sm">{tacticsPreview.probabilities.loss}%</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Plan Selector Tabs */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-white flex items-center gap-2">
+                      <Sliders className="w-4 h-4 text-[#00ff87]" />
+                      <span>Elige la Estrategia en la Pizarra de {currentCoach.name}:</span>
+                    </h4>
+                    <span className="text-xs text-slate-400 hidden sm:inline">
+                      Haz clic en un plan para ver la distribución en la pizarra
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {tacticsPreview.tacticalPlans.map((plan, idx) => {
+                      const isSelected = activePlanIdx === idx;
+                      return (
+                        <button
+                          key={plan.id}
+                          onClick={() => setActivePlanIdx(idx)}
+                          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                            isSelected
+                              ? 'bg-[#132235] border-[#00ff87] shadow-lg shadow-[#00ff87]/15 ring-1 ring-[#00ff87]'
+                              : 'bg-[#101725] border-[#202e42] hover:border-[#2f425f]'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className={`text-xs font-black ${isSelected ? 'text-[#00ff87]' : 'text-white'}`}>
+                                {plan.name}
+                              </span>
+                              <span className="bg-[#182538] text-[#00ff87] text-[10px] font-black px-2 py-0.5 rounded">
+                                {plan.formation}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-300 leading-relaxed line-clamp-2">
+                              {plan.summary}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-2 mt-2 border-t border-[#1d2a3f] text-[10px] text-slate-400">
+                            <span>Profundidad: {plan.depth}/100</span>
+                            <span className="font-bold text-slate-200">{isSelected ? '✓ Seleccionado' : 'Ver Pizarra'}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* VISUAL TACTICAL BOARD (PITCH) */}
+                <div className="bg-[#0b121c] border border-[#1d2b40] rounded-3xl p-4 sm:p-5 shadow-xl space-y-4">
+                  
+                  {/* Top Pitch Bar */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#1b273b]">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm sm:text-base font-black text-white flex items-center gap-2">
+                          <span>📋 Pizarra Táctica · {activePlan.formation}</span>
+                        </h4>
+                        <span className="bg-[#00ff87]/20 text-[#00ff87] text-[10px] font-black px-2 py-0.5 rounded-full border border-[#00ff87]/30">
+                          {activePlan.name}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Once titular del {career.manager.club} desplegado para neutralizar al {selectedOpponent}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => handlePublishTactics(activePlan)}
+                      className="bg-[#00ff87] hover:bg-[#00e676] active:scale-95 text-[#080d14] font-black text-xs px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 self-start sm:self-auto shrink-0 shadow-md"
+                    >
+                      <span>📋 Publicar Plan en el Feed</span>
+                    </button>
+                  </div>
+
+                  {/* Pitch Container */}
+                  <div className="relative w-full h-[410px] sm:h-[460px] bg-gradient-to-b from-[#0a2318] via-[#072d1e] to-[#0a2318] rounded-2xl border-2 border-emerald-500/40 overflow-hidden shadow-2xl flex flex-col justify-between py-3 px-2 sm:px-4">
+                    
+                    {/* Pitch Striping */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.14)_50%)] bg-[length:100%_40px] pointer-events-none"></div>
+
+                    {/* Pitch Markings */}
+                    <div className="absolute inset-3 border border-white/25 rounded-xl pointer-events-none"></div>
+                    <div className="absolute top-1/2 left-3 right-3 h-[1px] bg-white/20 pointer-events-none"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-28 sm:h-28 border border-white/20 rounded-full pointer-events-none"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white/40 rounded-full pointer-events-none"></div>
+                    
+                    {/* Penalty Areas */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-48 sm:w-60 h-16 sm:h-20 border-b border-x border-white/20 pointer-events-none rounded-b-lg"></div>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-48 sm:w-60 h-16 sm:h-20 border-t border-x border-white/20 pointer-events-none rounded-t-lg"></div>
+
+                    {/* Line 1: Attackers */}
+                    <div className="relative z-10 flex justify-around items-center px-4 pt-1">
+                      {pitchLines.attack.map(renderBoardPlayer)}
+                    </div>
+
+                    {/* Line 2: Midfield Upper */}
+                    <div className="relative z-10 flex justify-around items-center px-6">
+                      {pitchLines.midfieldUpper.map(renderBoardPlayer)}
+                    </div>
+
+                    {/* Line 2.5: Midfield Lower (if 4-2-3-1) */}
+                    {pitchLines.midfieldLower.length > 0 && (
+                      <div className="relative z-10 flex justify-around items-center px-12">
+                        {pitchLines.midfieldLower.map(renderBoardPlayer)}
+                      </div>
+                    )}
+
+                    {/* Line 3: Defenders */}
+                    <div className="relative z-10 flex justify-around items-center px-4">
+                      {pitchLines.defense.map(renderBoardPlayer)}
+                    </div>
+
+                    {/* Line 4: Goalkeeper */}
+                    <div className="relative z-10 flex justify-center items-center pb-1">
+                      {renderBoardPlayer({ p: pitchLines.gk, role: 'POR' })}
+                    </div>
+
+                  </div>
+
+                  {/* Tactical Instructions Panel */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                    
+                    <div className="bg-[#101725] p-3.5 rounded-2xl border border-[#1f2d43] space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-black text-emerald-400">
+                        <span>⚔️ Ataque & Salida</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        {activePlan.attackInstruction}
+                      </p>
+                    </div>
+
+                    <div className="bg-[#101725] p-3.5 rounded-2xl border border-[#1f2d43] space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-black text-sky-400">
+                        <span>🛡️ Repliegue & Contención</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        {activePlan.defenseInstruction}
+                      </p>
+                    </div>
+
+                    <div className="bg-[#101725] p-3.5 rounded-2xl border border-[#1f2d43] space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-black text-amber-400">
+                        <span>🎯 Marcaje Anti-Rival</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                        {activePlan.antiRivalTask}
+                      </p>
+                    </div>
+
+                  </div>
+
+                  {/* Sliders and Metrics of the Tactical Board */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-[#0d1422] p-4 rounded-2xl border border-[#1b283d] text-xs">
+                    
+                    {/* Depth */}
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between font-bold">
+                        <span className="text-slate-400">Profundidad:</span>
+                        <span className="text-[#00ff87] font-black">{activePlan.depth} / 100</span>
+                      </div>
+                      <div className="w-full bg-[#172233] h-2 rounded-full overflow-hidden">
+                        <div className="bg-[#00ff87] h-full rounded-full" style={{ width: `${activePlan.depth}%` }}></div>
+                      </div>
+                      <span className="text-[10px] text-slate-400 block font-medium">
+                        {activePlan.depth >= 65 ? 'Bloque alto y presión arriba' : activePlan.depth >= 45 ? 'Bloque medio ordenado' : 'Repliegue bajo en área'}
+                      </span>
+                    </div>
+
+                    {/* Width */}
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between font-bold">
+                        <span className="text-slate-400">Anchura:</span>
+                        <span className="text-sky-400 font-black">{activePlan.width} / 100</span>
+                      </div>
+                      <div className="w-full bg-[#172233] h-2 rounded-full overflow-hidden">
+                        <div className="bg-sky-400 h-full rounded-full" style={{ width: `${activePlan.width}%` }}></div>
+                      </div>
+                      <span className="text-[10px] text-slate-400 block font-medium">
+                        {activePlan.width >= 55 ? 'Amplitud con extremos a banda' : 'Líneas estrechas compactas'}
+                      </span>
+                    </div>
+
+                    {/* Pressing Style */}
+                    <div className="space-y-1">
+                      <span className="text-slate-400 font-bold block">Estilo de Presión:</span>
+                      <p className="text-xs font-bold text-white bg-[#141e2e] p-2 rounded-xl border border-[#21314a]">
+                        {activePlan.pressingStyle}
+                      </p>
+                    </div>
+
+                    {/* Passing Rhythm */}
+                    <div className="space-y-1">
+                      <span className="text-slate-400 font-bold block">Velocidad de Circulación:</span>
+                      <p className="text-xs font-bold text-white bg-[#141e2e] p-2 rounded-xl border border-[#21314a]">
+                        {activePlan.passingSpeed}
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            );
+          })()}
 
           {/* 3. YOUTH ACADEMY & PROGRESION */}
           {activeTab === 'youth' && (
