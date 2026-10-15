@@ -17,6 +17,7 @@ import {
   CornerDownRight
 } from 'lucide-react';
 import StartingXIGraphic from './StartingXIGraphic';
+import JerseyBackGraphic from './JerseyBackGraphic';
 import { getClubLogo } from '../../clubsData';
 import { generateContextualComments } from '../../postGenerator';
 
@@ -263,6 +264,20 @@ export default function ClubPostCard({
             clubName={author.name || graphic.clubName}
             clubLogo={graphic.clubLogo || author.avatar || clubLogo}
             managerName={graphic.managerName || "Mánager"}
+          />
+        ) : post.type === 'renewal' || graphic?.isRenewal ? (
+          <JerseyBackGraphic
+            playerName={graphic.playerName || graphic.title?.replace(/¡|!/g, '').split(' HASTA')[0] || 'CRACK'}
+            playerNumber={graphic.playerNumber || graphic.number || graphic.renewalYear || '10'}
+            clubName={graphic.clubName || author.name || clubName}
+            clubLogo={graphic.clubLogo || author.avatar || clubLogo}
+            renewalYear={graphic.renewalYear || '2030'}
+            clause={graphic.clause || '120.000.000 €'}
+            playerPhoto={graphic.playerPhoto || graphic.image}
+            playerPosition={graphic.playerPosition || 'DEL'}
+            playerRating={graphic.playerRating || 83}
+            bgImage={graphic.bgImage || graphic.image || 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=1000&auto=format&fit=crop&q=80'}
+            date={graphic.date || post.date}
           />
         ) : (
         <div className="relative rounded-2xl overflow-hidden border border-[#273852] shadow-2xl bg-gradient-to-br from-[#1b1a13] via-[#10141d] to-[#121926]">

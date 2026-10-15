@@ -534,6 +534,311 @@ export function getClubTheme(clubName = '') {
   return { primary: '#00ff87', secondary: '#0f172a', text: '#ffffff', border: '#00ff87' };
 }
 
+export function getClubKit(clubName = '') {
+  const n = (clubName || '').toLowerCase().trim();
+  
+  if (n.includes('madrid') && !n.includes('atlético') && !n.includes('atletico')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#0c2340',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#0c2340',
+      textBorder: '#c8a04b',
+      collarColor: '#0c2340',
+      cuffColor: '#c8a04b',
+      sleeveColor: '#ffffff'
+    };
+  }
+  if (n.includes('barcelona') || n.includes('barça')) {
+    return {
+      jerseyColor: '#004d98',
+      secondaryColor: '#a50044',
+      stripeColor: '#a50044',
+      pattern: 'vertical-stripes',
+      textColor: '#edbb00',
+      textBorder: '#ffffff',
+      collarColor: '#edbb00',
+      cuffColor: '#edbb00',
+      sleeveColor: '#004d98'
+    };
+  }
+  if (n.includes('valencia')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#000000',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#000000',
+      textBorder: '#ff6600',
+      collarColor: '#ff6600',
+      cuffColor: '#000000',
+      sleeveColor: '#ffffff'
+    };
+  }
+  if (n.includes('atlético') || n.includes('atletico')) {
+    return {
+      jerseyColor: '#cb3524',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#1b325f',
+      textBorder: '#ffffff',
+      collarColor: '#1b325f',
+      cuffColor: '#1b325f',
+      sleeveColor: '#cb3524'
+    };
+  }
+  if (n.includes('athletic')) {
+    return {
+      jerseyColor: '#ee2524',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#000000',
+      cuffColor: '#000000',
+      sleeveColor: '#ee2524'
+    };
+  }
+  if (n.includes('betis')) {
+    return {
+      jerseyColor: '#009540',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#009540',
+      collarColor: '#009540',
+      cuffColor: '#ffffff',
+      sleeveColor: '#009540'
+    };
+  }
+  if (n.includes('sevilla')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#d4001f',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#d4001f',
+      textBorder: '#000000',
+      collarColor: '#d4001f',
+      cuffColor: '#d4001f',
+      sleeveColor: '#ffffff'
+    };
+  }
+  if (n.includes('villarr')) {
+    return {
+      jerseyColor: '#ffe600',
+      secondaryColor: '#0055a5',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#0055a5',
+      textBorder: '#ffffff',
+      collarColor: '#0055a5',
+      cuffColor: '#0055a5',
+      sleeveColor: '#ffe600'
+    };
+  }
+  if (n.includes('sociedad')) {
+    return {
+      jerseyColor: '#0055a5',
+      secondaryColor: '#ffffff',
+      stripeColor: '#ffffff',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#0055a5',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#0055a5'
+    };
+  }
+  if (n.includes('arsenal')) {
+    return {
+      jerseyColor: '#ef0107',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#023474',
+      collarColor: '#ffffff',
+      cuffColor: '#ef0107',
+      sleeveColor: '#ffffff'
+    };
+  }
+  if (n.includes('city') || n.includes('mci')) {
+    return {
+      jerseyColor: '#6cabdd',
+      secondaryColor: '#1c2c5b',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#1c2c5b',
+      collarColor: '#1c2c5b',
+      cuffColor: '#1c2c5b',
+      sleeveColor: '#6cabdd'
+    };
+  }
+  if (n.includes('liverpool')) {
+    return {
+      jerseyColor: '#c8102e',
+      secondaryColor: '#00b2a9',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#f6eb61',
+      collarColor: '#f6eb61',
+      cuffColor: '#00b2a9',
+      sleeveColor: '#c8102e'
+    };
+  }
+  if (n.includes('united') || n.includes('mun')) {
+    return {
+      jerseyColor: '#da291c',
+      secondaryColor: '#000000',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#ffffff',
+      cuffColor: '#000000',
+      sleeveColor: '#da291c'
+    };
+  }
+  if (n.includes('chelsea')) {
+    return {
+      jerseyColor: '#034694',
+      secondaryColor: '#dba111',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#dba111',
+      collarColor: '#dba111',
+      cuffColor: '#ffffff',
+      sleeveColor: '#034694'
+    };
+  }
+  if (n.includes('bayern')) {
+    return {
+      jerseyColor: '#dc052d',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#dc052d'
+    };
+  }
+  if (n.includes('dortmund') || n.includes('bvb')) {
+    return {
+      jerseyColor: '#fde100',
+      secondaryColor: '#000000',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#000000',
+      textBorder: '#ffffff',
+      collarColor: '#000000',
+      cuffColor: '#000000',
+      sleeveColor: '#fde100'
+    };
+  }
+  if (n.includes('paris') || n.includes('psg')) {
+    return {
+      jerseyColor: '#001c38',
+      secondaryColor: '#da291c',
+      stripeColor: '#da291c',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#da291c',
+      collarColor: '#ffffff',
+      cuffColor: '#da291c',
+      sleeveColor: '#001c38'
+    };
+  }
+  if (n.includes('juventus')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#000000',
+      stripeColor: '#000000',
+      pattern: 'vertical-stripes',
+      textColor: '#000000',
+      textBorder: '#d4af37',
+      collarColor: '#d4af37',
+      cuffColor: '#000000',
+      sleeveColor: '#ffffff'
+    };
+  }
+  if (n.includes('inter')) {
+    return {
+      jerseyColor: '#00579c',
+      secondaryColor: '#000000',
+      stripeColor: '#000000',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#00579c',
+      cuffColor: '#000000',
+      sleeveColor: '#00579c'
+    };
+  }
+  if (n.includes('milan')) {
+    return {
+      jerseyColor: '#fb090b',
+      secondaryColor: '#000000',
+      stripeColor: '#000000',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#000000',
+      cuffColor: '#000000',
+      sleeveColor: '#fb090b'
+    };
+  }
+  if (n.includes('boca')) {
+    return {
+      jerseyColor: '#003366',
+      secondaryColor: '#ffcc00',
+      stripeColor: null,
+      pattern: 'horizontal-stripes',
+      textColor: '#ffcc00',
+      textBorder: '#003366',
+      collarColor: '#ffcc00',
+      cuffColor: '#ffcc00',
+      sleeveColor: '#003366'
+    };
+  }
+  if (n.includes('river')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#d20000',
+      stripeColor: null,
+      pattern: 'sash',
+      textColor: '#000000',
+      textBorder: '#d20000',
+      collarColor: '#d20000',
+      cuffColor: '#d20000',
+      sleeveColor: '#ffffff'
+    };
+  }
+
+  // Fallback to club theme
+  const theme = getClubTheme(clubName);
+  return {
+    jerseyColor: theme.secondary || '#111827',
+    secondaryColor: theme.primary || '#00ff87',
+    stripeColor: null,
+    pattern: 'solid',
+    textColor: '#ffffff',
+    textBorder: theme.primary || '#00ff87',
+    collarColor: theme.primary || '#00ff87',
+    cuffColor: theme.primary || '#00ff87',
+    sleeveColor: theme.secondary || '#111827'
+  };
+}
+
 export function getClubRoster(clubNameOrId) {
   if (!clubNameOrId) return [];
   const search = clubNameOrId.trim().toLowerCase();

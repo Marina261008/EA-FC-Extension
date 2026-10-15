@@ -181,6 +181,22 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
         }
       ];
 
+    case 'renewal':
+      return [
+        {
+          ...personas.ultra,
+          text: `¡¡¡RENOVACIÓN HISTÓRICA!!! ${context.playerName || 'La estrella'} se queda en casa. Blindaje merecidísimo para nuestro ídolo 🔥✍️`
+        },
+        {
+          ...personas.journalist,
+          text: `Movimiento maestro de la directiva y el cuerpo técnico. Aseguran la continuidad del eje del proyecto hasta ${context.renewalYear || '2030'}.`
+        },
+        {
+          ...personas.socio,
+          text: `Orgullo de jugador. Ha demostrado que siente este escudo por encima de todo. ¡A por muchos más éxitos juntos! 👏👕`
+        }
+      ];
+
     default:
       return [
         {
@@ -621,5 +637,54 @@ export function createTrophyPost(competition, club, clubLogoParam, managerName =
     commentsCount: 940,
     comments: generateContextualComments('trophy', clubName, managerName, { competition }),
     reactions: ['🏆', '🔥', '🍾', '❤️']
+  };
+}
+
+export function createRenewalPost(player, club, clubLogoParam, renewalYear = '2030', clause = '120.000.000 €', managerName = 'Mánager', date = '12 oct 2026', options = {}) {
+  const clubName = typeof club === 'object' ? club.club : (club || 'Mi Club');
+  const userClubLogo = (typeof club === 'object' ? club.clubLogo : clubLogoParam) || getClubLogo(clubName);
+  const clubHandle = `@${clubName.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const clubTag = `#${clubName.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const playerName = typeof player === 'object' ? player.name : (player || 'Jugador');
+  const playerNumber = typeof player === 'object' ? (player.number || 10) : 10;
+  const playerPhoto = typeof player === 'object' ? (player.photo || player.imageUrl || './default_player.svg') : './default_player.svg';
+  const playerPosition = typeof player === 'object' ? (player.position || 'DEL') : 'DEL';
+  const playerRating = typeof player === 'object' ? (player.rating || 82) : 82;
+
+  const bgImage = options.bgImage || 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=1000&auto=format&fit=crop&q=80';
+
+  return {
+    id: `post-renew-${Date.now()}`,
+    type: 'renewal',
+    author: {
+      name: clubName,
+      handle: clubHandle,
+      verified: true,
+      avatar: userClubLogo
+    },
+    date: date || '12 oct 2026',
+    text: `✍️👕 ¡OFICIAL | ${playerName.toUpperCase()} RENUEVA HASTA ${renewalYear}! 🤝💛\n\nEl ${clubName} y el futbolista han alcanzado un acuerdo oficial para la ampliación y blindaje de su contrato.\n\nUna pieza clave en el esquema del míster ${managerName} seguirá defendiendo nuestro escudo y haciendo vibrar a la afición. ¡Enhorabuena, crack!\n\n#RenovaciónOficial ${clubTag} #Hasta${renewalYear} #ModoCarrera`,
+    hashtags: ['#RenovaciónOficial', clubTag, `#Hasta${renewalYear}`],
+    graphic: {
+      isRenewal: true,
+      tag: '✍️ Renovación Oficial',
+      title: `¡${playerName.toUpperCase()} HASTA ${renewalYear}!`,
+      subtitle: `${playerPosition} · ${playerRating} OVR · Cláusula ${clause}`,
+      playerName,
+      playerNumber,
+      clubName,
+      clubLogo: userClubLogo,
+      renewalYear,
+      clause,
+      playerPhoto,
+      playerPosition,
+      playerRating,
+      bgImage,
+      date
+    },
+    likes: 4890,
+    commentsCount: 168,
+    comments: generateContextualComments('renewal', clubName, managerName, { playerName, renewalYear }),
+    reactions: ['✍️', '👕', '🔥', '👏', '❤️']
   };
 }

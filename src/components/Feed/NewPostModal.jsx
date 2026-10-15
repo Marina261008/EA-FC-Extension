@@ -14,7 +14,8 @@ import {
   Zap, 
   LayoutGrid, 
   List, 
-  Calendar 
+  Calendar,
+  Award
 } from 'lucide-react';
 import { 
   PRESET_CATEGORIES, 
@@ -40,6 +41,8 @@ import {
   getOpponentsForContext
 } from '../../clubsData';
 import StartingXIGraphic from './StartingXIGraphic';
+import JerseyBackGraphic from './JerseyBackGraphic';
+import { createRenewalPost } from '../../postGenerator';
 
 export default function NewPostModal({ 
   isOpen, 
@@ -79,6 +82,50 @@ export default function NewPostModal({
   const [selectedRival, setSelectedRival] = useState(initialRival);
   const [matchday, setMatchday] = useState('Jornada Oficial');
   const [stadium, setStadium] = useState('');
+
+  // --- PLAYER RENEWAL (RENOVACIÓN CON CAMISETA DE ESPALDA) STATE ---
+  const defaultRenewalPlayer = squad && squad.length > 0 
+    ? [...squad].sort((a, b) => (b.rating || 75) - (a.rating || 75))[0] 
+    : null;
+
+  const [renewalPlayerId, setRenewalPlayerId] = useState(defaultRenewalPlayer?.id || '');
+  const [renewalPlayerName, setRenewalPlayerName] = useState(defaultRenewalPlayer?.name || 'Vinícius Jr.');
+  const [renewalPlayerNumber, setRenewalPlayerNumber] = useState(defaultRenewalPlayer?.number || 7);
+  const [renewalNumberMode, setRenewalNumberMode] = useState('dorsal'); // 'dorsal' vs 'year'
+  const [renewalYear, setRenewalYear] = useState('2030');
+  const [renewalClause, setRenewalClause] = useState(defaultRenewalPlayer?.clause || '150.000.000 €');
+  const [renewalPosition, setRenewalPosition] = useState(defaultRenewalPlayer?.position || 'DEL');
+  const [renewalRating, setRenewalRating] = useState(defaultRenewalPlayer?.rating || 89);
+  const [renewalPhoto, setRenewalPhoto] = useState(
+    defaultRenewalPlayer?.photo || defaultRenewalPlayer?.imageUrl || './default_player.svg'
+  );
+  const [renewalBgImage, setRenewalBgImage] = useState(
+    PRESET_POST_IMAGES.find(img => img.category === 'renovaciones')?.url || 
+    'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=1000&auto=format&fit=crop&q=80'
+  );
+  const [renewalCategory, setRenewalCategory] = useState('renovaciones');
+  const [renewalText, setRenewalText] = useState(
+    `✍️👕 ¡OFICIAL | ${(defaultRenewalPlayer?.name || 'NUESTRA ESTRELLA').toUpperCase()} RENUEVA HASTA 2030! 🤝💛\n\nEl ${clubName} y el futbolista han alcanzado un acuerdo oficial para la ampliación y blindaje de su contrato.\n\nUna pieza clave en el esquema del míster ${managerName} seguirá defendiendo nuestro escudo y haciendo vibrar a la afición. ¡Enhorabuena, crack!`
+  );
+
+  const handleRenewalPlayerSelect = (pId) => {
+    const p = squad.find(player => player.id === pId);
+    if (!p) return;
+    setRenewalPlayerId(p.id);
+    setRenewalPlayerName(p.name);
+    setRenewalPlayerNumber(p.number || 10);
+    setRenewalPosition(p.position || 'DEL');
+    setRenewalRating(p.rating || 80);
+    setRenewalPhoto(p.photo || p.imageUrl || './default_player.svg');
+    if (p.clause) {
+      setRenewalClause(p.clause);
+    } else if (p.value) {
+      setRenewalClause(`${p.value * 2} €`);
+    }
+    setRenewalText(
+      `✍️👕 ¡OFICIAL | ${p.name.toUpperCase()} RENUEVA HASTA ${renewalYear}! 🤝💛\n\nEl ${clubName} y el futbolista han alcanzado un acuerdo oficial para la ampliación y blindaje de su contrato.\n\nUna pieza clave en el esquema del míster ${managerName} seguirá defendiendo nuestro escudo y haciendo vibrar a la afición. ¡Enhorabuena, crack!`
+    );
+  };
 
   const handleCompetitionChange = (newComp) => {
     setCompetition(newComp);
@@ -197,6 +244,11 @@ export default function NewPostModal({
     ? PRESET_POST_IMAGES
     : PRESET_POST_IMAGES.filter(img => img.category === lineupCategory);
 
+  // Filter preset images by category for renewal mode
+  const filteredRenewalImages = renewalCategory === 'all'
+    ? PRESET_POST_IMAGES
+    : PRESET_POST_IMAGES.filter(img => img.category === renewalCategory);
+
   // Apply quick template
   const handleApplyTemplate = (tmpl) => {
     setText(tmpl.text);
@@ -208,14 +260,16 @@ export default function NewPostModal({
   };
 
   // Upload local file from PC
-  const handleImageUpload = (e, isForLineup = false) => {
+  const handleImageUpload = (e, targetMode = 'standard') => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (uploadEvent) => {
         if (uploadEvent.target?.result) {
-          if (isForLineup) {
+          if (targetMode === 'lineup' || targetMode === true) {
             setLineupBgImage(uploadEvent.target.result);
+          } else if (targetMode === 'renewal') {
+            setRenewalBgImage(uploadEvent.target.result);
           } else {
             setImageUrl(uploadEvent.target.result);
           }
@@ -228,6 +282,36 @@ export default function NewPostModal({
   // Submit Handler
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (modalMode === 'renewal') {
+      const displayJerseyNumber = renewalNumberMode === 'year' ? renewalYear : renewalPlayerNumber;
+      const renewalPost = createRenewalPost(
+        {
+          id: renewalPlayerId,
+          name: renewalPlayerName,
+          number: displayJerseyNumber,
+          position: renewalPosition,
+          rating: renewalRating,
+          photo: renewalPhoto,
+          clause: renewalClause
+        },
+        clubName,
+        clubLogo,
+        renewalYear,
+        renewalClause,
+        managerName,
+        date,
+        { bgImage: renewalBgImage }
+      );
+
+      if (renewalText) {
+        renewalPost.text = renewalText;
+      }
+
+      onSavePost(renewalPost);
+      onClose();
+      return;
+    }
 
     if (modalMode === 'lineup') {
       const rivalLogo = getClubLogo(selectedRival);
@@ -322,12 +406,12 @@ export default function NewPostModal({
             </div>
             <div>
               <h2 className="text-lg font-black text-white font-display">Publicar en el Muro Oficial</h2>
-              <p className="text-xs text-slate-400">Diseña comunicados o publica el 11 inicial con cartel oficial y fondo predeterminado</p>
+              <p className="text-xs text-slate-400">Diseña comunicados, renueva estrellas con su camiseta o publica el 11 inicial</p>
             </div>
           </div>
 
           {/* MODE TOGGLE TABS */}
-          <div className="flex items-center bg-[#0a0f18] p-1 rounded-xl border border-[#213047] shrink-0 self-start sm:self-auto">
+          <div className="flex items-center bg-[#0a0f18] p-1 rounded-xl border border-[#213047] shrink-0 self-start sm:self-auto flex-wrap gap-1">
             <button
               type="button"
               onClick={() => setModalMode('lineup')}
@@ -338,7 +422,19 @@ export default function NewPostModal({
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
-              <span>📋 11 Inicial del Partido</span>
+              <span>📋 11 Inicial</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setModalMode('renewal')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
+                modalMode === 'renewal'
+                  ? 'bg-gradient-to-r from-amber-400 to-yellow-300 text-black shadow-md shadow-amber-400/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Award className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>✍️👕 Renovación</span>
             </button>
             <button
               type="button"
@@ -350,7 +446,7 @@ export default function NewPostModal({
               }`}
             >
               <ImageIcon className="w-3.5 h-3.5" />
-              <span>📢 Comunicado Estándar</span>
+              <span>📢 Comunicado</span>
             </button>
           </div>
         </div>
@@ -579,7 +675,239 @@ export default function NewPostModal({
           )}
 
           {/* ============================================================== */}
-          {/* MODE 2: COMUNICADO ESTÁNDAR (NORMAL ANNOUNCEMENT) */}
+          {/* MODE 2: RENOVACIÓN DE JUGADOR (CON CAMISETA DE ESPALDA) */}
+          {/* ============================================================== */}
+          {modalMode === 'renewal' && (
+            <div className="space-y-4">
+              
+              {/* Row 1: Player selector from squad + Name + Number + Mode toggle */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-[#0d1421] p-3.5 rounded-2xl border border-[#1f2d42]">
+                <div className="sm:col-span-2">
+                  <label className="block text-slate-300 font-bold mb-1">
+                    Seleccionar Jugador de la Plantilla ({squad.length} disponibles)
+                  </label>
+                  <select
+                    value={renewalPlayerId}
+                    onChange={(e) => handleRenewalPlayerSelect(e.target.value)}
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400"
+                  >
+                    {squad.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        #{p.number || '?'} {p.name} ({p.position} · {p.rating} OVR)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Nombre en Camiseta</label>
+                  <input
+                    type="text"
+                    value={renewalPlayerName}
+                    onChange={(e) => setRenewalPlayerName(e.target.value)}
+                    placeholder="Ej. VINÍCIUS JR."
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold uppercase focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Año de Renovación</label>
+                  <select
+                    value={renewalYear}
+                    onChange={(e) => {
+                      setRenewalYear(e.target.value);
+                      setRenewalText(prev => prev.replace(/20\d\d/g, e.target.value));
+                    }}
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-amber-300 font-bold focus:outline-none focus:border-amber-400"
+                  >
+                    <option value="2028">Hasta 2028</option>
+                    <option value="2029">Hasta 2029</option>
+                    <option value="2030">Hasta 2030</option>
+                    <option value="2031">Hasta 2031</option>
+                    <option value="2032">Hasta 2032</option>
+                    <option value="2033">Hasta 2033</option>
+                    <option value="2034">Hasta 2034</option>
+                    <option value="2035">Hasta 2035</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 2: Dorsal vs Year on Jersey Back + Cláusula + Posición & Media */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-[#0d1421] p-3.5 rounded-2xl border border-[#1f2d42]">
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Imprimir en Espalda</label>
+                  <div className="flex bg-[#152132] p-1 rounded-xl border border-[#263750]">
+                    <button
+                      type="button"
+                      onClick={() => setRenewalNumberMode('dorsal')}
+                      className={`flex-1 py-1.5 rounded-lg font-bold text-xs transition-colors ${
+                        renewalNumberMode === 'dorsal'
+                          ? 'bg-amber-400 text-black shadow'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Dorsal (#{renewalPlayerNumber})
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRenewalNumberMode('year')}
+                      className={`flex-1 py-1.5 rounded-lg font-bold text-xs transition-colors ${
+                        renewalNumberMode === 'year'
+                          ? 'bg-amber-400 text-black shadow'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Año ({renewalYear})
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Dorsal del Jugador</label>
+                  <input
+                    type="number"
+                    value={renewalPlayerNumber}
+                    onChange={(e) => setRenewalPlayerNumber(e.target.value)}
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Cláusula de Rescisión</label>
+                  <input
+                    type="text"
+                    value={renewalClause}
+                    onChange={(e) => setRenewalClause(e.target.value)}
+                    placeholder="Ej. 150.000.000 €"
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-bold mb-1">Fecha de Publicación</label>
+                  <input
+                    type="text"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+              </div>
+
+              {/* Row 3: Post announcement text */}
+              <div className="bg-[#0b1019] border border-[#1d293d] rounded-2xl p-3.5 space-y-2">
+                <label className="block text-slate-300 font-bold mb-1">Texto del Comunicado Oficial de Renovación</label>
+                <textarea
+                  rows="3"
+                  value={renewalText}
+                  onChange={(e) => setRenewalText(e.target.value)}
+                  className="w-full bg-[#162234] border border-[#25364f] rounded-xl p-2.5 text-white focus:outline-none focus:border-amber-400 text-xs"
+                  placeholder="Escribe el texto de la publicación..."
+                />
+              </div>
+
+              {/* Row 4: Background Image Picker for Renewal */}
+              <div className="bg-[#0b1019] border border-[#1d293d] rounded-2xl p-3.5 space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <label className="text-slate-200 font-bold flex items-center gap-1.5">
+                      <ImageIcon className="w-4 h-4 text-amber-400" />
+                      <span>Fondo de Sala de Prensa, Vestuario o Estadio</span>
+                    </label>
+                    <p className="text-[10px] text-slate-400">
+                      La camiseta oficial de {clubName} con el nombre y número se montará en primer plano sobre este fondo
+                    </p>
+                  </div>
+
+                  <label className="flex items-center gap-1.5 bg-[#172336] hover:bg-[#202e47] text-slate-200 hover:text-white px-3 py-1.5 rounded-xl border border-[#263750] cursor-pointer text-[11px] font-semibold transition-colors shrink-0">
+                    <Upload className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Subir desde mi PC</span>
+                    <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'renewal')} className="hidden" />
+                  </label>
+                </div>
+
+                {/* Category Filter Chips */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                  {PRESET_CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setRenewalCategory(cat.id)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition-colors flex items-center gap-1 ${
+                        renewalCategory === cat.id
+                          ? 'bg-amber-400 text-black'
+                          : 'bg-[#151f30] text-slate-300 hover:bg-[#1c2940]'
+                      }`}
+                    >
+                      <span>{cat.icon}</span>
+                      <span>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Preset Images Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-h-48 overflow-y-auto pr-1">
+                  {filteredRenewalImages.map((img) => {
+                    const isSelected = renewalBgImage === img.url;
+                    return (
+                      <div
+                        key={img.id}
+                        onClick={() => setRenewalBgImage(img.url)}
+                        className={`group relative rounded-xl overflow-hidden border-2 cursor-pointer transition-all aspect-video bg-[#131b29] ${
+                          isSelected
+                            ? 'border-amber-400 shadow-lg shadow-amber-400/25 scale-[1.02]'
+                            : 'border-[#1f2c42] hover:border-slate-400 opacity-80 hover:opacity-100'
+                        }`}
+                      >
+                        <img
+                          src={img.url}
+                          alt={img.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-1.5">
+                          <p className="text-[10px] font-bold text-white truncate">{img.title}</p>
+                        </div>
+                        {isSelected && (
+                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-amber-400 text-black flex items-center justify-center shadow">
+                            <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Row 5: LIVE PREVIEW OF JERSEY BACK GRAPHIC */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-amber-300 font-bold flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <span>Vista Previa en Vivo: Camiseta Oficial de Espalda con Nombre y Número</span>
+                  </label>
+                  <span className="text-[10px] text-slate-400">Cartel exclusivo con los colores auténticos de {clubName}</span>
+                </div>
+
+                <JerseyBackGraphic
+                  playerName={renewalPlayerName}
+                  playerNumber={renewalNumberMode === 'year' ? renewalYear : renewalPlayerNumber}
+                  clubName={clubName}
+                  clubLogo={clubLogo}
+                  renewalYear={renewalYear}
+                  clause={renewalClause}
+                  playerPhoto={renewalPhoto}
+                  playerPosition={renewalPosition}
+                  playerRating={renewalRating}
+                  bgImage={renewalBgImage}
+                  date={date}
+                />
+              </div>
+
+            </div>
+          )}
+
+          {/* ============================================================== */}
+          {/* MODE 3: COMUNICADO ESTÁNDAR (NORMAL ANNOUNCEMENT) */}
           {/* ============================================================== */}
           {modalMode === 'standard' && (
             <div className="space-y-4">
@@ -787,10 +1115,20 @@ export default function NewPostModal({
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-xl bg-[#00ff87] hover:bg-[#00e676] text-[#090d14] font-black shadow-lg shadow-[#00ff87]/20 transition-all flex items-center gap-1.5 active:scale-95"
+              className={`px-5 py-2 rounded-xl font-black shadow-lg transition-all flex items-center gap-1.5 active:scale-95 ${
+                modalMode === 'renewal'
+                  ? 'bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-black shadow-amber-400/20'
+                  : 'bg-[#00ff87] hover:bg-[#00e676] text-[#090d14] shadow-[#00ff87]/20'
+              }`}
             >
               <Send className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>{modalMode === 'lineup' ? 'Publicar 11 Inicial' : 'Publicar Comunicado'}</span>
+              <span>
+                {modalMode === 'lineup'
+                  ? 'Publicar 11 Inicial'
+                  : modalMode === 'renewal'
+                  ? 'Publicar Renovación con Camiseta'
+                  : 'Publicar Comunicado'}
+              </span>
             </button>
           </div>
 

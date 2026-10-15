@@ -1,6 +1,7 @@
 // Preset official background & announcement graphics for Communicados
 export const PRESET_CATEGORIES = [
   { id: 'all', label: 'Todas las Fotos', icon: '✨' },
+  { id: 'renovaciones', label: 'Renovaciones & Contratos', icon: '✍️' },
   { id: 'matchday', label: 'Día de Partido', icon: '⚽' },
   { id: 'champions', label: 'Noches Europeas & Copas', icon: '⭐' },
   { id: 'fichajes', label: 'Fichajes & Presentación', icon: '✍️' },
@@ -13,6 +14,72 @@ export const PRESET_CATEGORIES = [
 ];
 
 export const PRESET_POST_IMAGES = [
+  // 0. RENOVACIONES & CONTRATOS (RENOVACIONES)
+  {
+    id: 'renov-1',
+    category: 'renovaciones',
+    title: 'Camiseta Oficial en Taquilla de Vestuario',
+    description: 'La elástica colgada bajo los focos lista para la renovación',
+    url: 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=800&auto=format&fit=crop&q=80',
+    tag: 'Renovación Oficial'
+  },
+  {
+    id: 'renov-2',
+    category: 'renovaciones',
+    title: 'Dorsal y Elástica Lista para la Firma',
+    description: 'Camiseta oficial con el dorsal preparado para sellar el acuerdo',
+    url: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&auto=format&fit=crop&q=80',
+    tag: 'Nuevo Contrato'
+  },
+  {
+    id: 'renov-3',
+    category: 'renovaciones',
+    title: 'Mirada al Templo con la Camiseta de Espalda',
+    description: 'Jugador contemplando el estadio luciendo los colores oficiales',
+    url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80',
+    tag: 'Blindaje de Estrella'
+  },
+  {
+    id: 'renov-4',
+    category: 'renovaciones',
+    title: 'Firma y Rúbrica en el Despacho Oficial',
+    description: 'Documento protocolario sellando la vinculación a largo plazo',
+    url: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&auto=format&fit=crop&q=80',
+    tag: 'Firma Oficial'
+  },
+  {
+    id: 'renov-5',
+    category: 'renovaciones',
+    title: 'Foco Cenital sobre la Camiseta en el Vestuario',
+    description: 'Detalle de la camiseta en el santuario del equipo',
+    url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80',
+    tag: 'Ampliación Contractual'
+  },
+  {
+    id: 'renov-6',
+    category: 'renovaciones',
+    title: 'Concentración Máxima en el Túnel con el Escudo',
+    description: 'Mirada fija hacia el terreno de juego defendiendo los colores',
+    url: 'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=800&auto=format&fit=crop&q=80',
+    tag: 'Compromiso Total'
+  },
+  {
+    id: 'renov-7',
+    category: 'renovaciones',
+    title: 'Pose de Espalda Bajo los Focos del Estadio',
+    description: 'Focos encendidos iluminando la espalda con el dorsal',
+    url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=80',
+    tag: 'Hasta 2030'
+  },
+  {
+    id: 'renov-8',
+    category: 'renovaciones',
+    title: 'Comparecencia y Posado de Ampliación de Contrato',
+    description: 'Rueda de prensa y fotos oficiales ante los medios',
+    url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80',
+    tag: 'Rueda de Prensa'
+  },
+
   // 1. DÍA DE PARTIDO (MATCHDAY)
   {
     id: 'match-1',
@@ -406,6 +473,15 @@ export const QUICK_ANNOUNCEMENT_TEMPLATES = [
     subtitle: 'Refuerzo de Garantías',
     imageId: 'sign-3',
     text: `⚡ El club hace oficial la incorporación del futbolista a la disciplina del primer equipo tras superar satisfactoriamente el reconocimiento médico.\n\nLlega para aportar calidad, desequilibrio y hambre de títulos a nuestro proyecto.`
+  },
+  {
+    id: 'tmpl-renewal',
+    name: '✍️👕 Renovación de Jugador',
+    tag: 'Renovación Oficial',
+    title: 'BLINDAJE CONTRACTUAL',
+    subtitle: 'Compromiso y Fidelidad',
+    imageId: 'renov-1',
+    text: `🤝✍️ El club y el futbolista han rubricado la ampliación oficial de su contrato.\n\nLa camiseta con su dorsal y nombre sigue en casa para orgullo de toda la afición. ¡A seguir haciendo historia juntos!`
   },
   {
     id: 'tmpl-medical',
