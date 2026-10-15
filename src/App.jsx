@@ -50,7 +50,8 @@ import {
   createGoalPost,
   createYouthPost,
   createTrophyPost,
-  createRenewalPost
+  createRenewalPost,
+  generateContextualComments
 } from './postGenerator';
 import { formatToFullEuros, parsePlayerValueInEuros } from './utils/formatters';
 
@@ -253,23 +254,11 @@ export default function App() {
         content: `El ${activeCareer.manager.club} avanza en la temporada hacia el ${cleanDate} (+${daysAdvanced} días transcurridos). El cuerpo técnico y la plantilla continúan trabajando al máximo nivel de cara a los próximos compromisos oficiales.`,
         tag: "Calendario",
         likes: Math.floor(Math.random() * 400) + 850,
-        commentsCount: 2,
-        comments: [
-          {
-            id: `c-cal-1-${Date.now()}`,
-            user: "Marca",
-            avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Marca_logo.svg/320px-Marca_logo.svg.png",
-            comment: `Semana clave para el proyecto de ${activeCareer.manager.name} en el ${activeCareer.manager.club}.`,
-            timeAgo: "1m"
-          },
-          {
-            id: `c-cal-2-${Date.now()}`,
-            user: "Afición Oficial",
-            avatar: activeCareer.manager.clubLogo,
-            comment: `¡A por todas en el próximo partido, míster! ⚽🔥`,
-            timeAgo: "Justo ahora"
-          }
-        ]
+        commentsCount: 4,
+        comments: generateContextualComments('calendar', activeCareer.manager.club, activeCareer.manager.name, {
+          daysAdvanced,
+          newDate: cleanDate
+        })
       };
     }
 
