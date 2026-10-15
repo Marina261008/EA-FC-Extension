@@ -1,5 +1,6 @@
 import { getClubLogo } from './clubsData.js';
 import { formatToFullEuros } from './utils/formatters.js';
+import { getTrophyImage } from './data/trophiesData.js';
 
 // Utility to shuffle arrays for randomized comment selection
 function shuffleArray(arr) {
@@ -876,6 +877,7 @@ export function createTrophyPost(competition, club, clubLogoParam, managerName =
     graphic: {
       isTrophy: true,
       image: trophyImage,
+      trophyImage: options.trophyImage || getTrophyImage(competition),
       tag: '🏆 Título Oficial Conquistado',
       title: `¡CAMPEONES DE ${competition.toUpperCase()}!`,
       subtitle: `${clubName} · Míster ${managerName}`,

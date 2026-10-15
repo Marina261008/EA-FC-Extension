@@ -19,6 +19,7 @@ import {
 import StartingXIGraphic from './StartingXIGraphic';
 import JerseyBackGraphic from './JerseyBackGraphic';
 import { getClubLogo } from '../../clubsData';
+import { getTrophyImage } from '../../data/trophiesData';
 import { generateContextualComments } from '../../postGenerator';
 
 export default function ClubPostCard({
@@ -338,19 +339,33 @@ export default function ClubPostCard({
               </div>
 
               <div className="relative z-10 my-4 flex flex-col items-center text-center">
-                <div className="relative mb-3 group">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-200 to-amber-500 p-1.5 shadow-2xl shadow-amber-500/50 flex items-center justify-center">
-                    <div className="w-full h-full rounded-full bg-[#0a0f18] p-3 flex items-center justify-center border-2 border-amber-300/80">
-                      <img 
-                        src={graphic.clubLogo || author.avatar || clubLogo}
-                        alt={graphic.clubName}
-                        className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-2xl"
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    </div>
+                <div className="relative mb-3 flex items-center justify-center gap-4 sm:gap-6 group">
+                  {/* Physical Trophy Showcase */}
+                  <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-2xl bg-gradient-to-b from-[#18233a] to-[#0c121e] border-2 border-amber-400/80 p-2 shadow-2xl shadow-amber-500/30 flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-amber-400/20 blur-lg pointer-events-none" />
+                    <img 
+                      src={graphic.trophyImage || getTrophyImage(graphic.competition || graphic.title || graphic.subtitle)}
+                      alt="Trofeo Oficial"
+                      className="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.95)] relative z-10 transform group-hover:scale-105 transition-transform"
+                      onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                    />
                   </div>
-                  <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-black font-black text-[11px] px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xl border border-yellow-200 shrink-0 whitespace-nowrap">
-                    CAMPEÓN 🏆
+
+                  {/* Club Crest in Golden Ring */}
+                  <div className="relative">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-200 to-amber-500 p-1.5 shadow-2xl shadow-amber-500/50 flex items-center justify-center">
+                      <div className="w-full h-full rounded-full bg-[#0a0f18] p-2.5 flex items-center justify-center border-2 border-amber-300/80">
+                        <img 
+                          src={graphic.clubLogo || author.avatar || clubLogo}
+                          alt={graphic.clubName}
+                          className="w-14 h-14 sm:w-16 sm:h-16 object-contain drop-shadow-2xl"
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                      </div>
+                    </div>
+                    <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-black font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xl border border-yellow-200 shrink-0 whitespace-nowrap">
+                      CAMPEÓN 🏆
+                    </div>
                   </div>
                 </div>
 

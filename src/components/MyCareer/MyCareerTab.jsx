@@ -1,5 +1,6 @@
 import React from 'react';
 import { Trophy, Award, TrendingUp, Calendar, Zap, Star } from 'lucide-react';
+import { getTrophyImage } from '../../data/trophiesData';
 
 export default function MyCareerTab({ career, onCelebrateTitle }) {
   const { manager, seasons, gameVersion } = career;
@@ -154,6 +155,16 @@ export default function MyCareerTab({ career, onCelebrateTitle }) {
                   <span className="absolute top-3 right-3 text-xs font-bold text-amber-200 bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-amber-500/30">
                     {trophy.season || 'Temporada 1'}
                   </span>
+
+                  {/* Physical Trophy Showcase */}
+                  <div className="absolute bottom-2 left-3 w-12 h-14 bg-black/85 border border-amber-400/50 rounded-xl p-1 shadow-2xl flex items-center justify-center backdrop-blur-md">
+                    <img
+                      src={trophy.trophyImage || getTrophyImage(trophy.competition)}
+                      alt={trophy.competition}
+                      className="max-w-full max-h-full object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                    />
+                  </div>
 
                   {/* Club Crest */}
                   <div className="absolute bottom-2 right-3 w-12 h-12 rounded-full bg-black/80 border border-amber-400/50 p-1.5 shadow-xl flex items-center justify-center">

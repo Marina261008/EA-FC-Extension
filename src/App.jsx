@@ -21,6 +21,7 @@ import CommunityTab from './components/Community/CommunityTab';
 import SettingsTab from './components/Settings/SettingsTab';
 import DatabaseView from './components/Database/DatabaseView';
 import { convertRosterPlayerToSquad, getClubRoster, getClubLogo } from './clubsData';
+import { getTrophyImage } from './data/trophiesData';
 
 // Modals
 import MatchModal from './components/Matches/MatchModal';
@@ -606,7 +607,8 @@ export default function App() {
       competition: comp,
       date: dateStr,
       season: activeSeason.period || activeSeason.name,
-      image: photoUrl
+      image: photoUrl,
+      trophyImage: options.trophyImage || getTrophyImage(comp)
     };
 
     const updated = careers.map(c => {
