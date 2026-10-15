@@ -1,6 +1,7 @@
 import React from 'react';
 import { Award, Shield, Sparkles, CheckCircle } from 'lucide-react';
 import { getClubKit, getClubLogo } from '../../clubsData';
+import { formatToFullEuros } from '../../utils/formatters';
 
 export default function JerseyBackGraphic({
   playerName = 'JUGADOR',
@@ -28,10 +29,8 @@ export default function JerseyBackGraphic({
   const namePathId = `name-path-${safeId}-${Math.random().toString(36).substr(2, 4)}`;
   const meshPatternId = `mesh-pattern-${safeId}`;
 
-  // Format clause safely
-  const formattedClause = typeof clause === 'string' && clause.includes('NaN') 
-    ? '120.000.000 €' 
-    : clause;
+  // Format clause safely with full dot format
+  const formattedClause = formatToFullEuros(clause, '120.000.000 €');
 
   return (
     <div className="relative min-h-[460px] sm:min-h-[520px] flex flex-col justify-between p-4 sm:p-7 overflow-hidden rounded-2xl bg-[#070b12] select-none text-white border border-[#23344d] shadow-[0_20px_60px_rgba(0,0,0,0.8)]">

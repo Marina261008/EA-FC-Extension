@@ -43,6 +43,11 @@ import {
 } from '../../clubsData';
 import StartingXIGraphic from './StartingXIGraphic';
 import JerseyBackGraphic from './JerseyBackGraphic';
+import { 
+  formatCurrencyInput, 
+  formatToFullEuros, 
+  parsePlayerValueInEuros 
+} from '../../utils/formatters';
 import { createRenewalPost } from '../../postGenerator';
 
 export default function NewPostModal({ 
@@ -101,7 +106,11 @@ export default function NewPostModal({
   const [renewalPlayerNumber, setRenewalPlayerNumber] = useState(defaultRenewalPlayer?.number || 7);
   const [renewalNumberMode, setRenewalNumberMode] = useState('dorsal'); // 'dorsal' vs 'year'
   const [renewalYear, setRenewalYear] = useState('2030');
-  const [renewalClause, setRenewalClause] = useState(defaultRenewalPlayer?.clause || '150.000.000 €');
+  const [renewalClause, setRenewalClause] = useState(
+    defaultRenewalPlayer?.clause 
+      ? formatToFullEuros(defaultRenewalPlayer.clause) 
+      : '150.000.000 €'
+  );
   const [renewalPosition, setRenewalPosition] = useState(defaultRenewalPlayer?.position || 'DEL');
   const [renewalRating, setRenewalRating] = useState(defaultRenewalPlayer?.rating || 89);
   const [renewalPhoto, setRenewalPhoto] = useState(
@@ -126,10 +135,10 @@ export default function NewPostModal({
     setRenewalRating(p.rating || 80);
     setRenewalPhoto(p.photo || p.imageUrl || './default_player.svg');
     if (p.clause) {
-      setRenewalClause(p.clause);
+      setRenewalClause(formatToFullEuros(p.clause));
     } else if (p.value) {
-      const numVal = parseFloat(String(p.value).replace(/[^0-9.]/g, '')) || 25;
-      setRenewalClause(`${Math.round(numVal * 1.6)} M €`);
+      const valEuros = parsePlayerValueInEuros(p.value);
+      setRenewalClause(formatToFullEuros(Math.round(valEuros * 1.6)));
     }
     setRenewalText(
       `✍️👕 ¡OFICIAL | ${p.name.toUpperCase()} RENUEVA HASTA ${renewalYear}! 🤝💛\n\nEl ${clubName} y el futbolista han alcanzado un acuerdo oficial para la ampliación y blindaje de su contrato.\n\nUna pieza clave en el esquema del míster ${managerName} seguirá defendiendo nuestro escudo y haciendo vibrar a la afición. ¡Enhorabuena, crack!`
@@ -786,7 +795,7 @@ export default function NewPostModal({
                   <input
                     type="text"
                     value={renewalClause}
-                    onChange={(e) => setRenewalClause(e.target.value)}
+                    onChange={(e) => setRenewalClause(formatCurrencyInput(e.target.value, { suffix: ' €' }))}
                     placeholder="Ej. 150.000.000 €"
                     className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-400"
                   />

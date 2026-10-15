@@ -19,6 +19,11 @@ import {
 } from 'lucide-react';
 import PitchView from './PitchView';
 import JerseyBackGraphic from '../Feed/JerseyBackGraphic';
+import { 
+  formatCurrencyInput, 
+  formatToFullEuros, 
+  parsePlayerValueInEuros 
+} from '../../utils/formatters';
 
 export default function SquadTab({
   season,
@@ -397,8 +402,10 @@ function QuickRenewalModal({
   const [wage, setWage] = useState(player.wage || '45.000 €/sem');
   
   // Calculate suggested buyout clause from value
-  const numVal = parseFloat(String(player.value || '').replace(/[^0-9.]/g, '')) || 25;
-  const defaultClause = player.clause || `${Math.round(numVal * 1.6)} M €`;
+  const playerValEuros = parsePlayerValueInEuros(player.value);
+  const defaultClause = player.clause 
+    ? formatToFullEuros(player.clause) 
+    : formatToFullEuros(Math.round(playerValEuros * 1.6));
   const [clause, setClause] = useState(defaultClause);
 
   const [autoPost, setAutoPost] = useState(true);
@@ -418,8 +425,8 @@ function QuickRenewalModal({
     e.preventDefault();
     onConfirm({
       renewalYear,
-      wage,
-      clause,
+      wage: formatCurrencyInput(wage, { suffix: ' €/sem' }),
+      clause: formatToFullEuros(clause),
       autoPost
     });
   };
@@ -490,7 +497,7 @@ function QuickRenewalModal({
                 <input
                   type="text"
                   value={wage}
-                  onChange={(e) => setWage(e.target.value)}
+                  onChange={(e) => setWage(formatCurrencyInput(e.target.value, { suffix: ' €/sem' }))}
                   placeholder="Ej. 65.000 €/sem"
                   className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-400"
                 />
@@ -503,7 +510,7 @@ function QuickRenewalModal({
                 <input
                   type="text"
                   value={clause}
-                  onChange={(e) => setClause(e.target.value)}
+                  onChange={(e) => setClause(formatCurrencyInput(e.target.value, { suffix: ' €' }))}
                   placeholder="Ej. 120.000.000 €"
                   className="w-full bg-[#152132] border border-[#263750] rounded-xl px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-400"
                 />

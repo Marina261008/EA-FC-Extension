@@ -50,6 +50,7 @@ import {
   createTrophyPost,
   createRenewalPost
 } from './postGenerator';
+import { formatToFullEuros, parsePlayerValueInEuros } from './utils/formatters';
 
 import { 
   loadCareers, 
@@ -617,8 +618,10 @@ export default function App() {
   const handleRenewPlayer = (player, { renewalYear, wage, clause, autoPost = true, bgImage } = {}) => {
     const updatedContract = String(renewalYear);
     const updatedWage = wage || player.wage;
-    const numVal = parseFloat(String(player.value || '').replace(/[^0-9.]/g, '')) || 25;
-    const updatedClause = clause || player.clause || `${Math.round(numVal * 1.6)} M €`;
+    const playerValEuros = parsePlayerValueInEuros(player.value);
+    const updatedClause = clause 
+      ? formatToFullEuros(clause) 
+      : (player.clause ? formatToFullEuros(player.clause) : formatToFullEuros(Math.round(playerValEuros * 1.6)));
 
     const updatedPlayerData = {
       ...player,
@@ -672,8 +675,10 @@ export default function App() {
     // Check if contract was extended
     const existingPlayer = activeSeason.squad?.find(p => p.id === playerData.id);
     if (existingPlayer && playerData.contract && parseInt(playerData.contract, 10) > parseInt(existingPlayer.contract || '2026', 10)) {
-      const numVal = parseFloat(String(playerData.value || '').replace(/[^0-9.]/g, '')) || 25;
-      const clause = playerData.clause || `${Math.round(numVal * 1.6)} M €`;
+      const playerValEuros = parsePlayerValueInEuros(playerData.value);
+      const clause = playerData.clause 
+        ? formatToFullEuros(playerData.clause) 
+        : formatToFullEuros(Math.round(playerValEuros * 1.6));
       renewalPost = createRenewalPost(
         playerData,
         activeCareer.manager.club,

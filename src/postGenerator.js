@@ -1,4 +1,5 @@
 import { getClubLogo } from './clubsData.js';
+import { formatToFullEuros } from './utils/formatters.js';
 
 // Helper to generate realistic contextual fan & press comments for any post type
 export function generateContextualComments(type, clubName = 'Mi Club', managerName = 'Mánager', context = {}) {
@@ -652,6 +653,7 @@ export function createRenewalPost(player, club, clubLogoParam, renewalYear = '20
   const playerRating = typeof player === 'object' ? (player.rating || 82) : 82;
 
   const bgImage = options.bgImage || 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=1000&auto=format&fit=crop&q=80';
+  const formattedClause = formatToFullEuros(clause, '120.000.000 €');
 
   return {
     id: `post-renew-${Date.now()}`,
@@ -669,13 +671,13 @@ export function createRenewalPost(player, club, clubLogoParam, renewalYear = '20
       isRenewal: true,
       tag: '✍️ Renovación Oficial',
       title: `¡${playerName.toUpperCase()} HASTA ${renewalYear}!`,
-      subtitle: `${playerPosition} · ${playerRating} OVR · Cláusula ${clause}`,
+      subtitle: `${playerPosition} · ${playerRating} OVR · Cláusula ${formattedClause}`,
       playerName,
       playerNumber,
       clubName,
       clubLogo: userClubLogo,
       renewalYear,
-      clause,
+      clause: formattedClause,
       playerPhoto,
       playerPosition,
       playerRating,

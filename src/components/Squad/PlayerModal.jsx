@@ -7,6 +7,7 @@ import {
   WAGE_OPTIONS,
   MARKET_VALUE_OPTIONS
 } from '../../data/dropdownPresets';
+import { formatToFullEuros } from '../../utils/formatters';
 
 export default function PlayerModal({ isOpen, onClose, onSavePlayer, playerToEdit }) {
   if (!isOpen) return null;
@@ -21,7 +22,7 @@ export default function PlayerModal({ isOpen, onClose, onSavePlayer, playerToEdi
   const [rating, setRating] = useState(playerToEdit?.rating || 78);
   const [potential, setPotential] = useState(playerToEdit?.potential || 84);
   const [photo, setPhoto] = useState(playerToEdit?.photo || PLAYER_FACE_PRESETS[0]);
-  const [value, setValue] = useState(playerToEdit?.value || '18 M €');
+  const [value, setValue] = useState(playerToEdit?.value ? formatToFullEuros(playerToEdit.value) : '18.000.000 €');
   const [wage, setWage] = useState(playerToEdit?.wage || '35.000 €/sem');
   const [contract, setContract] = useState(playerToEdit?.contract || '2028');
   const [status, setStatus] = useState(playerToEdit?.status || 'Titular');

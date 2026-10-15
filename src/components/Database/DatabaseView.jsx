@@ -44,6 +44,7 @@ import {
   resetDatabaseToDefault,
   convertRosterPlayerToSquad
 } from '../../clubsData';
+import { formatCurrencyInput } from '../../utils/formatters';
 
 export default function DatabaseView({ activeCareer, onSignPlayer }) {
   const [dbVersion, setDbVersion] = useState(0); // For forcing re-render after DB upload
@@ -979,7 +980,8 @@ function SignPlayerModal({ player, activeCareer, onClose, onConfirm }) {
               <input
                 type="text"
                 value={wage}
-                onChange={(e) => setWage(e.target.value)}
+                onChange={(e) => setWage(formatCurrencyInput(e.target.value, { suffix: ' €/sem' }))}
+                placeholder="Ej. 35.000 €/sem"
                 className="w-full bg-[#162234] border border-[#283b54] rounded-xl px-3 py-2 text-white font-medium text-sm focus:outline-none focus:border-[#00ff87]"
               />
             </div>

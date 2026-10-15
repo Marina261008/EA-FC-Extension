@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Sparkles, Trophy, Plus, Shield } from 'lucide-react';
 import { POPULAR_CLUBS } from '../../mockData';
+import { formatNumberWithDots, parseFormattedNumber } from '../../utils/formatters';
 
 export default function NewCareerModal({ isOpen, onClose, onSaveCareer }) {
   if (!isOpen) return null;
@@ -238,13 +239,15 @@ export default function NewCareerModal({ isOpen, onClose, onSaveCareer }) {
           <div>
             <label className="block text-slate-400 font-semibold mb-1">Presupuesto Inicial de Fichajes (€)</label>
             <input
-              type="number"
-              step="1000000"
-              value={budget}
-              onChange={(e) => setBudget(e.target.value)}
+              type="text"
+              value={formatNumberWithDots(budget)}
+              onChange={(e) => setBudget(parseFormattedNumber(e.target.value))}
+              placeholder="Ej. 40.000.000"
               className="w-full bg-[#162234] border border-[#25364f] rounded-xl px-3 py-2 text-white font-medium focus:outline-none focus:border-[#00ff87]"
             />
-            <p className="text-[10px] text-slate-500 mt-1">{(budget / 1000000).toFixed(0)} Millones de Euros disponibles</p>
+            <p className="text-[10px] text-slate-400 mt-1">
+              <span className="font-bold text-[#00ff87]">{(parseFormattedNumber(budget) / 1000000).toLocaleString('es-ES', { maximumFractionDigits: 1 })} Millones de Euros</span> ({formatNumberWithDots(budget)} €) disponibles
+            </p>
           </div>
 
           {/* Avatar URL */}

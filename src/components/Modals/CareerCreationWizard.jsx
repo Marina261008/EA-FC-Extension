@@ -41,6 +41,7 @@ import {
 } from '../../clubsData';
 import { NATIONALITY_OPTIONS } from '../../data/dropdownPresets';
 import { createManagerPost } from '../../postGenerator';
+import { formatNumberWithDots, parseFormattedNumber } from '../../utils/formatters';
 
 const TAB_TO_CLUBS = {
   laliga: LALIGA_CLUBS,
@@ -739,14 +740,14 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
                 <div>
                   <label className="block text-slate-400 font-semibold mb-1">Presupuesto Inicial de Fichajes (€)</label>
                   <input
-                    type="number"
-                    step="1000000"
-                    value={budget}
-                    onChange={(e) => setBudget(e.target.value)}
+                    type="text"
+                    value={formatNumberWithDots(budget)}
+                    onChange={(e) => setBudget(parseFormattedNumber(e.target.value))}
+                    placeholder="Ej. 40.000.000"
                     className="w-full bg-[#1b2639] border border-[#2a3c5a] rounded-xl px-3 py-2 text-xl font-black text-[#00ff87] focus:outline-none focus:border-[#00ff87]"
                   />
-                  <p className="text-[10px] text-slate-500 mt-1">
-                    {(Number(budget) / 1000000).toFixed(0)} Millones de Euros disponibles para altas
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    <span className="font-bold text-[#00ff87]">{(parseFormattedNumber(budget) / 1000000).toLocaleString('es-ES', { maximumFractionDigits: 1 })} Millones de Euros</span> ({formatNumberWithDots(budget)} €) disponibles para altas
                   </p>
                 </div>
 

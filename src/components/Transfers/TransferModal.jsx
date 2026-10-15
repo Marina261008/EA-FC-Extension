@@ -23,6 +23,11 @@ import {
   TRANSFER_DATE_OPTIONS,
   WAGE_OPTIONS
 } from '../../data/dropdownPresets';
+import { 
+  parseFormattedNumber, 
+  formatToFullEuros, 
+  parsePlayerValueInEuros 
+} from '../../utils/formatters';
 
 export default function TransferModal({ 
   isOpen, 
@@ -80,8 +85,9 @@ export default function TransferModal({
       setClubName(player.teamName);
     }
     const valMil = player.val || Math.round((player.ovr || 75) * 0.4);
-    setCost(`${valMil} M €`);
-    setCostNumber(valMil * 1000000);
+    const numEuros = valMil * 1000000;
+    setCost(formatToFullEuros(numEuros));
+    setCostNumber(numEuros);
     setWage(`${((player.wage || 35) * 1000).toLocaleString('es-ES')} €/sem`);
     setShowSuggestions(false);
   };
@@ -96,11 +102,9 @@ export default function TransferModal({
     setRating(player.rating || 75);
     setCountry(player.country || 'España');
     setFlag(player.flag || '🇪🇸');
-    setCost(player.value || '15 M €');
-    const match = (player.value || '').match(/(\d+[\.,]?\d*)\s*M/i);
-    if (match) {
-      setCostNumber(parseFloat(match[1].replace(',', '.')) * 1000000);
-    }
+    const parsedVal = parsePlayerValueInEuros(player.value);
+    setCost(formatToFullEuros(player.value || parsedVal));
+    setCostNumber(parsedVal);
     setWage(player.wage || '35.000 €/sem');
   };
 
@@ -533,13 +537,7 @@ export default function TransferModal({
                 onChange={(e) => {
                   const val = e.target.value;
                   setCost(val);
-                  const match = val.match(/(\d+[\.,]?\d*)\s*M/i);
-                  if (match) {
-                    const num = parseFloat(match[1].replace(',', '.')) * 1000000;
-                    setCostNumber(num);
-                  } else if (val.toLowerCase().includes('libre') || val.toLowerCase().includes('cesión')) {
-                    setCostNumber(0);
-                  }
+                  setCostNumber(parseFormattedNumber(val));
                 }}
                 className="w-full bg-[#162234] border border-[#25364f] rounded-xl px-3 py-2 text-white font-medium focus:outline-none focus:border-[#00ff87]"
               >
