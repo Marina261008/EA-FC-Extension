@@ -686,7 +686,14 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
                           }`}
                         >
                           <div className="w-8 h-8 flex items-center justify-center shrink-0">
-                            <img src={club.logo} alt="" className="max-w-full max-h-full object-contain" />
+                            <img 
+                              src={club.logo || club.badge || getClubLogo(club.name)} 
+                              alt="" 
+                              className="max-w-full max-h-full object-contain" 
+                              onError={(e) => {
+                                e.target.src = getClubLogo(club.name);
+                              }}
+                            />
                           </div>
                           <div className="truncate">
                             <h4 className="font-extrabold text-white text-xs truncate leading-tight">{club.name}</h4>
@@ -723,9 +730,14 @@ export default function CareerCreationWizard({ isOpen, onClose, onSaveCareer }) 
 
                 <div className="flex items-center gap-3 pt-1 pb-2 border-b border-[#202d42]">
                   <img
-                    src={activeLeagueTab === 'custom' ? customLogo : selectedClub.logo}
+                    src={activeLeagueTab === 'custom' ? customLogo : (selectedClub.logo || selectedClub.badge || getClubLogo(selectedClub.name))}
                     alt=""
                     className="w-10 h-10 object-contain"
+                    onError={(e) => {
+                      if (activeLeagueTab !== 'custom') {
+                        e.target.src = getClubLogo(selectedClub.name);
+                      }
+                    }}
                   />
                   <div>
                     <h3 className="font-black text-white text-base">

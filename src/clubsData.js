@@ -543,26 +543,126 @@ const CLUB_ALIASES = {
   'paderborn': 'paderborn',
   'sc paderborn 07': 'paderborn',
   'elversberg': 'elversberg',
-  'sv elversberg': 'elversberg'
+  'sv elversberg': 'elversberg',
+  // Saudi Pro League aliases
+  'al nassr': 'al_nassr',
+  'al-nassr': 'al_nassr',
+  'al nassr fc': 'al_nassr',
+  'al-nassr fc': 'al_nassr',
+  'nassr': 'al_nassr',
+  'al hilal': 'al_hilal',
+  'al-hilal': 'al_hilal',
+  'al hilal fc': 'al_hilal',
+  'al-hilal fc': 'al_hilal',
+  'al hilal sfc': 'al_hilal',
+  'hilal': 'al_hilal',
+  'al ittihad': 'al_ittihad',
+  'al-ittihad': 'al_ittihad',
+  'al ittihad club': 'al_ittihad',
+  'al-ittihad club': 'al_ittihad',
+  'ittihad': 'al_ittihad',
+  'al ahli': 'al_ahli',
+  'al-ahli': 'al_ahli',
+  'al ahli saudi': 'al_ahli',
+  'al-ahli saudi': 'al_ahli',
+  'al ahli saudi fc': 'al_ahli',
+  'al-ahli saudi fc': 'al_ahli',
+  'al ahly': 'al_ahli',
+  'ahli': 'al_ahli',
+  'al qadsiah': 'al_qadsiah',
+  'al-qadsiah': 'al_qadsiah',
+  'al qadsiah fc': 'al_qadsiah',
+  'al-qadsiah fc': 'al_qadsiah',
+  'al qadisiyah': 'al_qadsiah',
+  'al-qadisiyah': 'al_qadsiah',
+  'qadsiah': 'al_qadsiah',
+  'al ettifaq': 'al_ettifaq',
+  'al-ettifaq': 'al_ettifaq',
+  'al ettifaq fc': 'al_ettifaq',
+  'al-ettifaq fc': 'al_ettifaq',
+  'ettifaq': 'al_ettifaq',
+  'al shabab': 'al_shabab',
+  'al-shabab': 'al_shabab',
+  'al shabab fc': 'al_shabab',
+  'al-shabab fc': 'al_shabab',
+  'shabab': 'al_shabab',
+  'al taawoun': 'al_taawoun',
+  'al-taawoun': 'al_taawoun',
+  'al taawoun fc': 'al_taawoun',
+  'taawoun': 'al_taawoun',
+  'al fateh': 'al_fateh',
+  'al-fateh': 'al_fateh',
+  'al fateh sc': 'al_fateh',
+  'fateh': 'al_fateh',
+  'al fayha': 'al_fayha',
+  'al-fayha': 'al_fayha',
+  'al fayha fc': 'al_fayha',
+  'fayha': 'al_fayha',
+  'al khaleej': 'al_khaleej',
+  'al-khaleej': 'al_khaleej',
+  'al khaleej fc': 'al_khaleej',
+  'khaleej': 'al_khaleej',
+  'al raed': 'al_raed',
+  'al-raed': 'al_raed',
+  'al raed fc': 'al_raed',
+  'raed': 'al_raed',
+  'damac': 'damac',
+  'damac fc': 'damac',
+  'al okhdood': 'al_okhdood',
+  'al-okhdood': 'al_okhdood',
+  'al okhdood club': 'al_okhdood',
+  'okhdood': 'al_okhdood',
+  'al wehda': 'al_wehda',
+  'al-wehda': 'al_wehda',
+  'al wehda fc': 'al_wehda',
+  'wehda': 'al_wehda',
+  'al riyadh': 'al_riyadh',
+  'al-riyadh': 'al_riyadh',
+  'al riyadh sc': 'al_riyadh',
+  'riyadh': 'al_riyadh',
+  'al kholood': 'al_kholood',
+  'al-kholood': 'al_kholood',
+  'al kholood club': 'al_kholood',
+  'kholood': 'al_kholood',
+  'al orobah': 'al_orobah',
+  'al-orobah': 'al_orobah',
+  'al orobah fc': 'al_orobah',
+  'orobah': 'al_orobah'
 };
 
 export function getClubLogo(clubName) {
   if (!clubName) return "https://crests.football-data.org/95.svg";
   const search = clubName.trim().toLowerCase();
   
-  // Check alias map
+  // Check direct alias map
   if (CLUB_ALIASES[search]) {
     const target = ALL_PRESET_CLUBS.find(c => c.id === CLUB_ALIASES[search]);
     if (target?.logo || target?.badge) return target.logo || target.badge;
   }
 
-  const found = ALL_PRESET_CLUBS.find(c => 
-    c.name.toLowerCase() === search || 
-    (c.shortName && c.shortName.toLowerCase() === search) ||
-    (c.id && c.id.toLowerCase() === search) ||
-    c.name.toLowerCase().includes(search) ||
-    search.includes(c.name.toLowerCase())
-  );
+  // Normalized search (removing hyphens, dots, extra spaces)
+  const normSearch = search.replace(/[-_.]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (CLUB_ALIASES[normSearch]) {
+    const target = ALL_PRESET_CLUBS.find(c => c.id === CLUB_ALIASES[normSearch]);
+    if (target?.logo || target?.badge) return target.logo || target.badge;
+  }
+
+  const found = ALL_PRESET_CLUBS.find(c => {
+    const cName = c.name.toLowerCase();
+    const cNorm = cName.replace(/[-_.]/g, ' ').replace(/\s+/g, ' ').trim();
+    const cShort = (c.shortName || '').toLowerCase();
+    const cId = (c.id || '').toLowerCase();
+    return (
+      cName === search || 
+      cShort === search ||
+      cId === search ||
+      cNorm === normSearch ||
+      cName.includes(search) ||
+      search.includes(cName) ||
+      cNorm.includes(normSearch) ||
+      normSearch.includes(cNorm)
+    );
+  });
   return found?.logo || found?.badge || "https://crests.football-data.org/95.svg";
 }
 
@@ -613,12 +713,90 @@ export function getClubTheme(clubName = '') {
   if (n.includes('sociedad')) {
     return { primary: '#0055a5', secondary: '#ffffff', text: '#ffffff', border: '#0055a5' };
   }
+  if (n.includes('nassr')) {
+    return { primary: '#ffcc00', secondary: '#002b66', text: '#ffffff', border: '#ffcc00' };
+  }
+  if (n.includes('hilal')) {
+    return { primary: '#003893', secondary: '#ffffff', text: '#ffffff', border: '#003893' };
+  }
+  if (n.includes('ittihad')) {
+    return { primary: '#ffcc00', secondary: '#000000', text: '#ffffff', border: '#ffcc00' };
+  }
+  if (n.includes('ahli')) {
+    return { primary: '#006847', secondary: '#ffffff', text: '#ffffff', border: '#006847' };
+  }
+  if (n.includes('shabab')) {
+    return { primary: '#ff8000', secondary: '#000000', text: '#ffffff', border: '#ff8000' };
+  }
+  if (n.includes('ettifaq')) {
+    return { primary: '#006633', secondary: '#c3281e', text: '#ffffff', border: '#006633' };
+  }
+  if (n.includes('qadsiah') || n.includes('qadisiyah')) {
+    return { primary: '#c3281e', secondary: '#ffd700', text: '#ffffff', border: '#c3281e' };
+  }
   return { primary: '#00ff87', secondary: '#0f172a', text: '#ffffff', border: '#00ff87' };
 }
 
 export function getClubKit(clubName = '') {
   const n = (clubName || '').toLowerCase().trim();
   
+  if (n.includes('nassr')) {
+    return {
+      jerseyColor: '#ffcc00',
+      secondaryColor: '#002b66',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#002b66',
+      textBorder: '#ffffff',
+      collarColor: '#002b66',
+      cuffColor: '#002b66',
+      sleeveColor: '#ffcc00',
+      motto: 'AL-NASSR FC'
+    };
+  }
+  if (n.includes('hilal')) {
+    return {
+      jerseyColor: '#003893',
+      secondaryColor: '#ffffff',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#ffffff',
+      textBorder: '#001a4e',
+      collarColor: '#ffffff',
+      cuffColor: '#ffffff',
+      sleeveColor: '#003893',
+      motto: 'AL-HILAL'
+    };
+  }
+  if (n.includes('ittihad')) {
+    return {
+      jerseyColor: '#000000',
+      secondaryColor: '#ffcc00',
+      stripeColor: '#ffcc00',
+      pattern: 'vertical-stripes',
+      textColor: '#ffffff',
+      textBorder: '#000000',
+      collarColor: '#ffcc00',
+      cuffColor: '#ffcc00',
+      sleeveColor: '#000000',
+      motto: 'AL-ITTIHAD'
+    };
+  }
+  if (n.includes('ahli')) {
+    return {
+      jerseyColor: '#ffffff',
+      secondaryColor: '#006847',
+      stripeColor: null,
+      pattern: 'solid',
+      textColor: '#006847',
+      textBorder: '#ffffff',
+      collarColor: '#006847',
+      cuffColor: '#006847',
+      sleeveColor: '#ffffff',
+      motto: 'AL-AHLI'
+    };
+  }
+
   if (n.includes('madrid') && !n.includes('atlético') && !n.includes('atletico')) {
     return {
       jerseyColor: '#ffffff',

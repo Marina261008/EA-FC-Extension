@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Sparkles, Trophy, Plus, Shield } from 'lucide-react';
 import { POPULAR_CLUBS } from '../../mockData';
+import { getClubLogo } from '../../clubsData';
 import { formatNumberWithDots, parseFormattedNumber } from '../../utils/formatters';
 
 export default function NewCareerModal({ isOpen, onClose, onSaveCareer }) {
@@ -227,7 +228,12 @@ export default function NewCareerModal({ isOpen, onClose, onSaveCareer }) {
                         : 'bg-[#182335] border-transparent text-slate-300 hover:bg-[#1e2c44]'
                     }`}
                   >
-                    <img src={c.logo} alt="" className="w-4 h-4 object-contain shrink-0" onError={(e) => { e.target.style.display = 'none'; }} />
+                    <img 
+                      src={c.logo || c.badge || getClubLogo(c.name)} 
+                      alt="" 
+                      className="w-4 h-4 object-contain shrink-0" 
+                      onError={(e) => { e.target.src = getClubLogo(c.name); }} 
+                    />
                     <span className="truncate text-xs font-semibold">{c.name}</span>
                   </button>
                 ))}

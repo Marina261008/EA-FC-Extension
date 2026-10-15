@@ -34876,7 +34876,7 @@
       "id": "al_nassr",
       "name": "Al-Nassr FC",
       "shortName": "NAS",
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5713.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/101918.png",
       "leagueId": "saudi",
       "city": "Riyadh",
       "stadium": "Al-Awwal Park",
@@ -35090,13 +35090,14 @@
           "photo": "https://images.fotmob.com/image_resources/playerimages/722259.png"
         }
       ],
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5713.png?width=160&height=160"
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/101918.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/101918.png"
     },
     {
       "id": "al_hilal",
       "name": "Al-Hilal FC",
       "shortName": "HIL",
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5712.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/2529.png",
       "leagueId": "saudi",
       "city": "Riyadh",
       "stadium": "Kingdom Arena",
@@ -35333,13 +35334,14 @@
           "photo": "https://images.fotmob.com/image_resources/playerimages/1174663.png"
         }
       ],
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5712.png?width=160&height=160"
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/2529.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/2529.png"
     },
     {
       "id": "al_ittihad",
       "name": "Al-Ittihad Club",
       "shortName": "ITT",
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5710.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/8577.png",
       "leagueId": "saudi",
       "city": "Jeddah",
       "stadium": "King Abdullah Sports City",
@@ -35530,13 +35532,14 @@
           "photo": "https://images.fotmob.com/image_resources/playerimages/240235.png"
         }
       ],
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5710.png?width=160&height=160"
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/8577.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8577.png"
     },
     {
       "id": "al_ahli",
       "name": "Al-Ahli Saudi FC",
       "shortName": "AHL",
-      "badge": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5711.png?width=160&height=160",
+      "badge": "https://images.fotmob.com/image_resources/logo/teamlogo/2530.png",
       "leagueId": "saudi",
       "city": "Jeddah",
       "stadium": "King Abdullah Sports City",
@@ -35727,7 +35730,8 @@
           "photo": "https://images.fotmob.com/image_resources/playerimages/823078.png"
         }
       ],
-      "badgeUrl": "https://static.prisa.com/aside/resizer/resize/img/sports/football/teams/5711.png?width=160&height=160"
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/2530.png",
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/2530.png"
     },
     {
       "id": "bayer_leverkusen",
@@ -56135,7 +56139,8 @@
           "nat": "Arabia Saudí",
           "photo": "https://images.fotmob.com/image_resources/playerimages/899277.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/101919.png"
     },
     {
       "id": "al_ettifaq",
@@ -56409,7 +56414,8 @@
           "nat": "Francia",
           "photo": "https://images.fotmob.com/image_resources/playerimages/509148.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/101897.png"
     },
     {
       "id": "middlesbrough",
@@ -71044,7 +71050,9 @@
           "id": "al_shabab_p12",
           "photo": "https://images.fotmob.com/image_resources/playerimages/922677.png"
         }
-      ]
+      ],
+      "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9758.png",
+      "badgeUrl": "https://images.fotmob.com/image_resources/logo/teamlogo/9758.png"
     },
     {
       "id": "al_taawoun",
