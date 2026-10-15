@@ -31,6 +31,7 @@ import MomentModal from './components/Moments/MomentModal';
 import CareerCreationWizard from './components/Modals/CareerCreationWizard';
 import EditManagerModal from './components/Modals/EditManagerModal';
 import CalendarModal from './components/Modals/CalendarModal';
+import TrophyModal from './components/Modals/TrophyModal';
 import AIAssistantModal from './components/AI/AIAssistantModal';
 import OnboardingModal from './components/Modals/OnboardingModal';
 import LoadingScreen from './components/LoadingScreen';
@@ -99,6 +100,13 @@ export default function App() {
   const [newPostModalMode, setNewPostModalMode] = useState('lineup');
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isTrophyModalOpen, setIsTrophyModalOpen] = useState(false);
+  const [trophyModalInitialComp, setTrophyModalInitialComp] = useState('');
+
+  const handleOpenTrophyModal = (compName = '') => {
+    setTrophyModalInitialComp(compName || '');
+    setIsTrophyModalOpen(true);
+  };
 
   const handleOpenNewPostModal = (mode = 'lineup') => {
     setNewPostModalMode(mode);
@@ -571,9 +579,9 @@ export default function App() {
     }
   };
 
-  const handleCelebrateTitle = (competitionName, customDetails) => {
+  const handleCelebrateTitle = (competitionName, customDetails, options = {}) => {
     const comp = competitionName || activeCareer.manager.league || 'LALIGA EA SPORTS';
-    const dateStr = activeCareer.manager.currentDate || activeCareer.manager.startDate || '12 oct 2026';
+    const dateStr = options.date || activeCareer.manager.currentDate || activeCareer.manager.startDate || '12 oct 2026';
     
     const trophyPost = createTrophyPost(
       comp,
@@ -583,14 +591,16 @@ export default function App() {
       dateStr,
       {
         details: customDetails || `¡Temporada histórica! El ${activeCareer.manager.club} se proclama campeón oficial de ${comp}.`,
-        season: activeSeason.period || activeSeason.name
+        season: activeSeason.period || activeSeason.name,
+        customImage: options.photoUrl
       }
     );
 
-    const isEuropean = comp.toLowerCase().includes('champions') || comp.toLowerCase().includes('europa');
-    const photoUrl = isEuropean 
+    const isEuropean = comp.toLowerCase().includes('champions') || comp.toLowerCase().includes('europa') || comp.toLowerCase().includes('libertadores');
+    const defaultPhoto = isEuropean 
       ? '/trophies/champions_trophy_celebration.jpg' 
       : '/trophies/league_trophy_celebration.jpg';
+    const photoUrl = options.photoUrl || defaultPhoto;
 
     const trophyMoment = {
       id: `mom-trophy-${Date.now()}`,
@@ -1496,7 +1506,7 @@ export default function App() {
         onOpenAIAssistant={() => setIsAIAssistantOpen(true)}
         onAdvanceDate={handleAdvanceDate}
         onNewSeason={handleNewSeason}
-        onCelebrateTitle={handleCelebrateTitle}
+        onCelebrateTitle={handleOpenTrophyModal}
       />
 
       {/* 3. Navigation Tabs */}
@@ -1557,7 +1567,7 @@ export default function App() {
                   clubName={activeCareer.manager.club}
                   onUpdateStandings={handleUpdateStandings}
                   onRecalculateFromMatches={handleRecalculateFromMatches}
-                  onCelebrateTitle={handleCelebrateTitle}
+                  onCelebrateTitle={handleOpenTrophyModal}
                 />
               )}
 
@@ -1654,7 +1664,7 @@ export default function App() {
         {activeTab === 'mycareer' && (
           <MyCareerTab
             career={activeCareer}
-            onCelebrateTitle={handleCelebrateTitle}
+            onCelebrateTitle={handleOpenTrophyModal}
           />
         )}
 
@@ -1756,6 +1766,15 @@ export default function App() {
         career={activeCareer}
         season={activeSeason}
         onSaveDate={handleSaveCalendarDate}
+      />
+
+      <TrophyModal
+        isOpen={isTrophyModalOpen}
+        onClose={() => setIsTrophyModalOpen(false)}
+        career={activeCareer}
+        season={activeSeason}
+        onConfirmCelebrate={handleCelebrateTitle}
+        initialCompetition={trophyModalInitialComp}
       />
 
       <EditPostModal

@@ -108,11 +108,8 @@ export default function MyCareerTab({ career, onCelebrateTitle }) {
           </div>
           {onCelebrateTitle && (
             <button
-              onClick={() => {
-                const comp = prompt("Nombre de la competición ganada (ej. LALIGA EA SPORTS, UEFA Champions League, Copa del Rey):", manager.league || "LALIGA EA SPORTS");
-                if (comp) onCelebrateTitle(comp);
-              }}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-black font-black text-xs px-3.5 py-2 rounded-xl shadow-md transition-all self-start sm:self-auto"
+              onClick={() => onCelebrateTitle()}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 text-black font-black text-xs px-3.5 py-2 rounded-xl shadow-md transition-all self-start sm:self-auto cursor-pointer hover:scale-105 active:scale-95"
             >
               <Trophy className="w-3.5 h-3.5 text-black stroke-[2.5]" />
               <span>+ Añadir Título Conquistado</span>

@@ -182,8 +182,7 @@ export default function CareerBanner({
                       <button
                         onClick={() => {
                           setShowAddMenu(false);
-                          const comp = prompt("Nombre de la competición ganada (ej. LALIGA EA SPORTS, UEFA Champions League, Copa del Rey):", career.manager.league || "LALIGA EA SPORTS");
-                          if (comp) onCelebrateTitle(comp);
+                          onCelebrateTitle();
                         }}
                         className="w-full text-left px-3.5 py-2 text-xs text-amber-300 hover:bg-[#1a253a] hover:text-amber-200 flex items-center gap-2 font-bold border-t border-[#1e2a3f]"
                       >
@@ -245,8 +244,7 @@ export default function CareerBanner({
                       <button
                         onClick={() => {
                           setShowActionsMenu(false);
-                          const comp = prompt("Nombre de la competición ganada (ej. LALIGA EA SPORTS, UEFA Champions League, Copa del Rey):", career.manager.league || "LALIGA EA SPORTS");
-                          if (comp) onCelebrateTitle(comp);
+                          onCelebrateTitle();
                         }}
                         className="w-full text-left px-3.5 py-2 text-xs text-amber-300 hover:bg-[#1a253a] hover:text-amber-200 flex items-center gap-2 font-bold border-t border-[#1e2a3f]"
                       >
