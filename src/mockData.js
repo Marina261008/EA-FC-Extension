@@ -1064,7 +1064,7 @@ export const POPULAR_CLUBS = [
   { name: "Chelsea FC", league: "Premier League", logo: "https://crests.football-data.org/61.svg", country: "Inglaterra" },
   { name: "Manchester United", league: "Premier League", logo: "https://crests.football-data.org/66.svg", country: "Inglaterra" },
   { name: "Tottenham Hotspur", league: "Premier League", logo: "https://crests.football-data.org/73.svg", country: "Inglaterra" },
-  { name: "Bayern München", league: "Bundesliga", logo: "https://crests.football-data.org/5.svg", country: "Alemania" },
+  { name: "Bayern München", league: "Bundesliga", logo: "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png", country: "Alemania" },
   { name: "Borussia Dortmund", league: "Bundesliga", logo: "https://crests.football-data.org/4.svg", country: "Alemania" },
   { name: "Paris Saint-Germain", league: "Ligue 1", logo: "https://crests.football-data.org/524.svg", country: "Francia" },
   { name: "Juventus", league: "Serie A", logo: "https://crests.football-data.org/109.svg", country: "Italia" },

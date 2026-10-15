@@ -10,6 +10,24 @@ export function getActiveDatabase() {
     if (custom) {
       const parsed = JSON.parse(custom);
       if (parsed && Array.isArray(parsed.clubs) && parsed.clubs.length >= rawDatabase.clubs.length) {
+        // Self-heal known outdated or wrong badges like Bayern Munich
+        let modified = false;
+        parsed.clubs.forEach(c => {
+          if (c.id === 'bay' || (c.name && c.name.toLowerCase().includes('bayern'))) {
+            if (c.badge?.includes('132.png') || c.badge?.includes('31.png') || c.badge?.toLowerCase().includes('fiorentina') || !c.badge?.includes('9823.png')) {
+              c.badge = "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png";
+              c.badgeUrl = "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png";
+              modified = true;
+            }
+          }
+        });
+        if (modified) {
+          try {
+            localStorage.setItem(CUSTOM_DB_KEY, JSON.stringify(parsed));
+          } catch (e) {
+            console.error("Could not persist self-healed database", e);
+          }
+        }
         return parsed;
       }
     }
@@ -249,15 +267,20 @@ function formatClub(c, leagueName) {
   else if (c.leagueId === 'saudi') leagueDisplayName = 'Saudi Pro League';
   else if (c.leagueId === 'other') leagueDisplayName = 'Resto del Mundo';
 
+  let clubLogo = c.badge || c.badgeUrl || "https://crests.football-data.org/95.svg";
+  if (c.id === 'bay' || (c.name && c.name.toLowerCase().includes('bayern'))) {
+    clubLogo = "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png";
+  }
+
   return {
     id: c.id,
     name: c.name,
     shortName: c.shortName || c.name.slice(0, 3).toUpperCase(),
     leagueId: c.leagueId,
     league: leagueDisplayName,
-    logo: c.badge || c.badgeUrl || "https://crests.football-data.org/95.svg",
-    badge: c.badge || c.badgeUrl,
-    badgeUrl: c.badgeUrl || c.badge,
+    logo: clubLogo,
+    badge: clubLogo,
+    badgeUrl: clubLogo,
     country: c.leagueId === 'premier' || c.leagueId === 'championship' ? 'Inglaterra' :
              c.leagueId === 'seriea' ? 'Italia' :
              c.leagueId === 'bundesliga' ? 'Alemania' :
@@ -496,8 +519,15 @@ const CLUB_ALIASES = {
   // Bundesliga aliases
   'bayern': 'bay',
   'bayern munich': 'bay',
+  'bayern de munich': 'bay',
+  'bayern de múnich': 'bay',
+  'bayern munchen': 'bay',
   'bayern münchen': 'bay',
   'fc bayern': 'bay',
+  'fc bayern munich': 'bay',
+  'fc bayern de munich': 'bay',
+  'fc bayern de múnich': 'bay',
+  'fc bayern munchen': 'bay',
   'fc bayern münchen': 'bay',
   'dortmund': 'bvb',
   'borussia dortmund': 'bvb',
@@ -634,6 +664,10 @@ export function getClubLogo(clubName) {
   if (!clubName) return "https://crests.football-data.org/95.svg";
   const search = clubName.trim().toLowerCase();
   
+  if (search.includes('bayern') || search === 'bay') {
+    return 'https://images.fotmob.com/image_resources/logo/teamlogo/9823.png';
+  }
+
   // Check direct alias map
   if (CLUB_ALIASES[search]) {
     const target = ALL_PRESET_CLUBS.find(c => c.id === CLUB_ALIASES[search]);

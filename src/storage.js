@@ -189,42 +189,87 @@ export function buildFreshCareer({
 }
 
 function hydrateCareerPhotos(career) {
-  if (!career || !career.seasons) return career;
-  career.seasons.forEach(season => {
-    if (season.squad) {
-      season.squad.forEach(p => {
-        if (p.photo && p.photo.startsWith('data:image/')) return;
-        const real = getRealPlayerPhoto(p.name);
-        if (real && !real.includes('default_player')) {
-          p.photo = real;
-        } else if (!p.photo || p.photo.includes('unsplash') || p.photo.includes('pulse.ea.com') || (p.photo.includes('701154') && !p.name.toLowerCase().includes('mbapp'))) {
-          p.photo = real || './default_player.svg';
-        }
-      });
+  if (!career) return career;
+
+  const BAYERN_OFFICIAL_LOGO = "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png";
+
+  if (career.manager) {
+    const isBayern = (career.manager.club && career.manager.club.toLowerCase().includes('bayern')) || career.manager.clubId === 'bay';
+    if (isBayern) {
+      career.manager.clubLogo = BAYERN_OFFICIAL_LOGO;
     }
-    if (season.transfersIn) {
-      season.transfersIn.forEach(t => {
-        if (t.photo && t.photo.startsWith('data:image/')) return;
-        const real = getRealPlayerPhoto(t.name);
-        if (real && !real.includes('default_player')) {
-          t.photo = real;
-        } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
-          t.photo = real || './default_player.svg';
-        }
-      });
-    }
-    if (season.transfersOut) {
-      season.transfersOut.forEach(t => {
-        if (t.photo && t.photo.startsWith('data:image/')) return;
-        const real = getRealPlayerPhoto(t.name);
-        if (real && !real.includes('default_player')) {
-          t.photo = real;
-        } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
-          t.photo = real || './default_player.svg';
-        }
-      });
-    }
-  });
+  }
+
+  if (career.seasons) {
+    career.seasons.forEach(season => {
+      if (season.standings) {
+        season.standings.forEach(row => {
+          if (row.team && row.team.toLowerCase().includes('bayern')) {
+            row.logo = BAYERN_OFFICIAL_LOGO;
+          }
+        });
+      }
+      if (season.matches) {
+        season.matches.forEach(m => {
+          if (m.home && m.home.toLowerCase().includes('bayern')) {
+            m.homeLogo = BAYERN_OFFICIAL_LOGO;
+          }
+          if (m.away && m.away.toLowerCase().includes('bayern')) {
+            m.awayLogo = BAYERN_OFFICIAL_LOGO;
+          }
+        });
+      }
+      if (season.transfersIn) {
+        season.transfersIn.forEach(t => {
+          if (t.from && t.from.toLowerCase().includes('bayern')) {
+            t.fromLogo = BAYERN_OFFICIAL_LOGO;
+          }
+          if (t.photo && t.photo.startsWith('data:image/')) return;
+          const real = getRealPlayerPhoto(t.name);
+          if (real && !real.includes('default_player')) {
+            t.photo = real;
+          } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
+            t.photo = real || './default_player.svg';
+          }
+        });
+      }
+      if (season.transfersOut) {
+        season.transfersOut.forEach(t => {
+          if (t.to && t.to.toLowerCase().includes('bayern')) {
+            t.toLogo = BAYERN_OFFICIAL_LOGO;
+          }
+          if (t.photo && t.photo.startsWith('data:image/')) return;
+          const real = getRealPlayerPhoto(t.name);
+          if (real && !real.includes('default_player')) {
+            t.photo = real;
+          } else if (!t.photo || t.photo.includes('unsplash') || t.photo.includes('pulse.ea.com') || (t.photo.includes('701154') && !t.name.toLowerCase().includes('mbapp'))) {
+            t.photo = real || './default_player.svg';
+          }
+        });
+      }
+      if (season.posts) {
+        season.posts.forEach(p => {
+          if (p.club && p.club.toLowerCase().includes('bayern')) {
+            p.clubLogo = BAYERN_OFFICIAL_LOGO;
+          }
+          if (p.authorClub && p.authorClub.toLowerCase().includes('bayern')) {
+            p.authorClubLogo = BAYERN_OFFICIAL_LOGO;
+          }
+        });
+      }
+      if (season.squad) {
+        season.squad.forEach(p => {
+          if (p.photo && p.photo.startsWith('data:image/')) return;
+          const real = getRealPlayerPhoto(p.name);
+          if (real && !real.includes('default_player')) {
+            p.photo = real;
+          } else if (!p.photo || p.photo.includes('unsplash') || p.photo.includes('pulse.ea.com') || (p.photo.includes('701154') && !p.name.toLowerCase().includes('mbapp'))) {
+            p.photo = real || './default_player.svg';
+          }
+        });
+      }
+    });
+  }
 
   if (!career.updatedAt) {
     career.updatedAt = new Date().toISOString();
@@ -264,7 +309,13 @@ export function loadCareers() {
     if (data) {
       const parsed = JSON.parse(data);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed.map(hydrateCareerPhotos);
+        const hydrated = parsed.map(hydrateCareerPhotos);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(hydrated));
+        } catch (e) {
+          // ignore storage quota issues
+        }
+        return hydrated;
       }
     }
   } catch (err) {
