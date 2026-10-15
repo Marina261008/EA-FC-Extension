@@ -4,6 +4,54 @@ import { formatToFullEuros } from './utils/formatters.js';
 // Helper to generate realistic contextual fan & press comments for any post type
 export function generateContextualComments(type, clubName = 'Mi Club', managerName = 'Mánager', context = {}) {
   const personas = {
+    marca: {
+      id: `comm-marca-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      author: 'Diario MARCA',
+      handle: '@marca',
+      avatar: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Marca.svg',
+      avatarBg: 'bg-white',
+      mediaType: 'marca',
+      badge: '🔴 MARCA Exclusiva',
+      verified: true,
+      likes: 184,
+      time: '35m'
+    },
+    as: {
+      id: `comm-as-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      author: 'Diario AS',
+      handle: '@diarioas',
+      avatar: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Diario_AS.svg',
+      avatarBg: 'bg-white',
+      mediaType: 'as',
+      badge: '📰 Diario AS',
+      verified: true,
+      likes: 156,
+      time: '28m'
+    },
+    dazn: {
+      id: `comm-dazn-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      author: 'DAZN España',
+      handle: '@DAZN_ES',
+      avatar: 'https://upload.wikimedia.org/wikipedia/commons/0/06/DAZN_Logo_Master.svg',
+      avatarBg: 'bg-[#111111]',
+      mediaType: 'dazn',
+      badge: '📺 DAZN Exclusiva',
+      verified: true,
+      likes: 215,
+      time: '18m'
+    },
+    relevo: {
+      id: `comm-relevo-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      author: 'Relevo Mercato',
+      handle: '@relevo',
+      avatar: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/Relevo-logo-purple.svg',
+      avatarBg: 'bg-[#1a0f2e]',
+      mediaType: 'relevo',
+      badge: '💣 Rumor de Fichajes',
+      verified: true,
+      likes: 198,
+      time: '12m'
+    },
     socio: {
       id: `comm-socio-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
       author: 'Carlos Mendizábal',
@@ -13,16 +61,6 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
       verified: false,
       likes: 42,
       time: '1h'
-    },
-    journalist: {
-      id: `comm-jour-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-      author: 'Diario Deportivo',
-      handle: '@diariodeporte',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-      badge: '🎙️ Prensa Deportiva',
-      verified: true,
-      likes: 88,
-      time: '45m'
     },
     ultra: {
       id: `comm-ultra-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
@@ -50,28 +88,36 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
     case 'manager':
       return [
         {
+          ...personas.marca,
+          text: `🔴 EXCLUSIVA MARCA | Primeras peticiones de ${managerName} a la directiva del ${clubName}: ha pedido blindar la columna vertebral del equipo y exige la llegada de un mediocentro organizador antes de que avance el mercado.`
+        },
+        {
+          ...personas.dazn,
+          text: `📺 En DAZN analizamos la pizarra: ${managerName} quiere implantar una presión tras pérdida asfixiante. Fuentes del entorno confirman que ya maneja una lista con 3 posibles refuerzos contrastados.`
+        },
+        {
           ...personas.socio,
           text: `¡Bienvenido míster! Mucha suerte y ojalá nos lleves a lo más alto esta temporada. Confiamos en tu proyecto 👏`
         },
         {
-          ...personas.journalist,
-          text: `Nombramiento de peso para el ${clubName}. Veremos si ${managerName} implanta su clásico sistema táctico con presión alta o prefiere un bloque más pragmático.`
-        },
-        {
-          ...personas.fan,
-          text: `¡A muerte con el míster desde el primer día! A devolver al ${clubName} donde se merece estar 🔥`
+          ...personas.ultra,
+          text: `¡A muerte con ${managerName}! Queremos garra, intensidad y dejarlo todo por este escudo. ¡Vamos! 🔥⚔️`
         }
       ];
 
     case 'transfer_in':
       return [
         {
-          ...personas.ultra,
-          text: `¡¡VAYA BOMBAZO DE FICHAJE!! ${context.name || 'El jugador'} tiene una calidad descomunal. Titular indiscutible desde ya 🔥🔥💣`
+          ...personas.marca,
+          text: `🔴 DETALLES DE LA OPERACIÓN | Fuentes de MARCA confirman que el contrato de ${context.name || 'la nueva incorporación'} incluye una cláusula de rescisión de más de 80M€. La llamada personal de ${managerName} fue decisiva para superar la puja de la Premier.`
         },
         {
-          ...personas.journalist,
-          text: `Excelente movimiento de mercado por parte del ${clubName}. Fichaje estratégico que encaja como un guante en el esquema de ${managerName}.`
+          ...personas.relevo,
+          text: `💣 RUMOR MERCATO | La llegada de ${context.name || 'este fichaje'} no cierra la ventana para el ${clubName}: la secretaría técnica acelera contactos con un extremo desequilibrante para apuntalar el ataque.`
+        },
+        {
+          ...personas.ultra,
+          text: `¡¡VAYA BOMBAZO DE FICHAJE!! ${context.name || 'El jugador'} tiene una calidad descomunal. Titular indiscutible desde ya 🔥🔥💣`
         },
         {
           ...personas.socio,
@@ -82,46 +128,62 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
     case 'transfer_out':
       return [
         {
+          ...personas.as,
+          text: `📰 MERCADO AS | Tras cerrar este traspaso por ${context.cost || 'una importante cantidad económica'}, la dirección deportiva del ${clubName} ya tiene seleccionado a su sustituto en una liga extranjera. Las conversaciones están muy avanzadas.`
+        },
+        {
+          ...personas.dazn,
+          text: `📺 RUMOR DAZN | Varias fuentes confirman que el dinero ingresado irá destinado a dos operaciones: un central de jerarquía y la renovación blindada de una de las perlas de la plantilla.`
+        },
+        {
           ...personas.socio,
           text: `Gracias por la profesionalidad y los buenos momentos defendiendo este escudo. Mucha suerte en tu nueva etapa deportiva 👏`
         },
         {
           ...personas.fan,
-          text: `Deja buen dinero en las arcas del club (${context.cost || 'acuerdo económico'}). Ahora la dirección técnica debe reinvertirlo en un sustituto de garantías.`
+          text: `Buena cifra económica para las arcas del club. Ahora la directiva debe acertar de lleno con el recambio.`
         }
       ];
 
     case 'lineup':
       return [
         {
+          ...personas.marca,
+          text: `🔴 Ojo al once de ${managerName}: Varios ojeadores de la Premier League y la Serie A están acreditados hoy en el palco para seguir muy de cerca a dos piezas clave del ${clubName}.`
+        },
+        {
           ...personas.ultra,
           text: `¡ONCE DE GALA! Hoy no se puede escapar la victoria ante el ${context.rivalName || 'rival'}, a morder desde el primer minuto ⚔️🔥`
         },
         {
-          ...personas.journalist,
-          text: `Interesante planteamiento de ${managerName}. Mucha velocidad en las transiciones y equilibrio en la medular para este duelo.`
+          ...personas.dazn,
+          text: `📺 Pizarra táctica de DAZN: ${managerName} apuesta por carriles muy ofensivos para generar superioridad ante el ${context.rivalName || 'rival'}. Duelo de alta tensión táctica.`
         },
         {
           ...personas.socio,
-          text: `Me gusta mucho la alineación inicial. Vamos con todo a por los 3 puntos 💪`
+          text: `Me gusta mucho la alineación inicial. Con equilibrio y confianza a por los 3 puntos 💪`
         }
       ];
 
     case 'goal':
       return [
         {
+          ...personas.dazn,
+          text: `📺 ¡GOLAZO ANTOLÓGICO! En DAZN ya lo catalogamos como uno de los candidatos al gol de la temporada. Qué pegada soberbia tiene ${context.player || 'este crack'}.`
+        },
+        {
           ...personas.ultra,
           text: `¡¡¡PERO QUÉ GOLAZO POR DIOS SANTOOOOO!!! Se cae el estadio abajo ⚽🚀🔥`
         },
         {
-          ...personas.fan,
-          text: `¡Golazo tremendo de ${context.player || 'crack'}! Definición de clase mundial absoluta 🙌`
+          ...personas.as,
+          text: `📰 Golazo que despierta el interés en Europa. Informan que emisarios presentes en las gradas no dejan de tomar notas sobre el rendimiento de ${context.player || 'el futbolista'}.`
         },
         {
           ...personas.socio,
           text: context.assist 
             ? `La asistencia previa de ${context.assist} es medio gol, qué visión de juego 👟🎯` 
-            : `Jugada perfecta de todo el equipo. ¡A seguir empujando!`
+            : `Definición de clase mundial absoluta. ¡A seguir empujando equipo!`
         }
       ];
 
@@ -129,12 +191,16 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
       if (context.isVictoria) {
         return [
           {
-            ...personas.ultra,
-            text: `¡PARTIDAZO ÉPICO! 3 puntos de oro que saben a gloria. El equipo se dejó el alma sobre el césped 🙌🔥`
+            ...personas.as,
+            text: `📰 CRÓNICA AS | El ${clubName} de ${managerName} presenta su firme candidatura con una exhibición de solidez y contundencia táctica que desató la fiesta en la grada.`
           },
           {
-            ...personas.journalist,
-            text: `Victoria inapelable del ${clubName}. Lectura táctica sobresaliente del banquillo en la segunda mitad para cerrar el choque.`
+            ...personas.relevo,
+            text: `💣 RUMOR | La exhibición de hoy acelera los planes: la directiva prepara una oferta de mejora contractual para el míster y varios titulares intocables.`
+          },
+          {
+            ...personas.ultra,
+            text: `¡PARTIDAZO ÉPICO! 3 puntos de oro que saben a gloria. El equipo se dejó el alma sobre el césped 🙌🔥`
           },
           {
             ...personas.socio,
@@ -143,6 +209,14 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
         ];
       } else {
         return [
+          {
+            ...personas.marca,
+            text: `🔴 AUTOCRÍTICA MARCA | En el vestuario del ${clubName} reina la serenidad pero ${managerName} ya planea variantes tácticas y rotaciones inmediatas de cara a la próxima jornada.`
+          },
+          {
+            ...personas.dazn,
+            text: `📺 RUMOR DAZN | Pese al resultado adverso, respaldo unánime de la directiva hacia ${managerName}. Desmienten rotundamente cualquier duda sobre el rumbo del banquillo.`
+          },
           {
             ...personas.socio,
             text: `Partido muy disputado. Faltó algo de fortuna en los metros finales, pero este equipo tiene orgullo y se levantará pronto.`
@@ -157,12 +231,16 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
     case 'trophy':
       return [
         {
-          ...personas.ultra,
-          text: `¡¡¡SOMOS CAMPEOOOOONES!!! 🏆🍾🎉 Lágrimas de emoción en los ojos. ¡Gracias plantilla y míster ${managerName} por este día histórico!`
+          ...personas.marca,
+          text: `🔴 PORTADA MARCA | ¡EL ${clubName.toUpperCase()} TOCA LA GLORIA! ${managerName} inscribe su nombre con letras de oro en una temporada histórica. 🏆👑`
         },
         {
-          ...personas.journalist,
-          text: `Temporada para enmarcar. La gestión de ${managerName} quedará grabada con letras doradas en la vitrina del ${clubName}.`
+          ...personas.dazn,
+          text: `📺 RUMOR EXCLUSIVO DAZN | Tras el título de campeón, la directiva del ${clubName} prepara una prima histórica y la firma de un contrato de larga duración para blindar a ${managerName}.`
+        },
+        {
+          ...personas.ultra,
+          text: `¡¡¡SOMOS CAMPEOOOOONES!!! 🏆🍾🎉 Lágrimas de emoción en los ojos. ¡Gracias plantilla y míster ${managerName} por este día histórico!`
         },
         {
           ...personas.socio,
@@ -172,6 +250,14 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
 
     case 'youth':
       return [
+        {
+          ...personas.relevo,
+          text: `💣 RUMOR CANTERA | El ${clubName} acelera el blindaje de ${context.name || 'su nueva joya'}: cláusula que ascenderá a 50 millones. Dos clubes punteros de la Premier ya enviaron ojeadores a seguirlo.`
+        },
+        {
+          ...personas.as,
+          text: `📰 Los informes internos de la cantera son inmejorables: destacan su personalidad competitiva y madurez impropia de su edad. ${managerName} le tiene fe ciega.`
+        },
         {
           ...personas.socio,
           text: `La cantera nunca falla. Mucho talento y ADN del club en sus botas. ¡A darle minutos sin miedo míster! ⭐`
@@ -185,12 +271,16 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
     case 'renewal':
       return [
         {
-          ...personas.ultra,
-          text: `¡¡¡RENOVACIÓN HISTÓRICA!!! ${context.playerName || 'La estrella'} se queda en casa. Blindaje merecidísimo para nuestro ídolo 🔥✍️`
+          ...personas.marca,
+          text: `🔴 EXCLUSIVA MARCA | ${context.playerName || 'La estrella'} dio el 'SÍ' definitivo tras rechazar dos ofertas astronómicas del extranjero. Su nueva cláusula de rescisión blindará su continuidad en el ${clubName}.`
         },
         {
-          ...personas.journalist,
-          text: `Movimiento maestro de la directiva y el cuerpo técnico. Aseguran la continuidad del eje del proyecto hasta ${context.renewalYear || '2030'}.`
+          ...personas.dazn,
+          text: `📺 RUMOR DAZN | Firmada la renovación hasta ${context.renewalYear || '2030'}, la secretaría técnica pasa al siguiente objetivo prioritario: asegurar la continuidad del segundo capitán.`
+        },
+        {
+          ...personas.ultra,
+          text: `¡¡¡RENOVACIÓN HISTÓRICA!!! ${context.playerName || 'La estrella'} se queda en casa. Blindaje merecidísimo para nuestro ídolo 🔥✍️`
         },
         {
           ...personas.socio,
@@ -200,6 +290,10 @@ export function generateContextualComments(type, clubName = 'Mi Club', managerNa
 
     default:
       return [
+        {
+          ...personas.as,
+          text: `📰 Actualidad del ${clubName}: La secretaría técnica y ${managerName} siguen trabajando codo a codo en la planificación deportiva.`
+        },
         {
           ...personas.socio,
           text: `Gran comunicado oficial del club. Máxima ilusión con el proyecto deportivo 👏`

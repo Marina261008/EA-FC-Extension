@@ -40,7 +40,22 @@ export default function ClubPostCard({
   // Initialize comments: use saved post.comments or generate realistic contextual comments
   const [comments, setComments] = useState(() => {
     if (post.comments && Array.isArray(post.comments) && post.comments.length > 0) {
-      return post.comments;
+      // Migrate legacy generic press comments to authentic media personas
+      return post.comments.map(c => {
+        if (c.author === 'Diario Deportivo' || c.handle === '@diariodeporte') {
+          return {
+            ...c,
+            author: 'Diario MARCA',
+            handle: '@marca',
+            avatar: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Marca.svg',
+            avatarBg: 'bg-white',
+            mediaType: 'marca',
+            badge: '🔴 MARCA Exclusiva',
+            verified: true
+          };
+        }
+        return c;
+      });
     }
     return generateContextualComments(
       post.type, 
@@ -205,7 +220,8 @@ export default function ClubPostCard({
     { emoji: '👏', text: '¡Gran trabajo de todo el equipo y gracias a la afición por empujar!' },
     { emoji: '🔥', text: '¡Seguimos con todo, paso a paso y con máxima ambición!' },
     { emoji: '🤝', text: 'El compromiso y la unión de todos es nuestra mayor fuerza.' },
-    { emoji: '🎯', text: 'Humildad y trabajo diario para alcanzar nuestros objetivos.' }
+    { emoji: '🎯', text: 'Humildad y trabajo diario para alcanzar nuestros objetivos.' },
+    { emoji: '🤫', text: 'No entramos en rumores ni especulaciones, foco total en el trabajo.' }
   ];
 
   return (
@@ -600,7 +616,12 @@ export default function ClubPostCard({
           <div className="space-y-2.5 pt-1">
             {comments.map((c) => {
               const isManager = c.isUserComment || c.badge?.includes('Mánager');
-              const isPrensa = c.badge?.includes('Prensa') || c.badge?.includes('Periodista');
+              const isMarca = c.mediaType === 'marca' || c.badge?.includes('MARCA') || c.author?.includes('MARCA');
+              const isAs = c.mediaType === 'as' || c.badge?.includes('AS') || c.author?.includes('AS');
+              const isDazn = c.mediaType === 'dazn' || c.badge?.includes('DAZN') || c.author?.includes('DAZN');
+              const isRelevo = c.mediaType === 'relevo' || c.badge?.includes('Relevo') || c.author?.includes('Relevo');
+              const isRumor = c.badge?.includes('Rumor') || c.badge?.includes('BOMBA') || c.text?.includes('RUMOR');
+              const isPrensa = isMarca || isAs || isDazn || isRelevo || c.badge?.includes('Prensa') || c.badge?.includes('Periodista');
               const isSocio = c.badge?.includes('Socio');
               const isUltra = c.badge?.includes('Ultra') || c.badge?.includes('Grada');
 
@@ -610,19 +631,35 @@ export default function ClubPostCard({
                   className={`p-3 rounded-xl border text-xs space-y-2 transition-all ${
                     isManager 
                       ? 'bg-[#0f1d24] border-emerald-500/40 shadow-sm' 
-                      : 'bg-[#121a28] border-[#1d2a3f]'
+                      : isMarca
+                        ? 'bg-[#15121b] border-red-900/40 hover:border-red-700/50'
+                        : isAs
+                          ? 'bg-[#161219] border-rose-900/40 hover:border-rose-700/50'
+                          : isDazn
+                            ? 'bg-[#15171d] border-amber-900/40 hover:border-amber-700/50'
+                            : isRelevo
+                              ? 'bg-[#171224] border-purple-900/40 hover:border-purple-700/50'
+                              : isRumor
+                                ? 'bg-[#171220] border-pink-900/35 hover:border-pink-800/45'
+                                : 'bg-[#121a28] border-[#1d2a3f]'
                   }`}
                 >
                   {/* Top Bar of Comment: Avatar + Author Info + Badges + Timestamp */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2.5 min-w-0">
                       {/* Avatar */}
-                      <div className="w-7 h-7 rounded-full bg-[#182335] border border-[#273852] flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
+                      <div className={`w-8 h-8 rounded-full ${c.avatarBg || 'bg-[#182335]'} border ${
+                        isMarca ? 'border-red-500/40' :
+                        isAs ? 'border-rose-400/40' :
+                        isDazn ? 'border-amber-400/40' :
+                        isRelevo ? 'border-purple-400/40' :
+                        'border-[#273852]'
+                      } flex items-center justify-center shrink-0 overflow-hidden shadow-inner ${c.avatarBg ? 'p-1' : ''}`}>
                         {c.avatar ? (
                           <img
                             src={c.avatar}
                             alt={c.author}
-                            className="w-full h-full object-cover"
+                            className={`w-full h-full ${c.avatarBg || c.mediaType ? 'object-contain' : 'object-cover'}`}
                             onError={(e) => { e.target.style.display = 'none'; }}
                           />
                         ) : (
@@ -639,14 +676,21 @@ export default function ClubPostCard({
                         </span>
 
                         {c.verified && (
-                          <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-[#00ff87] text-[#090d14] text-[9px] font-black shrink-0" title="Verificado">
+                          <span className={`inline-flex items-center justify-center w-3.5 h-3.5 rounded-full ${
+                            isDazn ? 'bg-amber-400 text-black' : 'bg-[#00ff87] text-[#090d14]'
+                          } text-[9px] font-black shrink-0`} title="Cuenta Oficial Verificada">
                             ✓
                           </span>
                         )}
 
                         {c.badge && (
-                          <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded shrink-0 ${
+                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded shrink-0 ${
                             isManager ? 'bg-emerald-500/20 text-[#00ff87] border border-emerald-500/30' :
+                            isMarca ? 'bg-red-600/20 text-red-400 border border-red-500/35' :
+                            isAs ? 'bg-rose-500/20 text-rose-300 border border-rose-500/35' :
+                            isDazn ? 'bg-amber-400/20 text-amber-300 border border-amber-400/35' :
+                            isRelevo ? 'bg-purple-600/20 text-purple-300 border border-purple-500/35' :
+                            isRumor ? 'bg-pink-600/20 text-pink-300 border border-pink-500/30' :
                             isPrensa ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' :
                             isSocio ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
                             isUltra ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
@@ -683,17 +727,20 @@ export default function ClubPostCard({
                   </div>
 
                   {/* Comment Body */}
-                  <p className="text-slate-200 text-xs pl-9 leading-relaxed font-normal">
+                  <p className="text-slate-200 text-xs pl-9 sm:pl-10 leading-relaxed font-normal">
                     {c.text.split(' ').map((word, wIdx) => {
                       if (word.startsWith('@')) {
                         return <span key={wIdx} className="font-bold text-[#00ff87] hover:underline cursor-pointer">{word} </span>;
+                      }
+                      if (word.startsWith('#')) {
+                        return <span key={wIdx} className="font-medium text-sky-400 hover:underline cursor-pointer">{word} </span>;
                       }
                       return word + ' ';
                     })}
                   </p>
 
                   {/* Comment Action Footer: Like button + Responder button */}
-                  <div className="flex items-center gap-3 pl-9 pt-1 text-[11px] text-slate-400">
+                  <div className="flex items-center gap-3 pl-9 sm:pl-10 pt-1 text-[11px] text-slate-400">
                     <button
                       type="button"
                       onClick={() => handleToggleCommentLike(c.id)}
