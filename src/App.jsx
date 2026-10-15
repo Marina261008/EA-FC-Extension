@@ -418,8 +418,8 @@ export default function App() {
 
           const isEuropean = compName.toLowerCase().includes('champions') || compName.toLowerCase().includes('europa');
           const photoUrl = isEuropean 
-            ? '/trophies/champions_trophy_celebration.jpg' 
-            : '/trophies/league_trophy_celebration.jpg';
+            ? './trophies/champions_trophy_celebration.jpg' 
+            : './trophies/league_trophy_celebration.jpg';
 
           trophyMoment = {
             id: `mom-trophy-${Date.now()}`,
@@ -588,8 +588,8 @@ export default function App() {
 
     const isEuropean = comp.toLowerCase().includes('champions') || comp.toLowerCase().includes('europa') || comp.toLowerCase().includes('libertadores');
     const defaultPhoto = isEuropean 
-      ? '/trophies/champions_trophy_celebration.jpg' 
-      : '/trophies/league_trophy_celebration.jpg';
+      ? './trophies/champions_trophy_celebration.jpg' 
+      : './trophies/league_trophy_celebration.jpg';
     const photoUrl = options.photoUrl || defaultPhoto;
 
     const trophyMoment = {
@@ -633,7 +633,11 @@ export default function App() {
     });
 
     setCareers(updated);
-    setActiveTab('presentation');
+    if (activeTab === 'mycareer') {
+      // Stay on My Career so user can admire their new trophy in the vitrina immediately!
+    } else {
+      setActiveTab('presentation');
+    }
   };
 
   const handleDeleteMatch = (matchId) => {

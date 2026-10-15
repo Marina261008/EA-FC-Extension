@@ -319,11 +319,11 @@ export default function ClubPostCard({
             /* CHAMPIONSHIP TROPHY VICTORY GRAPHIC */
             <div className="relative min-h-[380px] sm:min-h-[440px] flex flex-col justify-between p-5 sm:p-7 overflow-hidden rounded-2xl bg-[#090d14]">
               <img 
-                src={graphic.image || "/trophies/league_trophy_celebration.jpg"}
+                src={graphic.image || "./trophies/league_trophy_celebration.jpg"}
                 alt="Celebración del Trofeo"
                 className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.52] contrast-125 scale-105 pointer-events-none transition-transform duration-700"
                 onError={(e) => {
-                  e.target.src = "/trophies/league_trophy_celebration.jpg";
+                  e.target.src = "./trophies/league_trophy_celebration.jpg";
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#060a12]/95 via-amber-950/25 to-[#060a12]/75 pointer-events-none"></div>
@@ -347,7 +347,7 @@ export default function ClubPostCard({
                       src={graphic.trophyImage || getTrophyImage(graphic.competition || graphic.title || graphic.subtitle)}
                       alt="Trofeo Oficial"
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.95)] relative z-10 transform group-hover:scale-105 transition-transform"
-                      onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                      onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                     />
                   </div>
 

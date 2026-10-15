@@ -138,11 +138,11 @@ export default function MyCareerTab({ career, onCelebrateTitle }) {
                 {/* Trophy celebration photo */}
                 <div className="relative h-44 overflow-hidden">
                   <img
-                    src={trophy.image || "/trophies/league_trophy_celebration.jpg"}
+                    src={trophy.image || "./trophies/league_trophy_celebration.jpg"}
                     alt={trophy.competition}
                     className="w-full h-full object-cover object-center filter brightness-[0.6] group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
-                      e.target.src = "/trophies/league_trophy_celebration.jpg";
+                      e.target.src = "./trophies/league_trophy_celebration.jpg";
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0c121e] via-transparent to-black/60 pointer-events-none"></div>
@@ -162,7 +162,7 @@ export default function MyCareerTab({ career, onCelebrateTitle }) {
                       src={trophy.trophyImage || getTrophyImage(trophy.competition)}
                       alt={trophy.competition}
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                      onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                     />
                   </div>
 

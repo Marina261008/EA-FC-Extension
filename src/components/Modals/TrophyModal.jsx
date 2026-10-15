@@ -16,24 +16,24 @@ import { COMPETITION_OPTIONS } from '../../data/dropdownPresets';
 import { getClubLogo } from '../../clubsData';
 import { getTrophyImage, getTrophyCelebrationBg } from '../../data/trophiesData';
 
-// Maps competition names to official logo images in /leagues/
+// Maps competition names to official logo images in ./leagues/
 function getCompetitionLogo(compName) {
   if (!compName) return null;
   const c = compName.toLowerCase();
-  if (c.includes('laliga ea') || c.includes('primera división') || c.includes('la liga')) return '/leagues/laliga.png';
-  if (c.includes('hypermotion') || c.includes('segunda')) return '/leagues/segunda.png';
-  if (c.includes('premier')) return '/leagues/premier.png';
-  if (c.includes('serie a')) return '/leagues/seriea.png';
-  if (c.includes('bundesliga')) return '/leagues/bundesliga.png';
-  if (c.includes('ligue 1')) return '/leagues/ligue1.png';
-  if (c.includes('argentina') || c.includes('libertadores') || c.includes('sudamericana')) return '/leagues/argentina.png';
-  if (c.includes('saudi') || c.includes('árabe') || c.includes('arabe')) return '/leagues/saudi.png';
-  if (c.includes('champions') || c.includes('europa') || c.includes('conference')) return '/leagues/champions.png';
-  if (c.includes('championship')) return '/leagues/championship.png';
-  if (c.includes('portugal')) return '/leagues/portugal.png';
-  if (c.includes('eredivisie')) return '/leagues/eredivisie.png';
-  if (c.includes('brasileir')) return '/leagues/brasileirao.png';
-  if (c.includes('mls')) return '/leagues/mls.png';
+  if (c.includes('laliga ea') || c.includes('primera división') || c.includes('la liga')) return './leagues/laliga.png';
+  if (c.includes('hypermotion') || c.includes('segunda')) return './leagues/segunda.png';
+  if (c.includes('premier')) return './leagues/premier.png';
+  if (c.includes('serie a')) return './leagues/seriea.png';
+  if (c.includes('bundesliga')) return './leagues/bundesliga.png';
+  if (c.includes('ligue 1')) return './leagues/ligue1.png';
+  if (c.includes('argentina') || c.includes('libertadores') || c.includes('sudamericana')) return './leagues/argentina.png';
+  if (c.includes('saudi') || c.includes('árabe') || c.includes('arabe')) return './leagues/saudi.png';
+  if (c.includes('champions') || c.includes('europa') || c.includes('conference')) return './leagues/champions.png';
+  if (c.includes('championship')) return './leagues/championship.png';
+  if (c.includes('portugal')) return './leagues/portugal.png';
+  if (c.includes('eredivisie')) return './leagues/eredivisie.png';
+  if (c.includes('brasileir')) return './leagues/brasileirao.png';
+  if (c.includes('mls')) return './leagues/mls.png';
   return null;
 }
 
@@ -358,7 +358,7 @@ export default function TrophyModal({
                           src={trophyImg} 
                           alt={compName} 
                           className="w-full h-full object-contain filter drop-shadow-[0_6px_10px_rgba(0,0,0,0.9)] group-hover:scale-110 transition-transform duration-300 relative z-10"
-                          onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                          onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                         />
 
                         {/* Small league badge pill on corner */}
@@ -440,7 +440,7 @@ export default function TrophyModal({
                             src={trophyImg} 
                             alt={cup.name} 
                             className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)] group-hover:scale-105 transition-transform"
-                            onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                            onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                           />
                           {logo && (
                             <div className="absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full bg-black/80 border border-white/20 p-0.5 flex items-center justify-center">
@@ -485,7 +485,7 @@ export default function TrophyModal({
                             src={trophyImg} 
                             alt="" 
                             className="w-full h-full object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform"
-                            onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                            onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                           />
                         </div>
                         <span className="truncate">{comp}</span>
@@ -574,7 +574,7 @@ export default function TrophyModal({
                       src={currentTrophyImage} 
                       alt={effectiveComp} 
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.95)] transform group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => { e.target.src = '/trophies/generic_trophy.png'; }}
+                      onError={(e) => { e.target.src = './trophies/generic_trophy.png'; }}
                     />
                   </div>
                 </div>

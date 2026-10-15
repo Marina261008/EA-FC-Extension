@@ -11,6 +11,7 @@ import {
   getClubLogo 
 } from './clubsData';
 import { createManagerPost } from './postGenerator';
+import { getTrophyImage } from './data/trophiesData';
 
 const STORAGE_KEY = 'ea_fc_career_hub_data_v2';
 const ACTIVE_CAREER_KEY = 'ea_fc_active_career_id';
@@ -188,6 +189,17 @@ export function buildFreshCareer({
   };
 }
 
+function fixAssetUrl(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (url.startsWith('/trophies/')) {
+    return '.' + url;
+  }
+  if (url.startsWith('/leagues/')) {
+    return '.' + url;
+  }
+  return url;
+}
+
 function hydrateCareerPhotos(career) {
   if (!career) return career;
 
@@ -200,8 +212,35 @@ function hydrateCareerPhotos(career) {
     }
   }
 
+  if (career.trophies) {
+    career.trophies.forEach(t => {
+      t.image = fixAssetUrl(t.image);
+      t.trophyImage = fixAssetUrl(t.trophyImage) || getTrophyImage(t.competition);
+    });
+  }
+
+  if (career.posts) {
+    career.posts.forEach(p => {
+      if (p.graphic) {
+        p.graphic.image = fixAssetUrl(p.graphic.image);
+        p.graphic.trophyImage = fixAssetUrl(p.graphic.trophyImage) || (p.graphic.isTrophy ? getTrophyImage(p.graphic.competition || p.graphic.title) : undefined);
+      }
+    });
+  }
+
   if (career.seasons) {
     career.seasons.forEach(season => {
+      if (season.trophies) {
+        season.trophies.forEach(t => {
+          t.image = fixAssetUrl(t.image);
+          t.trophyImage = fixAssetUrl(t.trophyImage) || getTrophyImage(t.competition);
+        });
+      }
+      if (season.moments) {
+        season.moments.forEach(m => {
+          m.mediaUrl = fixAssetUrl(m.mediaUrl);
+        });
+      }
       if (season.standings) {
         season.standings.forEach(row => {
           if (row.team && row.team.toLowerCase().includes('bayern')) {
@@ -254,6 +293,10 @@ function hydrateCareerPhotos(career) {
           }
           if (p.authorClub && p.authorClub.toLowerCase().includes('bayern')) {
             p.authorClubLogo = BAYERN_OFFICIAL_LOGO;
+          }
+          if (p.graphic) {
+            p.graphic.image = fixAssetUrl(p.graphic.image);
+            p.graphic.trophyImage = fixAssetUrl(p.graphic.trophyImage) || (p.graphic.isTrophy ? getTrophyImage(p.graphic.competition || p.graphic.title) : undefined);
           }
         });
       }

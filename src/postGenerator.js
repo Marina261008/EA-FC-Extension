@@ -855,8 +855,8 @@ export function createTrophyPost(competition, club, clubLogoParam, managerName =
 
   // Authentic photos
   const defaultTrophyPhoto = isEuropean 
-    ? '/trophies/champions_trophy_celebration.jpg' 
-    : '/trophies/league_trophy_celebration.jpg';
+    ? './trophies/champions_trophy_celebration.jpg' 
+    : './trophies/league_trophy_celebration.jpg';
 
   const trophyImage = options.customImage || defaultTrophyPhoto;
   const seasonText = options.season || '2026/27';
