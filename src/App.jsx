@@ -30,6 +30,7 @@ import YouthModal from './components/Youth/YouthModal';
 import MomentModal from './components/Moments/MomentModal';
 import CareerCreationWizard from './components/Modals/CareerCreationWizard';
 import EditManagerModal from './components/Modals/EditManagerModal';
+import CalendarModal from './components/Modals/CalendarModal';
 import AIAssistantModal from './components/AI/AIAssistantModal';
 import OnboardingModal from './components/Modals/OnboardingModal';
 import LoadingScreen from './components/LoadingScreen';
@@ -97,6 +98,7 @@ export default function App() {
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
   const [newPostModalMode, setNewPostModalMode] = useState('lineup');
   const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   const handleOpenNewPostModal = (mode = 'lineup') => {
     setNewPostModalMode(mode);
@@ -218,25 +220,65 @@ export default function App() {
     }
   };
 
-  // Advance in-game date by 1 week
+  // Open Calendar Modal to view and advance in-game date
   const handleAdvanceDate = () => {
-    const currentStr = activeCareer.manager.currentDate || activeCareer.manager.startDate;
-    const newDate = prompt('Introduce la nueva fecha en el juego (o pulsa Enter para avanzar):', currentStr);
-    if (newDate && newDate.trim()) {
-      const updated = careers.map(c => {
-        if (c.id === activeCareer.id) {
-          return {
-            ...c,
-            manager: {
-              ...c.manager,
-              currentDate: newDate.trim()
-            }
-          };
-        }
-        return c;
-      });
-      setCareers(updated);
+    setIsCalendarModalOpen(true);
+  };
+
+  // Save new in-game date from Calendar Modal with optional news publication
+  const handleSaveCalendarDate = (newDateStr, { publishPost = false, daysAdvanced = 0 } = {}) => {
+    if (!newDateStr || !newDateStr.trim()) return;
+    const cleanDate = newDateStr.trim();
+
+    let optionalNewPost = null;
+    if (publishPost && daysAdvanced > 0) {
+      optionalNewPost = {
+        id: `post-cal-${Date.now()}`,
+        author: activeCareer.manager.name,
+        authorRole: "Entrenador",
+        authorAvatar: activeCareer.manager.avatar,
+        club: activeCareer.manager.club,
+        clubLogo: activeCareer.manager.clubLogo,
+        timeAgo: "Ahora",
+        date: cleanDate,
+        title: `🗓️ Calendario de Carrera: Avance al ${cleanDate}`,
+        content: `El ${activeCareer.manager.club} avanza en la temporada hacia el ${cleanDate} (+${daysAdvanced} días transcurridos). El cuerpo técnico y la plantilla continúan trabajando al máximo nivel de cara a los próximos compromisos oficiales.`,
+        tag: "Calendario",
+        likes: Math.floor(Math.random() * 400) + 850,
+        commentsCount: 2,
+        comments: [
+          {
+            id: `c-cal-1-${Date.now()}`,
+            user: "Marca",
+            avatar: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Marca_logo.svg/320px-Marca_logo.svg.png",
+            comment: `Semana clave para el proyecto de ${activeCareer.manager.name} en el ${activeCareer.manager.club}.`,
+            timeAgo: "1m"
+          },
+          {
+            id: `c-cal-2-${Date.now()}`,
+            user: "Afición Oficial",
+            avatar: activeCareer.manager.clubLogo,
+            comment: `¡A por todas en el próximo partido, míster! ⚽🔥`,
+            timeAgo: "Justo ahora"
+          }
+        ]
+      };
     }
+
+    const updated = careers.map(c => {
+      if (c.id === activeCareer.id) {
+        return {
+          ...c,
+          posts: optionalNewPost ? [optionalNewPost, ...(c.posts || [])] : (c.posts || []),
+          manager: {
+            ...c.manager,
+            currentDate: cleanDate
+          }
+        };
+      }
+      return c;
+    });
+    setCareers(updated);
   };
 
   // Create next season
@@ -1660,6 +1702,7 @@ export default function App() {
         squad={activeSeason.squad || []}
         clubName={activeCareer.manager.club}
         league={activeCareer.manager.league}
+        currentDate={activeCareer.manager.currentDate || activeCareer.manager.startDate || '14 sep 2026'}
       />
 
       <PlayerModal
@@ -1705,6 +1748,14 @@ export default function App() {
         career={careerToEdit || activeCareer}
         activeSeasonId={activeSeason.id}
         onUpdateCareer={handleUpdateCareer}
+      />
+
+      <CalendarModal
+        isOpen={isCalendarModalOpen}
+        onClose={() => setIsCalendarModalOpen(false)}
+        career={activeCareer}
+        season={activeSeason}
+        onSaveDate={handleSaveCalendarDate}
       />
 
       <EditPostModal

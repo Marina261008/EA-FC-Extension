@@ -198,11 +198,11 @@ export default function CareerBanner({
               {/* Date Button: 01 jul 2025 */}
               <button
                 onClick={onAdvanceDate}
-                title="Avanzar o editar fecha en el juego"
-                className="flex items-center gap-1.5 bg-[#172133] hover:bg-[#202e47] border border-[#263753] text-[#00ff87] font-semibold text-xs px-3 py-2 rounded-lg transition-colors"
+                title="Abrir Calendario y simular avance de fecha en el juego"
+                className="flex items-center gap-2 bg-[#141e30] hover:bg-[#1c2a42] border border-[#23354f] hover:border-[#00ff87]/60 text-[#00ff87] font-bold text-xs px-3.5 py-2 rounded-xl transition-all shadow-md group cursor-pointer"
               >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>{manager.currentDate || manager.startDate}</span>
+                <Calendar className="w-3.5 h-3.5 text-[#00ff87] group-hover:scale-110 transition-transform" />
+                <span className="font-mono tracking-tight">{manager.currentDate || manager.startDate}</span>
               </button>
 
               {/* ... Acciones dropdown */}
@@ -220,6 +220,13 @@ export default function CareerBanner({
 
                 {showActionsMenu && (
                   <div className="absolute left-0 mt-2 w-56 bg-[#121927] border border-[#233148] rounded-xl shadow-2xl py-1.5 z-50">
+                    <button
+                      onClick={() => { setShowActionsMenu(false); onAdvanceDate && onAdvanceDate(); }}
+                      className="w-full text-left px-3.5 py-2 text-xs text-slate-200 hover:bg-[#1a253a] hover:text-[#00ff87] flex items-center gap-2"
+                    >
+                      <Calendar className="w-3.5 h-3.5 text-[#00ff87]" />
+                      <span>Calendario y Avanzar Fecha</span>
+                    </button>
                     <button
                       onClick={() => { setShowActionsMenu(false); onOpenEditManagerModal(); }}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-200 hover:bg-[#1a253a] flex items-center gap-2"

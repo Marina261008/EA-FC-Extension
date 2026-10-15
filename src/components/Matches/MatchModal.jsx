@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Plus, 
@@ -25,14 +25,20 @@ import {
   CARD_REASON_OPTIONS
 } from '../../data/dropdownPresets';
 
-export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], clubName = 'Mi Club', league = 'LALIGA EA SPORTS' }) {
+export default function MatchModal({ isOpen, onClose, onSaveMatch, squad = [], clubName = 'Mi Club', league = 'LALIGA EA SPORTS', currentDate = '14 sep 2026' }) {
   if (!isOpen) return null;
 
-  const [date, setDate] = useState('14 sep 2026');
+  const [date, setDate] = useState(currentDate || '14 sep 2026');
   const [competition, setCompetition] = useState(league || COMPETITION_OPTIONS[0]);
   const [matchday, setMatchday] = useState(MATCHDAY_OPTIONS[0]);
   const [homeAway, setHomeAway] = useState('Casa');
   const [isChampionshipMatch, setIsChampionshipMatch] = useState(false);
+
+  useEffect(() => {
+    if (currentDate) {
+      setDate(currentDate);
+    }
+  }, [currentDate, isOpen]);
 
   // Dynamically resolve rivals based on active competition, club and league
   const rivalsData = getOpponentsForContext(competition, league, clubName);

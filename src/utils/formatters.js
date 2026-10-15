@@ -134,3 +134,78 @@ export function parsePlayerValueInEuros(val) {
   }
   return num;
 }
+
+export const SPANISH_MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+export const SPANISH_MONTHS_FULL = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+];
+
+/**
+ * Parses a Spanish formatted date string or ISO into a Date object:
+ * "01 jul 2025" -> Date(2025, 6, 1)
+ * "14 sep 2026" -> Date(2026, 8, 14)
+ * "2025-07-01"  -> Date(2025, 6, 1)
+ */
+export function parseSpanishDate(str) {
+  if (!str) return new Date();
+  if (str instanceof Date) return str;
+  const s = String(str).toLowerCase().trim();
+  
+  const m = s.match(/(\d{1,2})\s+([a-záéíóúñ]+)\s+(\d{4})/i);
+  if (m) {
+    const day = parseInt(m[1], 10);
+    const mStr = m[2].slice(0, 3);
+    const monthIdx = SPANISH_MONTHS.indexOf(mStr);
+    const year = parseInt(m[3], 10);
+    if (monthIdx !== -1 && !isNaN(day) && !isNaN(year)) {
+      return new Date(year, monthIdx, day);
+    }
+  }
+
+  const iso = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (iso) {
+    return new Date(parseInt(iso[1], 10), parseInt(iso[2], 10) - 1, parseInt(iso[3], 10));
+  }
+
+  const yearMatch = s.match(/\b(20\d\d)\b/);
+  if (yearMatch) {
+    return new Date(parseInt(yearMatch[1], 10), 6, 1);
+  }
+
+  return new Date();
+}
+
+/**
+ * Formats a Date object into standard Spanish string: "DD mmm YYYY" (e.g. "01 jul 2025")
+ */
+export function formatSpanishDate(dateObj) {
+  if (!dateObj) return '01 jul 2025';
+  const d = dateObj instanceof Date ? dateObj : new Date(dateObj);
+  if (isNaN(d.getTime())) return '01 jul 2025';
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = SPANISH_MONTHS[d.getMonth()] || 'jul';
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
+/**
+ * Returns a new Date offset by N days
+ */
+export function addDaysToDate(dateObj, days) {
+  const base = dateObj instanceof Date ? new Date(dateObj.getTime()) : parseSpanishDate(dateObj);
+  base.setDate(base.getDate() + days);
+  return base;
+}
+
+/**
+ * Difference in calendar days between two dates (d1 - d2)
+ */
+export function diffDays(d1, d2) {
+  const date1 = d1 instanceof Date ? d1 : parseSpanishDate(d1);
+  const date2 = d2 instanceof Date ? d2 : parseSpanishDate(d2);
+  const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+  const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+  return Math.round((utc1 - utc2) / (1000 * 60 * 60 * 24));
+}
